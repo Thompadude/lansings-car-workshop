@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class UpdatePersonServlet extends HttpServlet {
 
     private PersonAttributeBuilder personAttributeBuilder = new PersonAttributeBuilder();
-    private Person personToUpdate;
+    private Person personWithUpdatedAttributes;
     private String name;
     private ContactInformation contactInformation;
     private String birthdayString;
@@ -29,17 +29,16 @@ public class UpdatePersonServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         int personId = Integer.parseInt(request.getParameter("personid"));
-        ReadPerson readPersonById = new ReadPerson();
-        personToUpdate = readPersonById.getPersonById(personId);
+        ReadPerson readPerson = new ReadPerson();
+        personWithUpdatedAttributes = readPerson.getPersonById(personId);
 
         initializeVariablesFromPostRequest(request);
 
         setNewAttributes(request);
 
         UpdatePerson updatePerson = new UpdatePerson();
-        updatePerson.updatePerson(personToUpdate);
+        updatePerson.updatePerson(personWithUpdatedAttributes);
 
-        //TODO remake this to a ajax call.
         response.sendRedirect("person/persons-edit-delete.jsp");
     }
 
@@ -56,11 +55,11 @@ public class UpdatePersonServlet extends HttpServlet {
     }
 
     private void setNewAttributes(HttpServletRequest request) {
-        personToUpdate.setName(name);
-        personToUpdate.setContactInformation(contactInformation);
-        personToUpdate.setBirthdate(birthday);
-        personToUpdate.setSex(sex);
-        personAttributeBuilder.changeRole(personToUpdate, request);
+        personWithUpdatedAttributes.setName(name);
+        personWithUpdatedAttributes.setContactInformation(contactInformation);
+        personWithUpdatedAttributes.setBirthdate(birthday);
+        personWithUpdatedAttributes.setSex(sex);
+        personAttributeBuilder.changeRole(personWithUpdatedAttributes, request);
     }
 
 }

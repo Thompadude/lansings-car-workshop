@@ -18,10 +18,8 @@
     <h1>
         <%=vehicleToDisplay.getMake()%>
         <small><%=vehicleToDisplay.getId()%>
-            &nbsp;<a href="#"><span
-                    class="glyphicon glyphicon-edit"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden"
-                                                                        value="<%=vehicleToDisplay.getId()%>"></span></a>
+            &nbsp;<a href="vehicle-update.jsp?vehicleId=<%=vehicleToDisplay.getId()%>"><span class="glyphicon glyphicon-edit"></span></a>
+            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=vehicleToDisplay.getId()%>"></span></a>
         </small>
     </h1>
     <br>

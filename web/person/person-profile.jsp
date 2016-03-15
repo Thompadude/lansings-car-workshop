@@ -28,8 +28,7 @@
         <span class="glyphicon glyphicon-user"></span>
         <%=personToDisplay.getName()%>
         <small><%=personToDisplay.getId()%>
-            &nbsp;<a href="person-update.jsp?personId=<%=personToDisplay.getId()%>"><span
-                    class="glyphicon glyphicon-edit"></span></a>
+            &nbsp;<a href="person-update.jsp?personId=<%=personToDisplay.getId()%>"><span class="glyphicon glyphicon-edit"></span></a>
             <a href="#">
                 <span class="glyphicon glyphicon-remove">
                     <input type="hidden" value="<%=personToDisplay.getId()%>">
