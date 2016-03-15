@@ -1,8 +1,14 @@
 $(document).ready(function () {
 
-    var $vehicleId = $('#vehicleId').val();
+    var $vehicleProfileWindow = '/vehicle/vehicle-profile.jsp';
 
-    $('.glyphicon.glyphicon-remove').click(function () {
+    $(document).on('click', '.glyphicon.glyphicon-remove', function (event) {
+        event.preventDefault();
+
+        var $vehicleId = $(this).find('input[type=hidden]').val();
+        $('#entry-' + $vehicleId).fadeOut('fast');
+
+
         $.ajax({
             type: 'get',
             url: '/DeleteVehicleServlet',
@@ -10,8 +16,10 @@ $(document).ready(function () {
                 'deleteVehicle': 'true',
                 'vehicleId': $vehicleId
             },
-            success: function () {
-                $('.container').fadeOut('slow');
+            success: function (response) {
+                if (window.location.pathname === $vehicleProfileWindow) {
+                    $('.container').fadeOut('slow');
+                }
             }
         })
     });

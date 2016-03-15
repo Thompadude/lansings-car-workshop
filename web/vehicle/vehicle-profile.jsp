@@ -20,7 +20,8 @@
         <small><%=vehicleToDisplay.getId()%>
             &nbsp;<a href="#"><span
                     class="glyphicon glyphicon-edit"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden"
+                                                                        value="<%=vehicleToDisplay.getId()%>"></span></a>
         </small>
     </h1>
     <br>
@@ -68,7 +69,6 @@
         </div>
     </div>
 </div>
-<input type="hidden" id="vehicleId" value="<%=vehicleToDisplay.getId()%>">
 <script src="../js/vehicle-delete.js"></script>
 </body>
 </html>

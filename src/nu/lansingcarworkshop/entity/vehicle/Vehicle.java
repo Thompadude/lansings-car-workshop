@@ -3,6 +3,7 @@ package nu.lansingcarworkshop.entity.vehicle;
 import nu.lansingcarworkshop.entity.person.Customer;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name = "TYPE")
 
-public abstract class Vehicle {
+public abstract class Vehicle implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

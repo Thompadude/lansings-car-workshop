@@ -20,6 +20,7 @@
         <th>Registration Plate</th>
         <th>Owner</th>
         <th>View Vehicle Details</th>
+        <th>Remove</th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +30,7 @@
 
         for (Object vehicle : vehicles) {
     %>
-    <tr>
+    <tr id="entry-<%=((Vehicle) vehicle).getId()%>">
         <td><%=((Vehicle) vehicle).getMake()%>
         </td>
         <td><%=((Vehicle) vehicle).getRegistrationPlate()%>
@@ -42,11 +43,19 @@
             <a href="/ReadVehicleServlet?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span
                     class="glyphicon glyphicon-info-sign"></span></a>
         </td>
+        <td>
+            <a href="#">
+                <span class="glyphicon glyphicon-remove">
+                    <input type="hidden" value="<%=((Vehicle) vehicle).getId()%>">
+                </span>
+            </a>
+        </td>
     </tr>
     <%
         }
     %>
     </tbody>
 </table>
+<script src="../js/vehicle-delete.js"></script>
 </body>
 </html>

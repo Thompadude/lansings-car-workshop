@@ -3,11 +3,12 @@ package nu.lansingcarworkshop.entity.servicetask;
 import nu.lansingcarworkshop.entity.person.Employee;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table
-public class ServiceTask {
+public class ServiceTask implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
