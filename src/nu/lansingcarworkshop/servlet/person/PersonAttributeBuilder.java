@@ -4,7 +4,7 @@ import nu.lansingcarworkshop.entity.person.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class PersonAttributeObjectWriter {
+public class PersonAttributeBuilder {
 
     protected ContactInformation createContactInformation(HttpServletRequest request) {
         String address = request.getParameter("person-address");

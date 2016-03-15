@@ -1,8 +1,8 @@
 <%@ page import="nu.lansingcarworkshop.entity.person.Customer" %>
 <%@ page import="nu.lansingcarworkshop.entity.person.Employee" %>
 <%@ page import="nu.lansingcarworkshop.entity.person.Person" %>
-<%@ page import="nu.lansingcarworkshop.entity.vehicle.Car" %>
-<%@ page import="nu.lansingcarworkshop.service.vehicle.GetVehiclesByCustomerId" %>
+<%@ page import="nu.lansingcarworkshop.entity.vehicle.Vehicle" %>
+<%@ page import="nu.lansingcarworkshop.service.vehicle.ReadVehicle" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.Period" %>
 <%@ page import="java.util.List" %>
@@ -11,11 +11,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Car Workshop &mdash; Profile</title>
+    <title>Car Workshop &mdash; Person Profile</title>
 </head>
 <body>
 
-<%@include file="menu.jsp" %>
+<%@include file="../menu.jsp" %>
 
 <%
     Person personToDisplay = (Person) getServletConfig().getServletContext().getAttribute("currentPerson");
@@ -30,8 +30,11 @@
         <small><%=personToDisplay.getId()%>
             &nbsp;<a href="person-update.jsp?personId=<%=personToDisplay.getId()%>"><span
                     class="glyphicon glyphicon-edit"></span></a>
-            <a href="DeletePersonServlet?personId=<%=personToDisplay.getId()%>"><span
-                    class="glyphicon glyphicon-remove"></span></a>
+            <a href="#">
+                <span class="glyphicon glyphicon-remove">
+                    <input type="hidden" value="<%=personToDisplay.getId()%>">
+                </span>
+            </a>
         </small>
     </h1>
     <br>
@@ -40,7 +43,9 @@
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Age</div>
-                <div class="panel-body"><%=period.getYears()%> <small>(Born: <%=personToDisplay.getBirthdate()%>)</small></div>
+                <div class="panel-body"><%=period.getYears()%>
+                    <small>(Born: <%=personToDisplay.getBirthdate()%>)</small>
+                </div>
             </div>
         </div>
         <div class="col-lg-3">
@@ -62,7 +67,7 @@
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Sex</div>
-                <div class="panel-body"><%=personToDisplay.getSex().toString()%>
+                <div class="panel-body"><%=personToDisplay.getSex()%>
                 </div>
             </div>
         </div>
@@ -77,29 +82,27 @@
                 <thead>
                 <tr>
                     <th>Make</th>
-                    <th>Fuel Type</th>
-                    <th>Model Year</th>
                     <th>Registration Plate</th>
+                    <th>View Details</th>
                 </tr>
                 </thead>
                 <tbody>
                 <%
-                    GetVehiclesByCustomerId getVehiclesByCustomerId = new GetVehiclesByCustomerId();
-                    List<Car> cars = getVehiclesByCustomerId.getAllCarsByCustomerId(personToDisplay);
-                    for (Car car : cars) {
+                    ReadVehicle readVehicle = new ReadVehicle();
+                    List vehicles = readVehicle.getAllCarsByCustomerId(personToDisplay);
+                    // TODO for future development - add more types of vehicles in list query.
+                    for (Object vehicle : vehicles) {
                 %>
                 <tr>
                     <td>
-                        <%=car.getMake()%>
+                        <%=((Vehicle) vehicle).getMake()%>
                     </td>
                     <td>
-                        <%=car.getFuel()%>
+                        <%=((Vehicle) vehicle).getRegistrationPlate()%>
                     </td>
                     <td>
-                        <%=car.getModelYear().getYear()%>
-                    </td>
-                    <td>
-                        <%=car.getRegistrationPlate()%>
+                        <a href="/ReadVehicleServlet?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span
+                                class="glyphicon glyphicon-info-sign"></span></a>
                     </td>
                 </tr>
                 <%
@@ -127,5 +130,6 @@
     %>
 </div>
 </div>
+<script src="../js/person-delete.js"></script>
 </body>
 </html>

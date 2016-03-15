@@ -8,22 +8,33 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class DeleteAllVehiclesFromCustomer {
+public class DeleteVehicle {
+
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     public void deleteAllVehiclesFromCustomer(Person customer) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
 
-        GetVehiclesByCustomerId getVehiclesByCustomerId = new GetVehiclesByCustomerId();
-        List<Vehicle> vehicles = getVehiclesByCustomerId.getAllCarsByCustomerId(customer);
+        ReadVehicle readVehicle = new ReadVehicle();
+        List<Vehicle> vehicles = readVehicle.getAllCarsByCustomerId(customer);
+        // TODO for future development - add more types of vehicles in delete query.
 
-        deleteAllVehicles(entityManager, vehicles);
+        deleteListOfVehicles(entityManager, vehicles);
 
         commitAndCloseDatabase(entityManagerFactory, entityManager);
     }
 
-    private void deleteAllVehicles(EntityManager entityManager, List<Vehicle> vehicles) {
+    public void deleteVehicleById(int vehicleId) {
+        entityManager.getTransaction().begin();
+
+        Vehicle vehicle = entityManager.find(Vehicle.class, vehicleId);
+        entityManager.remove(vehicle);
+
+        commitAndCloseDatabase(entityManagerFactory, entityManager);
+    }
+
+    private void deleteListOfVehicles(EntityManager entityManager, List<Vehicle> vehicles) {
         for (Vehicle vehicle : vehicles) {
             Vehicle vehicleToDelete = entityManager.find(Vehicle.class, vehicle.getId());
             entityManager.remove(vehicleToDelete);

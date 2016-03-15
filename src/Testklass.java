@@ -1,16 +1,12 @@
-import nu.lansingcarworkshop.entity.person.ContactInformation;
-import nu.lansingcarworkshop.entity.person.Customer;
-import nu.lansingcarworkshop.entity.person.Person;
-import nu.lansingcarworkshop.entity.person.Sex;
-import nu.lansingcarworkshop.entity.vehicle.Car;
-import nu.lansingcarworkshop.service.person.GetPersonById;
-import nu.lansingcarworkshop.service.vehicle.GetVehiclesByCustomerId;
+import nu.lansingcarworkshop.entity.person.Employee;
+import nu.lansingcarworkshop.entity.servicetask.ServiceTask;
+import nu.lansingcarworkshop.service.person.ReadPerson;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Testklass {
@@ -20,13 +16,21 @@ public class Testklass {
     static List queryResult;
 
     public static void main(String[] args) {
+        testService();
+    }
 
+    private static void testService() {
+        entityManager.getTransaction().begin();
 
+        LocalDateTime localDateTime = LocalDateTime.now();
+        ServiceTask serviceTask = new ServiceTask(localDateTime, "Byt däck", (Employee) new ReadPerson().getPersonById(2804));
 
+        entityManager.persist(serviceTask);
+
+        commitAndCloseDatabase(entityManagerFactory, entityManager);
     }
 
     private static void query() {
-
         Query query = entityManager.createQuery("select car from Car car join Customer cus on car.customer.id = cus.id where cus.id like :id");
         query.setParameter("id", 2251);
 
@@ -38,58 +42,15 @@ public class Testklass {
         }
     }
 
-    private static void testManyToOne() {
-        entityManager.getTransaction().begin();
-
-        Customer customer = new Customer("Bildrottningen", new ContactInformation("Drottninggatan", "321"), LocalDate.now(), Sex.FEMALE);
-        entityManager.persist(customer);
-
-        Car car1 = new Car("fgt234", "Porche", LocalDate.now(), "Bensin");
-        car1.setCustomer(customer);
-
-        Car car2 = new Car("ddd222", "Jeep", LocalDate.now(), "Diesel");
-        car2.setCustomer(customer);
-
-        Car car3 = new Car("fff333", "Hummer", LocalDate.now(), "Diesel");
-        car3.setCustomer(customer);
-
-        entityManager.persist(car1);
-        entityManager.persist(car2);
-        entityManager.persist(car3);
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
-    }
-
-//    public static void deleteAllVehiclesFromCustomer(Person customer) {
-//        GetVehiclesByCustomerId getVehiclesByCustomerId = new GetVehiclesByCustomerId();
-//        List<Car> cars = getVehiclesByCustomerId.getAllCarsByCustomerId(customer);
-//        entityManager.getTransaction().begin();
-//
-//
-//        for (Car car : cars) {
-//            car.setCustomer(null);
-//        }
-//
-//        commitAndCloseDatabase(entityManagerFactory, entityManager);
-//    }
-
     private static void commitAndCloseDatabase(EntityManagerFactory entityManagerFactory, EntityManager entityManager) {
         entityManager.getTransaction().commit();
         entityManager.close();
         entityManagerFactory.close();
     }
 
-    public static void deletePerson() {
+    private void testQueries() {
+        Query query = entityManager.createQuery("SELECT COUNT(c.name) FROM Customer c");
 
-        entityManager.getTransaction().begin();
-
-        Person person = entityManager.find(Person.class, 2702);
-
-        entityManager.remove(person);
-
-        commitAndCloseDatabase(entityManagerFactory, entityManager);
     }
 
 }

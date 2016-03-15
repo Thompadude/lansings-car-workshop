@@ -1,7 +1,7 @@
 package nu.lansingcarworkshop.servlet.person;
 
 import nu.lansingcarworkshop.entity.person.*;
-import nu.lansingcarworkshop.service.person.AddPerson;
+import nu.lansingcarworkshop.service.person.CreatePerson;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @WebServlet(name = "CreatePersonServlet")
 public class CreatePersonServlet extends javax.servlet.http.HttpServlet {
 
-    private PersonAttributeObjectWriter personAttributeObjectWriter = new PersonAttributeObjectWriter();
+    private PersonAttributeBuilder personAttributeBuilder = new PersonAttributeBuilder();
     private String name;
     private ContactInformation contactInformation;
     private LocalDate birthday;
@@ -35,10 +35,10 @@ public class CreatePersonServlet extends javax.servlet.http.HttpServlet {
 
     private void initializeVariablesFromPostRequest(HttpServletRequest request) {
         name = request.getParameter("person-name");
-        contactInformation = personAttributeObjectWriter.createContactInformation(request);
+        contactInformation = personAttributeBuilder.createContactInformation(request);
         birthday = LocalDate.parse(request.getParameter("person-birthday"));
-        sex = personAttributeObjectWriter.createSex(request);
-        role = personAttributeObjectWriter.createRole(request);
+        sex = personAttributeBuilder.createSex(request);
+        role = personAttributeBuilder.createRole(request);
     }
 
     private Person checkTypeAndCreateNewPerson() {
@@ -51,8 +51,8 @@ public class CreatePersonServlet extends javax.servlet.http.HttpServlet {
 
     private void createAndAddPersonToDatabase() {
         newPerson = checkTypeAndCreateNewPerson();
-        AddPerson addPerson = new AddPerson();
-        addPerson.addPerson(newPerson);
+        CreatePerson createPerson = new CreatePerson();
+        createPerson.createPerson(newPerson);
     }
 
 }

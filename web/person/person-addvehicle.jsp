@@ -1,5 +1,5 @@
 <%@ page import="nu.lansingcarworkshop.entity.person.Customer" %>
-<%@ page import="nu.lansingcarworkshop.service.person.GetPersonById" %>
+<%@ page import="nu.lansingcarworkshop.service.person.ReadPerson" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -10,11 +10,11 @@
 
 <%
     int personId = Integer.parseInt(request.getParameter("personId"));
-    GetPersonById getPersonById = new GetPersonById();
-    Customer customerToAddVehicleTo = (Customer) getPersonById.getPersonById(personId);
+    ReadPerson readPersonById = new ReadPerson();
+    Customer customerToAddVehicleTo = (Customer) readPersonById.getPersonById(personId);
 %>
 
-<%@include file="menu.jsp" %>
+<%@include file="../menu.jsp" %>
 
 <div class="container-fluid">
     <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Vehicle</h1><br>
@@ -42,6 +42,6 @@
     <p id="feedback"></p>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="js/person-addvehicle.js"></script>
+<script src="../js/person-addvehicle.js"></script>
 </body>
 </html>

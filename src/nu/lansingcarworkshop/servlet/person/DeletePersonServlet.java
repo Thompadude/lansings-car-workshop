@@ -13,13 +13,15 @@ import java.io.IOException;
 public class DeletePersonServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        boolean isDeletePersonInquired = Boolean.parseBoolean(request.getParameter("deletePerson"));
         int personId = Integer.parseInt(request.getParameter("personId"));
 
-        DeletePerson deletePerson = new DeletePerson();
-        deletePerson.deletePerson(personId);
+        if (isDeletePersonInquired) {
+            DeletePerson deletePerson = new DeletePerson();
+            deletePerson.deletePersonById(personId);
+        }
 
-        // TODO remake this to a ajax call.
-        response.sendRedirect("persons-edit-delete.jsp");
+        response.getWriter().print("Deleted.");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

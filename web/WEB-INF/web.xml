@@ -49,4 +49,22 @@
         <url-pattern>/CreateVehicleServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ReadVehicleServlet</servlet-name>
+        <servlet-class>nu.lansingcarworkshop.servlet.vehicle.ReadVehicleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReadVehicleServlet</servlet-name>
+        <url-pattern>/ReadVehicleServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteVehicleServlet</servlet-name>
+        <servlet-class>nu.lansingcarworkshop.servlet.vehicle.DeleteVehicleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteVehicleServlet</servlet-name>
+        <url-pattern>/DeleteVehicleServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

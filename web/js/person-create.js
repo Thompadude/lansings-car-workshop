@@ -30,7 +30,7 @@ $(document).ready(function () {
         if (isFormValid) {
             $.ajax({
                 type: 'post',
-                url: 'CreatePersonServlet',
+                url: '/CreatePersonServlet',
                 data: {
                     'person-name': $name,
                     'person-address': $address,

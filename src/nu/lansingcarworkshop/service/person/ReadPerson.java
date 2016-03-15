@@ -8,15 +8,15 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
 
-public class GetPersons {
+public class ReadPerson {
 
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
     private EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-    public List getAllPersons() {
-        List<Person> allPersons = getAllCustomers();
-        allPersons.addAll(getAllEmployees());
-        return allPersons;
+    public Person getPersonById(int personId) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        return entityManager.find(Person.class, personId);
     }
 
     public List getAllCustomers() {
@@ -27,6 +27,11 @@ public class GetPersons {
     public List getAllEmployees() {
         Query queryEmployees = entityManager.createQuery("SELECT e FROM Employee e ORDER BY e.name");
         return queryEmployees.getResultList();
+    }
+
+    public List getAllPersons() {
+        Query queryPersons = entityManager.createQuery("SELECT c, e FROM Customer c, Employee e");
+        return queryPersons.getResultList();
     }
 
 }

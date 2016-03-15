@@ -2,7 +2,7 @@
 <%@ page import="nu.lansingcarworkshop.entity.person.Person" %>
 <%@ page import="nu.lansingcarworkshop.entity.person.Role" %>
 <%@ page import="nu.lansingcarworkshop.entity.person.Sex" %>
-<%@ page import="nu.lansingcarworkshop.service.person.GetPersonById" %>
+<%@ page import="nu.lansingcarworkshop.service.person.ReadPerson" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<%@include file="menu.jsp" %>
+<%@include file="../menu.jsp" %>
 
 <%
     String personIdParameter = request.getParameter("personId");
@@ -22,14 +22,14 @@
         personId = Integer.parseInt(personIdParameter);
     }
 
-    GetPersonById getPersonById = new GetPersonById();
-    Person personToUpdate = getPersonById.getPersonById(personId);
+    ReadPerson readPersonById = new ReadPerson();
+    Person personToUpdate = readPersonById.getPersonById(personId);
 
     if (!(personToUpdate == null)) {
 %>
 
 <div class="container-fluid">
-    <form role="form" action="UpdatePersonServlet" method="POST">
+    <form role="form" action="/UpdatePersonServlet" method="POST">
         <div class="form-group">
             <input type="text" class="form-control" name="person-name" value="<%=personToUpdate.getName()%>">
         </div>
@@ -43,7 +43,7 @@
         </div>
         <div class="form-group">
             <input type="date" class="form-control" name="person-birthday"
-                   value="<%=personToUpdate.getBirthdate().toString()%>">
+                   value="<%=personToUpdate.getBirthdate()%>">
         </div>
         <div class="form-group">
             <label><input type="radio" name="person-sex" value="male"<%if (personToUpdate.getSex().equals(Sex.MALE)) {%>

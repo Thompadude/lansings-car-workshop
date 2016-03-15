@@ -3,7 +3,7 @@ package nu.lansingcarworkshop.servlet.person;
 import nu.lansingcarworkshop.entity.person.ContactInformation;
 import nu.lansingcarworkshop.entity.person.Person;
 import nu.lansingcarworkshop.entity.person.Sex;
-import nu.lansingcarworkshop.service.person.GetPersonById;
+import nu.lansingcarworkshop.service.person.ReadPerson;
 import nu.lansingcarworkshop.service.person.UpdatePerson;
 
 import javax.servlet.ServletException;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @WebServlet(name = "UpdatePersonServlet")
 public class UpdatePersonServlet extends HttpServlet {
 
-    private PersonAttributeObjectWriter personAttributeObjectWriter = new PersonAttributeObjectWriter();
+    private PersonAttributeBuilder personAttributeBuilder = new PersonAttributeBuilder();
     private Person personToUpdate;
     private String name;
     private ContactInformation contactInformation;
@@ -29,8 +29,8 @@ public class UpdatePersonServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         int personId = Integer.parseInt(request.getParameter("personid"));
-        GetPersonById getPersonById = new GetPersonById();
-        personToUpdate = getPersonById.getPersonById(personId);
+        ReadPerson readPersonById = new ReadPerson();
+        personToUpdate = readPersonById.getPersonById(personId);
 
         initializeVariablesFromPostRequest(request);
 
@@ -40,7 +40,7 @@ public class UpdatePersonServlet extends HttpServlet {
         updatePerson.updatePerson(personToUpdate);
 
         //TODO remake this to a ajax call.
-        response.sendRedirect("persons-edit-delete.jsp");
+        response.sendRedirect("person/persons-edit-delete.jsp");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,10 +49,10 @@ public class UpdatePersonServlet extends HttpServlet {
 
     private void initializeVariablesFromPostRequest(HttpServletRequest request) {
         name = request.getParameter("person-name");
-        contactInformation = personAttributeObjectWriter.createContactInformation(request);
+        contactInformation = personAttributeBuilder.createContactInformation(request);
         birthdayString = request.getParameter("person-birthday");
         birthday = LocalDate.parse(birthdayString);
-        sex = personAttributeObjectWriter.createSex(request);
+        sex = personAttributeBuilder.createSex(request);
     }
 
     private void setNewAttributes(HttpServletRequest request) {
@@ -60,7 +60,7 @@ public class UpdatePersonServlet extends HttpServlet {
         personToUpdate.setContactInformation(contactInformation);
         personToUpdate.setBirthdate(birthday);
         personToUpdate.setSex(sex);
-        personAttributeObjectWriter.changeRole(personToUpdate, request);
+        personAttributeBuilder.changeRole(personToUpdate, request);
     }
 
 }

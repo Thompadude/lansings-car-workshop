@@ -1,4 +1,4 @@
-package nu.lansingcarworkshop.converter;
+package nu.lansingcarworkshop.entity.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

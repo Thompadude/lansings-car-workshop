@@ -7,9 +7,13 @@
 </head>
 <body>
 
-<%@include file="menu.jsp" %>
-<%@include file="persons-customerslist.jsp" %>
-<%@include file="persons-employeelist.jsp" %>
+<%@include file="../menu.jsp" %>
 
+<div id="person-list">
+    <%@include file="persons-customerslist.jsp" %>
+    <%@include file="persons-employeelist.jsp" %>
+</div>
+
+<script src="../js/person-delete.js"></script>
 </body>
 </html>

@@ -29,7 +29,7 @@ $(document).ready(function () {
         if (isFormValid) {
             $.ajax({
                 type: 'post',
-                url: 'CreateVehicleServlet',
+                url: '/CreateVehicleServlet',
                 data: {
                     'vehicle-registrationplate': $registrationPlate,
                     'vehicle-make': $make,

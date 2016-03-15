@@ -10,7 +10,10 @@
         <class>nu.lansingcarworkshop.entity.vehicle.Vehicle</class>
         <class>nu.lansingcarworkshop.entity.vehicle.Car</class>
 
-        <class>nu.lansingcarworkshop.converter.LocalDateConverter</class>
+        <class>nu.lansingcarworkshop.entity.servicetask.ServiceTask</class>
+
+        <class>nu.lansingcarworkshop.entity.converter.LocalDateConverter</class>
+        <class>nu.lansingcarworkshop.entity.converter.LocalDateTimeConverter</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
@@ -18,7 +21,7 @@
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="root"/>
             <property name="eclipselink.logging.level" value="FINE"/>
-            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
         </properties>
 
     </persistence-unit>

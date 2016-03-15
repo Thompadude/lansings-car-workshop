@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<%@include file="menu.jsp" %>
+<%@include file="../menu.jsp" %>
 
 <div class="container-fluid">
     <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Person</h1><br>
@@ -43,6 +43,6 @@
 
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="js/person-create.js"></script>
+<script src="../js/person-create.js"></script>
 </body>
 </html>

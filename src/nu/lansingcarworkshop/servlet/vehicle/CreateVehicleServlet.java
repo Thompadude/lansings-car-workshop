@@ -2,7 +2,7 @@ package nu.lansingcarworkshop.servlet.vehicle;
 
 import nu.lansingcarworkshop.entity.vehicle.Car;
 import nu.lansingcarworkshop.entity.vehicle.Vehicle;
-import nu.lansingcarworkshop.service.person.AddVehicle;
+import nu.lansingcarworkshop.service.vehicle.CreateVehicle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,7 +36,7 @@ public class CreateVehicleServlet extends HttpServlet {
     }
 
     private void initializeVariablesFromPostRequest(HttpServletRequest request) {
-        registrationPlate = request.getParameter("vehicle-registrationplate");
+        registrationPlate = request.getParameter("vehicle-registrationplate").toUpperCase();
         make = request.getParameter("vehicle-make");
         fuel = request.getParameter("vehicle-fueltype");
         modelYear = LocalDate.parse(request.getParameter("vehicle-modelyear"));
@@ -46,8 +46,8 @@ public class CreateVehicleServlet extends HttpServlet {
     private void createAndAddVehicleToDatabase() {
         // TODO might change this if more than cars is developed into the application.
         newVehicle = new Car(registrationPlate, make, modelYear, fuel);
-        AddVehicle addVehicle = new AddVehicle();
-        addVehicle.addVehicle(newVehicle, customerId);
+        CreateVehicle createVehicle = new CreateVehicle();
+        createVehicle.createVehicle(newVehicle, customerId);
     }
 
 }
