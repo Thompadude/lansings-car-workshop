@@ -17,6 +17,8 @@ public class DeleteVehicle {
         entityManager.getTransaction().begin();
 
         ReadVehicle readVehicle = new ReadVehicle();
+
+        @SuppressWarnings("unchecked")
         List<Vehicle> vehicles = readVehicle.getAllCarsByCustomerId(customer);
         // TODO for future development - add more types of vehicles in delete query.
 

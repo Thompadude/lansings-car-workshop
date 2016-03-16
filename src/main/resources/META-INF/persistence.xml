@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="carworkshop" transaction-type="RESOURCE_LOCAL">
+
+        <class>nu.lansingcarworkshop.entity.person.Person</class>
+        <class>nu.lansingcarworkshop.entity.person.Customer</class>
+        <class>nu.lansingcarworkshop.entity.person.Employee</class>
+
+        <class>nu.lansingcarworkshop.entity.vehicle.Vehicle</class>
+        <class>nu.lansingcarworkshop.entity.vehicle.Car</class>
+
+        <class>nu.lansingcarworkshop.entity.servicetask.ServiceTask</class>
+
+        <class>nu.lansingcarworkshop.entity.converter.LocalDateConverter</class>
+        <class>nu.lansingcarworkshop.entity.converter.LocalDateTimeConverter</class>
+
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/carworkshop"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+            <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
