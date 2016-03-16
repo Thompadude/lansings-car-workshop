@@ -19,6 +19,15 @@
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="<%=request.getContextPath()%>/vehicle/vehicles-list.jsp">List</a></li>
+                    <li><a href="#">Statistics</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="">Service
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="<%=request.getContextPath()%>/servicetask/servicetask-list.jsp">List</a></li>
+                    <li><a href="#">Today's Appointments</a></li>
                 </ul>
             </li>
         </ul>

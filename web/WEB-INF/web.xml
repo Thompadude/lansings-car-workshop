@@ -76,4 +76,41 @@
         <url-pattern>/DeleteVehicleServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CreateServiceTaskServlet</servlet-name>
+        <servlet-class>nu.lansingcarworkshop.servlet.servicetask.CreateServiceTaskServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateServiceTaskServlet</servlet-name>
+        <url-pattern>/CreateServiceTaskServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReadServiceTaskServlet</servlet-name>
+        <servlet-class>nu.lansingcarworkshop.servlet.servicetask.ReadServiceTaskServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReadServiceTaskServlet</servlet-name>
+        <url-pattern>/ReadServiceTaskServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateServiceTaskServlet</servlet-name>
+        <servlet-class>nu.lansingcarworkshop.servlet.servicetask.UpdateServiceTaskServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateServiceTaskServlet</servlet-name>
+        <url-pattern>/UpdateServiceTaskServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteServiceTaskServlet</servlet-name>
+        <servlet-class>nu.lansingcarworkshop.servlet.servicetask.DeleteServiceTaskServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteServiceTaskServlet</servlet-name>
+        <url-pattern>/DeleteServiceTaskServlet</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>

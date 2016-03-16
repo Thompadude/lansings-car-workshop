@@ -1,16 +1,11 @@
-<%@ page import="nu.lansingcarworkshop.entity.person.Employee" %>
-<%@ page import="nu.lansingcarworkshop.entity.person.Person" %>
-<%@ page import="nu.lansingcarworkshop.entity.person.Role" %>
-<%@ page import="nu.lansingcarworkshop.entity.person.Sex" %>
-<%@ page import="nu.lansingcarworkshop.service.person.ReadPerson" %>
-<%@ page import="nu.lansingcarworkshop.service.vehicle.ReadVehicle" %>
 <%@ page import="nu.lansingcarworkshop.entity.vehicle.Vehicle" %>
+<%@ page import="nu.lansingcarworkshop.service.vehicle.ReadVehicle" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Car Workshop &mdash; Update Vehicle</title>
+    <title>LCW &mdash; Update Vehicle</title>
 </head>
 <body>
 
@@ -33,14 +28,16 @@
 <div class="container-fluid">
     <form role="form" action="/UpdateVehicleServlet" method="POST">
         <div class="form-group">
-            <input type="text" class="form-control" name="vehicle-registrationplate" value="<%=vehicleToUpdate.getRegistrationPlate()%>">
+            <input type="text" class="form-control" name="vehicle-registrationplate"
+                   value="<%=vehicleToUpdate.getRegistrationPlate()%>">
         </div>
         <div class="form-group">
             <input type="text" class="form-control" name="vehicle-make"
                    value="<%=vehicleToUpdate.getMake()%>">
         </div>
         <div class="form-group">
-            <input type="date" class="form-control" name="vehicle-modelyear"
+            <label for="date">Manufacturing Date</label>
+            <input id="date" type="date" class="form-control" name="vehicle-modelyear"
                    value="<%=vehicleToUpdate.getModelYear()%>">
         </div>
         <div class="form-group">

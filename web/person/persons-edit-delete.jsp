@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Car Workshop &mdash; Create/Update/Delete Persons</title>
+    <title>LCW &mdash; Create/Update/Delete Persons</title>
 </head>
 <body>
 

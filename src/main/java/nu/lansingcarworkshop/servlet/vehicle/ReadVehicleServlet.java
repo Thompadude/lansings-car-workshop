@@ -18,9 +18,9 @@ public class ReadVehicleServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Vehicle vehicleToDisplay = getVehicleByParameter(request);
+        Vehicle vehicle = getVehicleByParameter(request);
 
-        getServletContext().setAttribute("currentVehicle", vehicleToDisplay);
+        getServletContext().setAttribute("currentVehicle", vehicle);
         response.sendRedirect("vehicle/vehicle-profile.jsp");
     }
 

@@ -39,10 +39,6 @@ public abstract class Person implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
@@ -73,6 +69,16 @@ public abstract class Person implements Serializable {
 
     public void setSex(Sex sex) {
         this.sex = sex;
+    }
+
+    public String getSexFormatted() {
+        switch (sex) {
+            case FEMALE:
+                return "Female";
+            case MALE:
+                return "Male";
+        }
+        return null;
     }
 
 }

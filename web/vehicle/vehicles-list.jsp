@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Car Workshop &mdash; Vehicle Profile</title>
+    <title>LCW &mdash; Vehicle List</title>
 </head>
 <body>
 
@@ -19,29 +19,29 @@
         <th>Make</th>
         <th>Registration Plate</th>
         <th>Owner</th>
-        <th>View Vehicle Details</th>
+        <th>Book Service</th>
+        <th>View Details</th>
         <th>Remove</th>
     </tr>
     </thead>
     <tbody>
     <%
         ReadVehicle readVehicle = new ReadVehicle();
-        List vehicles = readVehicle.getAllVehicles();
+        List vehicles = readVehicle.getAllCars();
 
         for (Object vehicle : vehicles) {
     %>
     <tr id="entry-<%=((Vehicle) vehicle).getId()%>">
-        <td><%=((Vehicle) vehicle).getMake()%>
-        </td>
-        <td><%=((Vehicle) vehicle).getRegistrationPlate()%>
+        <td><%=((Vehicle) vehicle).getMake()%></td>
+        <td><%=((Vehicle) vehicle).getRegistrationPlate()%></td>
+        <td>
+            <a href="/ReadPersonServlet?personId=<%=((Vehicle) vehicle).getCustomer().getId()%>"><%=((Vehicle) vehicle).getCustomer().getName()%></a>
         </td>
         <td>
-            <a href="/ReadPersonServlet?personId=<%=((Vehicle) vehicle).getCustomer().getId()%>"><%=((Vehicle) vehicle).getCustomer().getName()%>
-            </a>
+            <a href="../servicetask/servicetask-create.jsp?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span class="glyphicon glyphicon-wrench"></span></a>
         </td>
         <td>
-            <a href="/ReadVehicleServlet?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span
-                    class="glyphicon glyphicon-info-sign"></span></a>
+            <a href="/ReadVehicleServlet?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span class="glyphicon glyphicon-info-sign"></span></a>
         </td>
         <td>
             <a href="#">

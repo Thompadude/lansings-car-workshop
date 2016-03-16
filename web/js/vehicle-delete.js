@@ -6,8 +6,6 @@ $(document).ready(function () {
         event.preventDefault();
 
         var $vehicleId = $(this).find('input[type=hidden]').val();
-        $('#entry-' + $vehicleId).fadeOut('fast');
-
 
         $.ajax({
             type: 'get',
@@ -19,6 +17,8 @@ $(document).ready(function () {
             success: function (response) {
                 if (window.location.pathname === $vehicleProfileWindow) {
                     $('.container').fadeOut('slow');
+                } else {
+                    $('#entry-' + $vehicleId).fadeOut('fast');
                 }
             }
         })

@@ -25,8 +25,8 @@ public class ReadPersonServlet extends HttpServlet {
 
     private Person getPersonByParameter(HttpServletRequest request) {
         int personId = Integer.parseInt(request.getParameter("personId"));
-        ReadPerson readPersonById = new ReadPerson();
-        return readPersonById.getPersonById(personId);
+        ReadPerson readPerson = new ReadPerson();
+        return readPerson.getPersonById(personId);
     }
 
 }

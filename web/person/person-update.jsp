@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Car Workshop &mdash; Update Person</title>
+    <title>LCW &mdash; Update Person</title>
 </head>
 <body>
 
@@ -60,8 +60,8 @@
                           value="technician"<%if(((Employee)personToUpdate).getRole() == Role.TECHNICIAN) {%>
                           checked="checked"<%}%>> Technician</label>
             <label><input type="radio" name="person-role"
-                          value="manager"<%if (((Employee)personToUpdate).getRole() == Role.MANAGER) {%>
-                          checked="checked"<%}%>> Manager</label>
+                          value="specialist"<%if (((Employee)personToUpdate).getRole() == Role.SPECIALIST) {%>
+                          checked="checked"<%}%>> Specialist</label>
         </div>
         <%}%>
         <button type="submit" class="btn btn-success" value="submit">Update</button>

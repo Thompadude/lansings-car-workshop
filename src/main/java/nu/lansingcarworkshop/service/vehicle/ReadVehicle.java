@@ -14,15 +14,15 @@ public class ReadVehicle {
     private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
     private EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-    public List getAllVehicles() {
-        Query queryVehicles = entityManager.createQuery("SELECT c FROM Car c ORDER BY c.customer.id");
-        return queryVehicles.getResultList();
-    }
-
     public Vehicle getVehicleById(int vehicleId) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         return entityManager.find(Vehicle.class, vehicleId);
+    }
+
+    public List getAllCars() {
+        Query queryVehicles = entityManager.createQuery("SELECT c FROM Car c ORDER BY c.customer.id");
+        return queryVehicles.getResultList();
     }
 
     public List getAllCarsByCustomerId(Person customer) {
@@ -32,8 +32,7 @@ public class ReadVehicle {
         Query query = entityManager.createQuery("SELECT car FROM Car car JOIN Customer cus ON car.customer.id = cus.id WHERE cus.id LIKE :id");
         query.setParameter("id", customer.getId());
 
-        List cars = query.getResultList();
-        return cars;
+        return query.getResultList();
     }
 
 }

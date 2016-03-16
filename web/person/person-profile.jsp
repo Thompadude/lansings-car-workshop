@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Car Workshop &mdash; Person Profile</title>
+    <title>LCW &mdash; Person Profile</title>
 </head>
 <body>
 
@@ -28,12 +28,9 @@
         <span class="glyphicon glyphicon-user"></span>
         <%=personToDisplay.getName()%>
         <small><%=personToDisplay.getId()%>
-            &nbsp;<a href="person-update.jsp?personId=<%=personToDisplay.getId()%>"><span class="glyphicon glyphicon-edit"></span></a>
-            <a href="#">
-                <span class="glyphicon glyphicon-remove">
-                    <input type="hidden" value="<%=personToDisplay.getId()%>">
-                </span>
-            </a>
+            &nbsp;
+            <a href="person-update.jsp?personId=<%=personToDisplay.getId()%>"><span class="glyphicon glyphicon-edit"></span></a>
+            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=personToDisplay.getId()%>"></span></a>
         </small>
     </h1>
     <br>
@@ -66,7 +63,7 @@
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Sex</div>
-                <div class="panel-body"><%=personToDisplay.getSex()%>
+                <div class="panel-body"><%=personToDisplay.getSexFormatted()%>
                 </div>
             </div>
         </div>
@@ -89,7 +86,7 @@
                 <%
                     ReadVehicle readVehicle = new ReadVehicle();
                     List vehicles = readVehicle.getAllCarsByCustomerId(personToDisplay);
-                    // TODO for future development - add more types of vehicles in list query.
+                    //TODO add more methods for other types of vehicles in list query.
                     for (Object vehicle : vehicles) {
                 %>
                 <tr>
@@ -119,7 +116,7 @@
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Company Role</div>
-                <div class="panel-body"><%=((Employee) personToDisplay).getRole()%>
+                <div class="panel-body"><%=((Employee) personToDisplay).getRoleFormatted()%>
                 </div>
             </div>
         </div>

@@ -13,25 +13,24 @@ public class DeleteVehicle {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
     EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-    public void deleteAllVehiclesFromCustomer(Person customer) {
-        entityManager.getTransaction().begin();
-
-        ReadVehicle readVehicle = new ReadVehicle();
-
-        @SuppressWarnings("unchecked")
-        List<Vehicle> vehicles = readVehicle.getAllCarsByCustomerId(customer);
-        // TODO for future development - add more types of vehicles in delete query.
-
-        deleteListOfVehicles(entityManager, vehicles);
-
-        commitAndCloseDatabase(entityManagerFactory, entityManager);
-    }
-
     public void deleteVehicleById(int vehicleId) {
         entityManager.getTransaction().begin();
 
         Vehicle vehicle = entityManager.find(Vehicle.class, vehicleId);
         entityManager.remove(vehicle);
+
+        commitAndCloseDatabase(entityManagerFactory, entityManager);
+    }
+
+    public void deleteAllVehiclesFromCustomer(Person customer) {
+        entityManager.getTransaction().begin();
+
+        ReadVehicle readVehicle = new ReadVehicle();
+        @SuppressWarnings("unchecked")
+        List<Vehicle> vehicles = readVehicle.getAllCarsByCustomerId(customer);
+        //TODO add more delete queries for other types of vehicles.
+
+        deleteListOfVehicles(entityManager, vehicles);
 
         commitAndCloseDatabase(entityManagerFactory, entityManager);
     }

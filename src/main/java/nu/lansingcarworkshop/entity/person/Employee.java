@@ -25,6 +25,16 @@ public class Employee extends Person {
         return role;
     }
 
+    public String getRoleFormatted() {
+        switch (role) {
+            case SPECIALIST:
+                return "Specialist";
+            case TECHNICIAN:
+                return "Technician";
+        }
+        return null;
+    }
+
     public void setRole(Role role) {
         this.role = role;
     }

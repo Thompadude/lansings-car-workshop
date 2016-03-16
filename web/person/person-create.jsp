@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Car Workshop &mdash; Create Person</title>
+    <title>LCW &mdash; Create Person</title>
 </head>
 <body>
 
@@ -33,7 +33,7 @@
         <div class="form-group">
             <label><input type="radio" name="person-role" value="customer" checked="checked"> Customer</label>
             <label><input type="radio" name="person-role" value="technician"> Technician</label>
-            <label><input type="radio" name="person-role" value="manager"> Manager</label>
+            <label><input type="radio" name="person-role" value="specialist"> Specialist</label>
         </div>
         <button type="button" class="btn btn-success">Add</button>
         <button type="reset" class="btn btn-danger">Reset</button>

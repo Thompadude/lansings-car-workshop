@@ -26,7 +26,7 @@ public class CreateVehicleServlet extends HttpServlet {
 
         initializeVariablesFromPostRequest(request);
 
-        createAndAddVehicleToDatabase();
+        createAndAddCarToDatabase();
 
         response.getWriter().print("Vehicle with plate " + newVehicle.getRegistrationPlate() + " created.");
     }
@@ -43,8 +43,8 @@ public class CreateVehicleServlet extends HttpServlet {
         customerId = Integer.parseInt(request.getParameter("customerId"));
     }
 
-    private void createAndAddVehicleToDatabase() {
-        // TODO might change this if more than cars is developed into the application.
+    private void createAndAddCarToDatabase() {
+        //TODO add more methods for other types of vehicles.
         newVehicle = new Car(registrationPlate, make, modelYear, fuel);
         CreateVehicle createVehicle = new CreateVehicle();
         createVehicle.createVehicle(newVehicle, customerId);

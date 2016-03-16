@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Lansing's Car Workshop &mdash; Welcome</title>
+    <title>LCW &mdash; Welcome</title>
 </head>
 <body>
 <%@include file="menu.jsp"%>

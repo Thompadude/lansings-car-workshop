@@ -14,8 +14,6 @@ public class ReadPerson {
     private EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     public Person getPersonById(int personId) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
         return entityManager.find(Person.class, personId);
     }
 
@@ -30,7 +28,7 @@ public class ReadPerson {
     }
 
     public List getAllPersons() {
-        Query queryPersons = entityManager.createQuery("SELECT c, e FROM Customer c, Employee e");
+        Query queryPersons = entityManager.createQuery("SELECT p FROM Person p");
         return queryPersons.getResultList();
     }
 

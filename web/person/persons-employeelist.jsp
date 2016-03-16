@@ -25,7 +25,7 @@
     <tr id="entry-<%=employeeToDisplay.getId()%>">
         <td><%=employeeToDisplay.getName()%>
         </td>
-        <td><%=employeeToDisplay.getRole()%>
+        <td><%=employeeToDisplay.getRoleFormatted()%>
         </td>
         <td><a href="/ReadPersonServlet?personId=<%=employeeToDisplay.getId()%>"><span
                 class="glyphicon glyphicon-user"></span></a></td>

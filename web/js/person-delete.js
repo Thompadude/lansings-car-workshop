@@ -6,7 +6,6 @@ $(document).ready(function () {
         event.preventDefault();
 
         var $personId = $(this).find('input[type=hidden]').val();
-        $('#entry-' + $personId).fadeOut('fast');
 
         $.ajax({
             type: 'get',
@@ -18,6 +17,8 @@ $(document).ready(function () {
             success: function (response) {
                 if (window.location.pathname === $personProfileWindow) {
                     $('.container').fadeOut('fast');
+                } else {
+                    $('#entry-' + $personId).fadeOut('fast');
                 }
             }
         })

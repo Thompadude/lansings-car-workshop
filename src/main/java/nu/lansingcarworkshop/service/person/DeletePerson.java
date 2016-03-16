@@ -1,6 +1,8 @@
 package nu.lansingcarworkshop.service.person;
 
+import nu.lansingcarworkshop.entity.person.Customer;
 import nu.lansingcarworkshop.entity.person.Person;
+import nu.lansingcarworkshop.service.servicetask.DeleteServiceTask;
 import nu.lansingcarworkshop.service.vehicle.DeleteVehicle;
 
 import javax.persistence.EntityManager;
@@ -16,12 +18,21 @@ public class DeletePerson {
 
         Person person = entityManager.find(Person.class, personId);
 
-        DeleteVehicle deleteVehicle = new DeleteVehicle();
-        deleteVehicle.deleteAllVehiclesFromCustomer(person);
+        removeSubObjects(personId, person);
 
         entityManager.remove(person);
 
         commitAndCloseDatabase(entityManagerFactory, entityManager);
+    }
+
+    private void removeSubObjects(int personId, Person person) {
+        if (person instanceof Customer) {
+            DeleteVehicle deleteVehicle = new DeleteVehicle();
+            deleteVehicle.deleteAllVehiclesFromCustomer(person);
+        } else {
+            DeleteServiceTask deleteServiceTask = new DeleteServiceTask();
+            deleteServiceTask.removeEmployeeFromServiceTask(personId);
+        }
     }
 
     private void commitAndCloseDatabase(EntityManagerFactory entityManagerFactory, EntityManager entityManager) {

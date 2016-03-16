@@ -25,8 +25,8 @@ public class PersonAttributeBuilder {
         String roleString = request.getParameter("person-role");
         if (roleString.equals("technician")) {
             return Role.TECHNICIAN;
-        } else if (roleString.equals("manager")) {
-            return Role.MANAGER;
+        } else if (roleString.equals("specialist")) {
+            return Role.SPECIALIST;
         }
         return null;
     }
@@ -37,7 +37,7 @@ public class PersonAttributeBuilder {
             if (roleString.equals("technician")) {
                 ((Employee) personToUpdate).setRole(Role.TECHNICIAN);
             } else {
-                ((Employee) personToUpdate).setRole(Role.MANAGER);
+                ((Employee) personToUpdate).setRole(Role.SPECIALIST);
             }
         }
     }
