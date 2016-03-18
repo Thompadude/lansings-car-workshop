@@ -4,41 +4,32 @@ import nu.lansingcarworkshop.entity.person.Employee;
 import nu.lansingcarworkshop.entity.person.Person;
 import nu.lansingcarworkshop.entity.servicetask.ServiceTask;
 import nu.lansingcarworkshop.entity.vehicle.Vehicle;
+import nu.lansingcarworkshop.service.coordinator.EntityManagerCoordinator;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class CreateServiceTask {
 
+    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+
     public void createServiceTask(ServiceTask serviceTask, Vehicle vehicle, Person person) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        entityManagerCoordinator.beginTransactionAndSaveEntity(serviceTask);
 
-        entityManager.persist(serviceTask);
+        setVehicleInService(serviceTask, vehicle.getId(), entityManagerCoordinator.getEntityManager());
 
-        setVehicleInService(serviceTask, vehicle.getId(), entityManager);
+        setResponsibleEmployee(serviceTask, person.getId(), entityManagerCoordinator.getEntityManager());
 
-        setResponsibleEmployee(serviceTask, person.getId(), entityManager);
-
-        commitAndCloseDatabase(entityManagerFactory, entityManager);
+        entityManagerCoordinator.commitTransactionAndCloseDatabase();
     }
 
     private void setResponsibleEmployee(ServiceTask serviceTask, int personId, EntityManager entityManager) {
-        Person responsibleEmployee = entityManager.find(Person.class, personId);
-        serviceTask.setResponsibleEmployee(((Employee) responsibleEmployee));
+        Employee responsibleEmployee = entityManager.find(Employee.class, personId);
+        serviceTask.setResponsibleEmployee(responsibleEmployee);
     }
 
     private void setVehicleInService(ServiceTask serviceTask, int vehicleId, EntityManager entityManager) {
         Vehicle vehicleInService = entityManager.find(Vehicle.class, vehicleId);
         serviceTask.setVehicle(vehicleInService);
-    }
-
-    private void commitAndCloseDatabase(EntityManagerFactory entityManagerFactory, EntityManager entityManager) {
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
     }
 
 }

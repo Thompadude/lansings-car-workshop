@@ -2,36 +2,40 @@ package nu.lansingcarworkshop.service.servicetask;
 
 import nu.lansingcarworkshop.entity.servicetask.ServiceTask;
 import nu.lansingcarworkshop.entity.vehicle.Vehicle;
+import nu.lansingcarworkshop.service.coordinator.EntityManagerCoordinator;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import java.util.List;
 
 public class ReadServiceTask {
 
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
-    private EntityManager entityManager = entityManagerFactory.createEntityManager();
+    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private Query queryResponse;
 
     public List getAllServiceTasks() {
-        Query queryServiceTasks = entityManager.createQuery("SELECT s FROM ServiceTask s ORDER BY s.time");
-        return queryServiceTasks.getResultList();
+        return entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s ORDER BY s.time").getResultList();
     }
 
     public ServiceTask getServiceTaskById(int serviceTaskId) {
-        return entityManager.find(ServiceTask.class, serviceTaskId);
+        return entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceTaskId);
     }
 
-    public List getAllServiceTaskByCarId(Vehicle vehicle) {
+    public List getAllServiceTasksByCarId(Vehicle vehicle) {
         //TODO add more methods for other types of vehicles.
-        Query query = entityManager.createQuery("SELECT s FROM ServiceTask s JOIN Car c WHERE c.id LIKE :id");
-        query.setParameter("id", vehicle.getId());
-
-        List serviceTasks = query.getResultList();
-        return serviceTasks;
+        queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s JOIN Car c WHERE c.id = :id");
+        queryResponse.setParameter("id", vehicle.getId());
+        return queryResponse.getResultList();
     }
 
-    //TODO create method for reading all service tasks based on employee id.
+    public List getAllServiceTasksByEmployeeId(int employeeId) {
+        queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s JOIN Employee e ON s.responsibleEmployee.id = e.id WHERE s.responsibleEmployee.id = :id");
+        queryResponse.setParameter("id", employeeId);
+        return queryResponse.getResultList();
+    }
 
+    public List getAllServiceTasksByCustomerId(int customerId) {
+        queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s JOIN Customer c WHERE c.id = :id");
+        queryResponse.setParameter("id", customerId);
+        return queryResponse.getResultList();
+    }
 }

@@ -1,38 +1,36 @@
 package nu.lansingcarworkshop.service.servicetask;
 
-import nu.lansingcarworkshop.entity.person.Employee;
-import nu.lansingcarworkshop.entity.person.Person;
 import nu.lansingcarworkshop.entity.servicetask.ServiceTask;
+import nu.lansingcarworkshop.service.coordinator.EntityManagerCoordinator;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.List;
 
 public class DeleteServiceTask {
 
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
 
     public void deleteServiceTaskById(int serviceTaskId) {
-        entityManager.getTransaction().begin();
+        entityManagerCoordinator.beginTransaction();
 
-        ServiceTask serviceTask = entityManager.find(ServiceTask.class, serviceTaskId);
+        ServiceTask serviceTask = entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceTaskId);
 
-        entityManager.remove(serviceTask);
+        entityManagerCoordinator.getEntityManager().remove(serviceTask);
 
-        commitAndCloseDatabase(entityManagerFactory, entityManager);
+        entityManagerCoordinator.commitTransactionAndCloseDatabase();
     }
 
-    public void removeEmployeeFromServiceTask(int personId) {
-        entityManager.getTransaction().begin();
+    public void deleteAllServiceTasksFromCustomer(int customerId) {
+        entityManagerCoordinator.beginTransaction();
 
-        //TODO doMagic(). Maybe change from int personId to Person person. Create method for reading a service task based on employe id in ReadServiceTask.
-    }
+        ReadServiceTask readServiceTask = new ReadServiceTask();
+        @SuppressWarnings("unchecked")
+        List<ServiceTask> serviceTasks = readServiceTask.getAllServiceTasksByCustomerId(customerId);
 
-    private void commitAndCloseDatabase(EntityManagerFactory entityManagerFactory, EntityManager entityManager) {
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
+        for (ServiceTask serviceTask : serviceTasks) {
+            deleteServiceTaskById(serviceTask.getId());
+        }
+
+        entityManagerCoordinator.commitTransactionAndCloseDatabase();
     }
 
 }

@@ -88,7 +88,7 @@
                 <tbody>
                 <%
                     ReadServiceTask readServiceTask = new ReadServiceTask();
-                    List serviceTasks = readServiceTask.getAllServiceTaskByCarId(vehicleToDisplay);
+                    List serviceTasks = readServiceTask.getAllServiceTasksByCarId(vehicleToDisplay);
                     //TODO add more methods for other types of vehicles in list query.
                     for (Object serviceTask : serviceTasks) {
                 %>

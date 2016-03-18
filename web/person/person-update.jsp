@@ -15,6 +15,8 @@
 <%@include file="../menu.jsp" %>
 
 <%
+    //TODO refactor from here! Check list and profile links.
+
     String personIdParameter = request.getParameter("personId");
     int personId = 0;
 

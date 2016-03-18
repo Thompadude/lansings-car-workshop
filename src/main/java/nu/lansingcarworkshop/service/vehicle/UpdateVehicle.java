@@ -1,13 +1,11 @@
 package nu.lansingcarworkshop.service.vehicle;
 
 import nu.lansingcarworkshop.entity.vehicle.Vehicle;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import nu.lansingcarworkshop.service.coordinator.EntityManagerCoordinator;
 
 public class UpdateVehicle {
 
+    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
     private Vehicle vehicleWithUpdatedAttributes;
 
     /**
@@ -19,14 +17,12 @@ public class UpdateVehicle {
     public void updateVehicle(Vehicle vehicleWithUpdatedAttributes) {
         this.vehicleWithUpdatedAttributes = vehicleWithUpdatedAttributes;
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        entityManagerCoordinator.beginTransaction();
 
-        Vehicle vehicleToUpdate = entityManager.find(Vehicle.class, vehicleWithUpdatedAttributes.getId());
+        Vehicle vehicleToUpdate = entityManagerCoordinator.getEntityManager().find(Vehicle.class, vehicleWithUpdatedAttributes.getId());
         setNewAttributes(vehicleToUpdate);
 
-        commitAndCloseDatabase(entityManagerFactory, entityManager);
+        entityManagerCoordinator.commitTransactionAndCloseDatabase();
     }
 
     private void setNewAttributes(Vehicle vehicleToUpdate) {
@@ -34,12 +30,6 @@ public class UpdateVehicle {
         vehicleToUpdate.setMake(vehicleWithUpdatedAttributes.getMake());
         vehicleToUpdate.setFuel(vehicleWithUpdatedAttributes.getFuel());
         vehicleToUpdate.setModelYear(vehicleWithUpdatedAttributes.getModelYear());
-    }
-
-    private void commitAndCloseDatabase(EntityManagerFactory entityManagerFactory, EntityManager entityManager) {
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
     }
 
 }

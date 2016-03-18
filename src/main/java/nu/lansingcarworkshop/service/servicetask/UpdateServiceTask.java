@@ -1,16 +1,12 @@
 package nu.lansingcarworkshop.service.servicetask;
 
 import nu.lansingcarworkshop.entity.servicetask.ServiceTask;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import nu.lansingcarworkshop.service.coordinator.EntityManagerCoordinator;
 
 public class UpdateServiceTask {
 
     private ServiceTask serviceTaskWithUpdatedAttributes;
-    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
-    EntityManager entityManager = entityManagerFactory.createEntityManager();
+    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
 
     /**
      * Fetch the service task to update from the database and use the temp service task's attributes for the update.
@@ -21,26 +17,30 @@ public class UpdateServiceTask {
     public void updateServiceTask(ServiceTask serviceTaskWithUpdatedAttributes) {
         this.serviceTaskWithUpdatedAttributes = serviceTaskWithUpdatedAttributes;
 
-        entityManager.getTransaction().begin();
+        entityManagerCoordinator.beginTransaction();
 
-        ServiceTask serviceTaskToUpdate = entityManager.find(ServiceTask.class, serviceTaskWithUpdatedAttributes.getId());
+        ServiceTask serviceTaskToUpdate = entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceTaskWithUpdatedAttributes.getId());
         setNewAttributes(serviceTaskToUpdate);
 
-        commitAndCloseDatabase(entityManagerFactory, entityManager);
+        entityManagerCoordinator.commitTransactionAndCloseDatabase();
     }
 
     public void toggleServiceTaskCompletion(int serviceId, boolean isServiceCompleted) {
-        entityManager.getTransaction().begin();
+        entityManagerCoordinator.beginTransaction();
 
-        ServiceTask serviceTask = entityManager.find(ServiceTask.class, serviceId);
+        ServiceTask serviceTask = entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceId);
 
+        checkIfServiceTaskIsCompleted(isServiceCompleted, serviceTask);
+
+        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+    }
+
+    private void checkIfServiceTaskIsCompleted(boolean isServiceCompleted, ServiceTask serviceTask) {
         if (isServiceCompleted) {
             serviceTask.setCompleted(true);
         } else {
             serviceTask.setCompleted(false);
         }
-
-        commitAndCloseDatabase(entityManagerFactory, entityManager);
     }
 
     private void setNewAttributes(ServiceTask serviceTaskToUpdate) {
@@ -48,12 +48,6 @@ public class UpdateServiceTask {
         serviceTaskToUpdate.setVehicle(serviceTaskWithUpdatedAttributes.getVehicle());
         serviceTaskToUpdate.setNote(serviceTaskWithUpdatedAttributes.getNote());
         serviceTaskToUpdate.setTime(serviceTaskWithUpdatedAttributes.getTime());
-    }
-
-    private void commitAndCloseDatabase(EntityManagerFactory entityManagerFactory, EntityManager entityManager) {
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
     }
 
 }

@@ -1,5 +1,4 @@
 <%@ page import="nu.lansingcarworkshop.entity.person.Employee" %>
-<%@ page import="nu.lansingcarworkshop.service.person.ReadPerson" %>
 <%@ page import="java.util.List" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <h1>Staff</h1>
@@ -15,34 +14,26 @@
     </thead>
     <tbody>
     <%
-        ReadPerson getEmployees = new ReadPerson();
-        List employees = getEmployees.getAllEmployees();
+        List employees = (List) getServletConfig().getServletContext().getAttribute("listOfEmployees");
 
         for (Object person : employees) {
-            if (person instanceof Employee) {
-                Employee employeeToDisplay = (Employee) person;
+            Employee employee = (Employee) person;
     %>
-    <tr id="entry-<%=employeeToDisplay.getId()%>">
-        <td><%=employeeToDisplay.getName()%>
+    <tr id="entry-<%=employee.getId()%>">
+        <td><%=employee.getName()%>
         </td>
-        <td><%=employeeToDisplay.getRoleFormatted()%>
+        <td><%=employee.getRoleFormatted()%>
         </td>
-        <td><a href="/ReadPersonServlet?personId=<%=employeeToDisplay.getId()%>"><span
-                class="glyphicon glyphicon-user"></span></a></td>
-        <td><a href="person-update.jsp?personId=<%=employeeToDisplay.getId()%>"><span
-                class="glyphicon glyphicon-edit"></span></a></td>
+        <td><a href="/ReadPersonServlet?personId=<%=employee.getId()%>"><span class="glyphicon glyphicon-user"></span></a></td>
+        <td><a href="person-update.jsp?personId=<%=employee.getId()%>"><span class="glyphicon glyphicon-edit"></span></a></td>
         <td>
             <a href="#">
                 <span class="glyphicon glyphicon-remove">
-                    <input type="hidden" value="<%=employeeToDisplay.getId()%>">
+                    <input type="hidden" value="<%=employee.getId()%>">
                 </span>
             </a>
         </td>
     </tr>
-
-    <%
-            }
-        }
-    %>
+    <%}%>
     </tbody>
 </table>

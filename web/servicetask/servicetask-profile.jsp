@@ -18,8 +18,10 @@
         Service Task
         <small><%=serviceTaskToDisplay.getId()%>
             &nbsp;
-            <a href="servicetask-update.jsp?serviceTaskId=<%=serviceTaskToDisplay.getId()%>"><span class="glyphicon glyphicon-edit"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=serviceTaskToDisplay.getId()%>"></span></a>
+            <a href="servicetask-update.jsp?serviceTaskId=<%=serviceTaskToDisplay.getId()%>"><span
+                    class="glyphicon glyphicon-edit"></span></a>
+            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden"
+                                                                        value="<%=serviceTaskToDisplay.getId()%>"></span></a>
         </small>
     </h1>
     <br>
@@ -39,9 +41,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Registration Plate</div>
                 <div class="panel-body">
-                <a href="/ReadVehicleServlet?vehicleId=<%=serviceTaskToDisplay.getVehicle().getId()%>">
-                    <%=serviceTaskToDisplay.getVehicle().getRegistrationPlate()%>
-                </a>
+                    <a href="/ReadVehicleServlet?vehicleId=<%=serviceTaskToDisplay.getVehicle().getId()%>">
+                        <%=serviceTaskToDisplay.getVehicle().getRegistrationPlate()%>
+                    </a>
                 </div>
             </div>
         </div>
@@ -58,9 +60,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Responsible Technician</div>
                 <div class="panel-body">
-                <a href="/ReadPersonServlet?personId=<%=serviceTaskToDisplay.getResponsibleEmployee().getId()%>">
-                    <%=serviceTaskToDisplay.getResponsibleEmployee().getName()%>
-                </a>
+                    <%if (serviceTaskToDisplay.getResponsibleEmployee() != null) {%>
+                    <a href="/ReadPersonServlet?personId=<%=serviceTaskToDisplay.getResponsibleEmployee().getId()%>">
+                        <%=serviceTaskToDisplay.getResponsibleEmployee().getName()%>
+                    </a>
+                    <%} else {%>
+                    No one assigned
+                    <%}%>
                 </div>
             </div>
         </div>
@@ -77,7 +83,8 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">Notes</div>
-                <div class="panel-body"><%=serviceTaskToDisplay.getNote()%></div>
+                <div class="panel-body"><%=serviceTaskToDisplay.getNote()%>
+                </div>
             </div>
         </div>
     </div>

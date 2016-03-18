@@ -40,7 +40,8 @@ $(document).ready(function () {
                     'person-role': $role
                 },
                 success: function (response) {
-                    $('#feedback').html($name + " " + response).hide().fadeIn('fast');
+                    console.log("SUCCESS!");
+                    $('#feedback').html($name + response).hide().fadeIn('fast');
                 }
             });
         }

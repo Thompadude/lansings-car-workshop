@@ -1,13 +1,11 @@
 package nu.lansingcarworkshop.service.person;
 
 import nu.lansingcarworkshop.entity.person.Person;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import nu.lansingcarworkshop.service.coordinator.EntityManagerCoordinator;
 
 public class UpdatePerson {
 
+    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
     private Person personWithUpdatedAttributes;
 
     /**
@@ -18,15 +16,12 @@ public class UpdatePerson {
      */
     public void updatePerson(Person personWithUpdatedAttributes) {
         this.personWithUpdatedAttributes = personWithUpdatedAttributes;
+        entityManagerCoordinator.beginTransaction();
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("carworkshop");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-
-        Person personToUpdate = entityManager.find(Person.class, personWithUpdatedAttributes.getId());
+        Person personToUpdate = entityManagerCoordinator.getEntityManager().find(Person.class, personWithUpdatedAttributes.getId());
         setNewAttributes(personToUpdate);
 
-        commitAndCloseDatabase(entityManagerFactory, entityManager);
+        entityManagerCoordinator.commitTransactionAndCloseDatabase();
     }
 
     private void setNewAttributes(Person personToUpdate) {
@@ -34,12 +29,6 @@ public class UpdatePerson {
         personToUpdate.setContactInformation(personWithUpdatedAttributes.getContactInformation());
         personToUpdate.setBirthdate(personWithUpdatedAttributes.getBirthdate());
         personToUpdate.setSex(personWithUpdatedAttributes.getSex());
-    }
-
-    private void commitAndCloseDatabase(EntityManagerFactory entityManagerFactory, EntityManager entityManager) {
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
     }
 
 }

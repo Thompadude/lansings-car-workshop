@@ -38,7 +38,7 @@ $(document).ready(function () {
                     'customerId': $customerId
                 },
                 success: function (response) {
-                    $('#feedback').html(response).hide().fadeIn('fast');
+                    $('#feedback').html($registrationPlate + response).hide().fadeIn('fast');
                 }
             });
         }

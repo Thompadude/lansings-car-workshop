@@ -5,6 +5,7 @@ import nu.lansingcarworkshop.service.person.CreatePerson;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -19,14 +20,14 @@ public class CreatePersonServlet extends javax.servlet.http.HttpServlet {
     private Role role;
     private Person newPerson;
 
-    protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
         initializeVariablesFromPostRequest(request);
 
         createAndAddPersonToDatabase();
 
-        response.getWriter().print("created and added to database.");
+        response.getWriter().print(" created and added to database.");
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {

@@ -12,6 +12,12 @@
 
 <%@include file="../menu.jsp" %>
 
+<%
+    ReadVehicle readVehicle = new ReadVehicle();
+    List vehicles = readVehicle.getAllCars();
+
+    if (vehicles.size() > 0 && vehicles != null) {
+%>
 <h1>All Vehicles</h1>
 <table class="table table-striped">
     <thead>
@@ -24,24 +30,24 @@
         <th>Remove</th>
     </tr>
     </thead>
+    <%for (Object vehicle : vehicles) {%>
     <tbody>
-    <%
-        ReadVehicle readVehicle = new ReadVehicle();
-        List vehicles = readVehicle.getAllCars();
-
-        for (Object vehicle : vehicles) {
-    %>
     <tr id="entry-<%=((Vehicle) vehicle).getId()%>">
-        <td><%=((Vehicle) vehicle).getMake()%></td>
-        <td><%=((Vehicle) vehicle).getRegistrationPlate()%></td>
-        <td>
-            <a href="/ReadPersonServlet?personId=<%=((Vehicle) vehicle).getCustomer().getId()%>"><%=((Vehicle) vehicle).getCustomer().getName()%></a>
+        <td><%=((Vehicle) vehicle).getMake()%>
+        </td>
+        <td><%=((Vehicle) vehicle).getRegistrationPlate()%>
         </td>
         <td>
-            <a href="../servicetask/servicetask-create.jsp?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span class="glyphicon glyphicon-wrench"></span></a>
+            <a href="/ReadPersonServlet?personId=<%=((Vehicle) vehicle).getCustomer().getId()%>"><%=((Vehicle) vehicle).getCustomer().getName()%>
+            </a>
         </td>
         <td>
-            <a href="/ReadVehicleServlet?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span class="glyphicon glyphicon-info-sign"></span></a>
+            <a href="../servicetask/servicetask-create.jsp?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span
+                    class="glyphicon glyphicon-wrench"></span></a>
+        </td>
+        <td>
+            <a href="/ReadVehicleServlet?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span
+                    class="glyphicon glyphicon-info-sign"></span></a>
         </td>
         <td>
             <a href="#">
@@ -51,10 +57,13 @@
             </a>
         </td>
     </tr>
+    </tbody>
     <%
         }
+    } else {
     %>
-    </tbody>
+    <h1>No vehicles added. <a href="../person/persons-edit-delete.jsp">Go back to list of persons.</a></h1>
+    <%}%>
 </table>
 <script src="../js/vehicle-delete.js"></script>
 </body>

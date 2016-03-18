@@ -28,7 +28,7 @@ public class CreateVehicleServlet extends HttpServlet {
 
         createAndAddCarToDatabase();
 
-        response.getWriter().print("Vehicle with plate " + newVehicle.getRegistrationPlate() + " created.");
+        response.getWriter().print(" created.");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

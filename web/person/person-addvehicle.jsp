@@ -7,17 +7,17 @@
     <title>LCW &mdash; Add Vehicle</title>
 </head>
 <body>
-
-<%
-    int personId = Integer.parseInt(request.getParameter("personId"));
-    ReadPerson readPersonById = new ReadPerson();
-    Customer customerToAddVehicleTo = (Customer) readPersonById.getPersonById(personId);
-%>
-
 <%@include file="../menu.jsp" %>
 
+<%
+    boolean isAdminLoggedIn = (boolean) getServletConfig().getServletContext().getAttribute("isAdminLoggedIn");
+
+    if (isAdminLoggedIn) {
+        Customer customer = (Customer) getServletConfig().getServletContext().getAttribute("currentPerson");
+%>
+
 <div class="container-fluid">
-    <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Vehicle</h1><br>
+    <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Vehicle to <%=customer.getName()%></h1><br>
 
     <form role="form">
         <div class="form-group">
@@ -33,13 +33,14 @@
         <div class="form-group">
             <input type="text" class="form-control" name="vehicle-fueltype" placeholder="Vehicle Fuel Type">
         </div>
-        <button type="button" class="btn btn-success">Add Vehicle to <%=customerToAddVehicleTo.getName()%>
+        <button type="button" class="btn btn-success">Add Vehicle to <%=customer.getName()%>
         </button>
         <button type="reset" class="btn btn-danger">Reset</button>
-        <input type="hidden" name="customerid" value="<%=customerToAddVehicleTo.getId()%>">
+        <input type="hidden" name="customerid" value="<%=customer.getId()%>">
     </form>
 
     <p id="feedback"></p>
+    <%} else {%><h1>Please <a href="../login.jsp">log in</a> as admin to gain access.</h1><%}%>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="../js/person-addvehicle.js"></script>
