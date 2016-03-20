@@ -1,5 +1,5 @@
 <%@ page import="nu.lansingcarworkshop.entity.person.Customer" %>
-<%@ page import="nu.lansingcarworkshop.service.person.ReadPerson" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 <%@include file="../menu.jsp" %>
 
 <%
-    boolean isAdminLoggedIn = (boolean) getServletConfig().getServletContext().getAttribute("isAdminLoggedIn");
+    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
     if (isAdminLoggedIn) {
         Customer customer = (Customer) getServletConfig().getServletContext().getAttribute("currentPerson");
@@ -40,7 +40,7 @@
     </form>
 
     <p id="feedback"></p>
-    <%} else {%><h1>Please <a href="../login.jsp">log in</a> as admin to gain access.</h1><%}%>
+    <%} else {%><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="../js/person-addvehicle.js"></script>

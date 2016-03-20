@@ -9,6 +9,10 @@
 
 <%@include file="../menu.jsp" %>
 
+<%
+    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
+    if (isAdminLoggedIn) {
+%>
 <div class="container-fluid">
     <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Person</h1><br>
 
@@ -24,7 +28,7 @@
         </div>
         <div class="form-group">
             <label for="date">Birthday</label>
-            <input id='date' type="date" class="form-control" name="person-birthday" placeholder="Age">
+            <input id='date' type="date" class="form-control" name="person-birthday">
         </div>
         <div class="form-group">
             <label><input type="radio" name="person-sex" value="male" checked="checked"> Male</label>
@@ -40,7 +44,7 @@
     </form>
 
     <p id="feedback"></p>
-
+<%} else {%><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="../js/person-create.js"></script>

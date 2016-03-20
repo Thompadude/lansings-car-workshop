@@ -1,11 +1,11 @@
-<%@ page import="nu.lansingcarworkshop.service.coordinator.EntityManagerCoordinator" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>LCW &mdash; Login</title>
+    <title>LCW &mdash; LOGIN</title>
 </head>
+<body>
 <div class="container">
     <h1><span class="glyphicon glyphicon-wrench"></span> Lansing's Car Workshop Login</h1>
     <br>
@@ -21,11 +21,13 @@
         </div>
         <button type="button">Login</button>
     </form>
+    <br>
+    <br>
+
+    <p>admin/admin for admin login.</p>
+
+    <p>Any user name/password for guest login.</p>
 </div>
-<br>
-<br>
-<h1 id="feeback"></h1>
-<body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="js/login.js"></script>
 </body>

@@ -39,7 +39,7 @@ public class UpdatePersonServlet extends HttpServlet {
         UpdatePerson updatePerson = new UpdatePerson();
         updatePerson.updatePerson(personWithUpdatedAttributes);
 
-        response.sendRedirect("person/persons-edit-delete.jsp");
+        response.sendRedirect("/ReadPersonServlet?personId=" + personWithUpdatedAttributes.getId() + "&action=viewprofile");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

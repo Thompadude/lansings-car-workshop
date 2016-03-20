@@ -15,72 +15,101 @@ import java.util.List;
 @WebServlet(name = "ReadPersonServlet")
 public class ReadPersonServlet extends HttpServlet {
 
-    boolean hasAddVehicleBeenRequested;
-    boolean hasPersonListBeenRequested;
+    boolean isActionSuccessfullyExecuted;
+    Person currentPerson;
+    String action;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        hasAddVehicleBeenRequested = Boolean.parseBoolean(request.getParameter("hasAddVehicleBeenRequested"));
-        hasPersonListBeenRequested = Boolean.parseBoolean(request.getParameter("hasPersonListBeenRequested"));
+        action = request.getParameter("action");
 
-        Person currentPerson = getPersonByParameter(request);
+        if (action.equalsIgnoreCase("listpersons")) {
+            isActionSuccessfullyExecuted = setPersonListServletAttribute();
+        } else {
+            currentPerson = setCurrentPerson(request);
+            isActionSuccessfullyExecuted = setCurrentPersonServletAttribute();
+        }
 
-        setServletAttributes(currentPerson);
-
-        redirectToCorrectJsp(request, response);
+        if (isActionSuccessfullyExecuted) {
+            redirectToCorrectJsp(request, response);
+        }
     }
 
-    private Person getPersonByParameter(HttpServletRequest request) {
-        if (!hasPersonListBeenRequested) {
-            int personId = Integer.parseInt(request.getParameter("personId"));
+    private Person setCurrentPerson(HttpServletRequest request) {
+        String personIdString = request.getParameter("personId");
+
+        if (personIdString != null) {
+            int personId = Integer.parseInt(personIdString);
             ReadPerson readPerson = new ReadPerson();
-            return readPerson.getPersonById(personId);
-        } else {
-            return null;
+            currentPerson = readPerson.getPersonById(personId);
         }
+        return currentPerson;
     }
 
-    private void setServletAttributes(Person currentPerson) {
-        if (!hasPersonListBeenRequested) {
+    private boolean setCurrentPersonServletAttribute() {
+        if (currentPerson != null) {
             getServletContext().setAttribute("currentPerson", currentPerson);
-            setCurrentPersonsVehiclesServletAttribute(currentPerson);
-        } else {
-            setPersonListServletAttribute();
+            setCurrentPersonsVehiclesServletAttribute();
+            return true;
         }
+        return false;
     }
 
-    private void setCurrentPersonsVehiclesServletAttribute(Person currentPerson) {
+    private void setCurrentPersonsVehiclesServletAttribute() {
         ReadVehicle readVehicle = new ReadVehicle();
         List vehicles = readVehicle.getAllCarsByCustomerId(currentPerson.getId());
         getServletContext().setAttribute("currentPersonsVehicles", vehicles);
     }
 
-    private void setPersonListServletAttribute() {
-        setEmployeeListServletAttribute();
-        setCustomerListServletAttribute();
+    private boolean setPersonListServletAttribute() {
+        isActionSuccessfullyExecuted = setEmployeeListServletAttribute();
+
+        if (isActionSuccessfullyExecuted) {
+            isActionSuccessfullyExecuted = setCustomerListServletAttribute();
+        }
+        return isActionSuccessfullyExecuted;
     }
 
-    private void setCustomerListServletAttribute() {
+    private boolean setCustomerListServletAttribute() {
         ReadPerson readPerson = new ReadPerson();
         List customers = readPerson.getAllCustomers();
-        getServletContext().setAttribute("listOfCustomers", customers);
+
+        if (customers != null) {
+            getServletContext().setAttribute("listOfCustomers", customers);
+            return true;
+        }
+        return false;
     }
 
-    private void setEmployeeListServletAttribute() {
+    private boolean setEmployeeListServletAttribute() {
         ReadPerson getEmployees = new ReadPerson();
         List employees = getEmployees.getAllEmployees();
-        getServletContext().setAttribute("listOfEmployees", employees);
+
+        if (employees != null) {
+            getServletContext().setAttribute("listOfEmployees", employees);
+            return true;
+        }
+        return false;
     }
 
     private void redirectToCorrectJsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (hasAddVehicleBeenRequested) {
-            response.sendRedirect(request.getContextPath() + "/person/person-addvehicle.jsp");
-        } else if (hasPersonListBeenRequested) {
-            response.sendRedirect(request.getContextPath() + "/person/persons-edit-delete.jsp");
-        } else {
-            response.sendRedirect(request.getContextPath() + "person/person-profile.jsp");
+        switch (action) {
+            case "addvehicle":
+                response.sendRedirect(request.getContextPath() + "/person/person-addvehicle.jsp");
+                break;
+            case "listpersons":
+                response.sendRedirect(request.getContextPath() + "/person/persons-edit-delete.jsp");
+                break;
+            case "viewprofile":
+                response.sendRedirect(request.getContextPath() + "/person/person-profile.jsp");
+                break;
+            case "updateprofile":
+                response.sendRedirect(request.getContextPath() + "/person/person-update.jsp");
+                break;
+            default:
+                response.sendRedirect(request.getContextPath() + "login.jsp");
         }
     }
 

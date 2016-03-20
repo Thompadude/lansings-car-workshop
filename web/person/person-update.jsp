@@ -2,7 +2,6 @@
 <%@ page import="nu.lansingcarworkshop.entity.person.Person" %>
 <%@ page import="nu.lansingcarworkshop.entity.person.Role" %>
 <%@ page import="nu.lansingcarworkshop.entity.person.Sex" %>
-<%@ page import="nu.lansingcarworkshop.service.person.ReadPerson" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -15,36 +14,30 @@
 <%@include file="../menu.jsp" %>
 
 <%
-    //TODO refactor from here! Check list and profile links.
+    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
-    String personIdParameter = request.getParameter("personId");
-    int personId = 0;
+    Person personToUpdate = (Person) getServletConfig().getServletContext().getAttribute("currentPerson");
 
-    if (!(personIdParameter == null)) {
-        personId = Integer.parseInt(personIdParameter);
-    }
-
-    ReadPerson readPersonById = new ReadPerson();
-    Person personToUpdate = readPersonById.getPersonById(personId);
-
-    if (!(personToUpdate == null)) {
+    if (isAdminLoggedIn) {
+        if (!(personToUpdate == null)) {
 %>
 
 <div class="container-fluid">
     <form role="form" action="/UpdatePersonServlet" method="POST">
         <div class="form-group">
-            <input type="text" class="form-control" name="person-name" value="<%=personToUpdate.getName()%>">
+            <input type="text" class="form-control" name="person-name" value="<%=personToUpdate.getName()%>" placeholder="Name">
         </div>
         <div class="form-group">
             <input type="text" class="form-control" name="person-address"
-                   value="<%=personToUpdate.getContactInformation().getAddress()%>">
+                   value="<%=personToUpdate.getContactInformation().getAddress()%>" placeholder="Address">
         </div>
         <div class="form-group">
             <input type="tel" class="form-control" name="person-phone"
-                   value="<%=personToUpdate.getContactInformation().getPhonenumber()%>">
+                   value="<%=personToUpdate.getContactInformation().getPhonenumber()%>" placeholder="Phone">
         </div>
         <div class="form-group">
-            <input type="date" class="form-control" name="person-birthday"
+            <label for="date">Birthday</label>
+            <input id="date" type="date" class="form-control" name="person-birthday"
                    value="<%=personToUpdate.getBirthdate()%>">
         </div>
         <div class="form-group">
@@ -76,6 +69,6 @@
 </div>
 <%} else {%>
 <h1>Go to <a href="persons-edit-delete.jsp">person list</a> and choose person to update.</h1>
-<%}%>
+<%}} else {%><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
 </body>
 </html>

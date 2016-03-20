@@ -10,10 +10,10 @@
     <title>LCW &mdash; Vehicle Profile</title>
 </head>
 <body>
-
 <%@include file="../menu.jsp" %>
-
 <%
+    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
+
     Vehicle vehicleToDisplay = (Vehicle) getServletConfig().getServletContext().getAttribute("currentVehicle");
 %>
 
@@ -21,13 +21,12 @@
     <h1>
         <%=vehicleToDisplay.getMake()%>
         <small><%=vehicleToDisplay.getId()%>
+            <%if (isAdminLoggedIn) {%>
             &nbsp;
-            <a href="../servicetask/servicetask-create.jsp?vehicleId=<%=vehicleToDisplay.getId()%>"><span
-                    class="glyphicon glyphicon-wrench"></span></a>
-            <a href="vehicle-update.jsp?vehicleId=<%=vehicleToDisplay.getId()%>"><span
-                    class="glyphicon glyphicon-edit"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden"
-                                                                        value="<%=vehicleToDisplay.getId()%>"></span></a>
+            <a href="../servicetask/servicetask-create.jsp?vehicleId=<%=vehicleToDisplay.getId()%>"><span class="glyphicon glyphicon-wrench"></span></a>
+            <a href="vehicle-update.jsp?vehicleId=<%=vehicleToDisplay.getId()%>"><span class="glyphicon glyphicon-edit"></span></a>
+            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=vehicleToDisplay.getId()%>"></span></a>
+            <%}%>
         </small>
     </h1>
     <br>

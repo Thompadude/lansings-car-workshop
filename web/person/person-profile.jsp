@@ -15,7 +15,7 @@
 <body>
 <%@include file="../menu.jsp" %>
 <%
-    boolean isAdminLoggedIn = (boolean) getServletConfig().getServletContext().getAttribute("isAdminLoggedIn");
+    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
     Person currentPerson = (Person) getServletConfig().getServletContext().getAttribute("currentPerson");
     List currentPersonsVehicles = (List) getServletConfig().getServletContext().getAttribute("currentPersonsVehicles");
@@ -29,8 +29,7 @@
         <small><%=currentPerson.getId()%>
             <%if (isAdminLoggedIn) {%>
             &nbsp;
-            <a href="person-update.jsp?personId=<%=currentPerson.getId()%>"><span
-                    class="glyphicon glyphicon-edit"></span></a>
+            <a href="/ReadPersonServlet?personId=<%=currentPerson.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a>
             <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=currentPerson.getId()%>"></span></a>
             <%}%>
         </small>

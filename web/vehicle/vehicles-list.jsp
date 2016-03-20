@@ -1,5 +1,4 @@
 <%@ page import="nu.lansingcarworkshop.entity.vehicle.Vehicle" %>
-<%@ page import="nu.lansingcarworkshop.service.vehicle.ReadVehicle" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -9,13 +8,11 @@
     <title>LCW &mdash; Vehicle List</title>
 </head>
 <body>
-
 <%@include file="../menu.jsp" %>
-
 <%
-    ReadVehicle readVehicle = new ReadVehicle();
-    List vehicles = readVehicle.getAllCars();
+    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
+    List vehicles = (List) getServletConfig().getServletContext().getAttribute("listOfVehicles");
     if (vehicles.size() > 0 && vehicles != null) {
 %>
 <h1>All Vehicles</h1>
@@ -25,44 +22,38 @@
         <th>Make</th>
         <th>Registration Plate</th>
         <th>Owner</th>
-        <th>Book Service</th>
+        <%if (isAdminLoggedIn) {%><th>Book Service</th><%}%>
         <th>View Details</th>
-        <th>Remove</th>
+        <%if (isAdminLoggedIn) {%><th>Remove</th><%}%>
     </tr>
     </thead>
-    <%for (Object vehicle : vehicles) {%>
+    <%
+        for (Object vehicleToDisplay : vehicles) {
+        Vehicle vehicle = ((Vehicle) vehicleToDisplay);
+    %>
     <tbody>
-    <tr id="entry-<%=((Vehicle) vehicle).getId()%>">
-        <td><%=((Vehicle) vehicle).getMake()%>
-        </td>
-        <td><%=((Vehicle) vehicle).getRegistrationPlate()%>
-        </td>
-        <td>
-            <a href="/ReadPersonServlet?personId=<%=((Vehicle) vehicle).getCustomer().getId()%>"><%=((Vehicle) vehicle).getCustomer().getName()%>
-            </a>
-        </td>
-        <td>
-            <a href="../servicetask/servicetask-create.jsp?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span
-                    class="glyphicon glyphicon-wrench"></span></a>
-        </td>
-        <td>
-            <a href="/ReadVehicleServlet?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span
-                    class="glyphicon glyphicon-info-sign"></span></a>
-        </td>
+    <tr id="entry-<%=vehicle.getId()%>">
+        <td><%=vehicle.getMake()%></td>
+        <td><%=vehicle.getRegistrationPlate()%></td>
+        <td><a href="/ReadPersonServlet?personId=<%=vehicle.getCustomer().getId()%>&action=viewprofile"><%=vehicle.getCustomer().getName()%></a></td>
+        <%if (isAdminLoggedIn) {%><td><a href="../servicetask/servicetask-create.jsp?vehicleId=<%=vehicle.getId()%>"><span class="glyphicon glyphicon-wrench"></span></a></td><%}%>
+        <td><a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=viewprofile"><span class="glyphicon glyphicon-info-sign"></span></a></td>
+        <%if (isAdminLoggedIn) {%>
         <td>
             <a href="#">
                 <span class="glyphicon glyphicon-remove">
-                    <input type="hidden" value="<%=((Vehicle) vehicle).getId()%>">
+                    <input type="hidden" value="<%=vehicle.getId()%>">
                 </span>
             </a>
         </td>
+        <%}%>
     </tr>
     </tbody>
     <%
         }
     } else {
     %>
-    <h1>No vehicles added. <a href="../person/persons-edit-delete.jsp">Go back to list of persons.</a></h1>
+    <h1>No vehicles added. <a href="/ReadPersonServlet?action=listpersons">Go back to list of persons.</a></h1>
     <%}%>
 </table>
 <script src="../js/vehicle-delete.js"></script>

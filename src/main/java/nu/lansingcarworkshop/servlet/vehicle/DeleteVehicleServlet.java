@@ -20,6 +20,8 @@ public class DeleteVehicleServlet extends HttpServlet {
             DeleteVehicle deleteVehicle = new DeleteVehicle();
             deleteVehicle.deleteVehicleById(vehicleId);
         }
+
+        response.sendRedirect("/ReadVehicleServlet?&action=listvehicles");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -27,15 +27,12 @@ $(document).ready(function () {
                 type: 'post',
                 url: '/LoginServlet',
                 data: {
+                    'action': 'login',
                     'username': $userName,
                     'password': $password
                 },
                 success: function (response) {
-
-
-                    console.log(response);
-                        document.location.replace("index.jsp");
-
+                    document.location.replace("index.jsp");
                 }
             });
         }
@@ -43,6 +40,12 @@ $(document).ready(function () {
 
     $(document).on('click', 'button[type=button]', function (event) {
         loginPrompt();
+    });
+
+    $(document).on('keypress', function (event) {
+        if (event.which === 13) {
+            loginPrompt();
+        }
     });
 
 });

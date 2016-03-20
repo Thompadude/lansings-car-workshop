@@ -1,5 +1,4 @@
 <%@ page import="nu.lansingcarworkshop.entity.vehicle.Vehicle" %>
-<%@ page import="nu.lansingcarworkshop.service.vehicle.ReadVehicle" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,23 +7,15 @@
     <title>LCW &mdash; Update Vehicle</title>
 </head>
 <body>
-
 <%@include file="../menu.jsp" %>
-
 <%
-    String vehicleIdParameter = request.getParameter("vehicleId");
-    int vehicleId = 0;
+    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
-    if (!(vehicleIdParameter == null)) {
-        vehicleId = Integer.parseInt(vehicleIdParameter);
-    }
+    Vehicle vehicleToUpdate = (Vehicle) getServletConfig().getServletContext().getAttribute("currentVehicle");
 
-    ReadVehicle readVehicle = new ReadVehicle();
-    Vehicle vehicleToUpdate = readVehicle.getVehicleById(vehicleId);
-
-    if (!(vehicleToUpdate == null)) {
+    if (isAdminLoggedIn) {
+        if (!(vehicleToUpdate == null)) {
 %>
-
 <div class="container-fluid">
     <form role="form" action="/UpdateVehicleServlet" method="POST">
         <div class="form-group">
@@ -53,7 +44,10 @@
     </form>
 </div>
 <%} else {%>
-<h1>Nothing to see here. Go to <a href="../index.jsp">home</a>.</h1>
-<%}%>
+<h1>No vehicle choosen. <a href="/ReadVehicleServlet?action=listvehicles">Go back</a> to list of vehicles</h1>
+<%
+    }
+} else {
+%><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
 </body>
 </html>

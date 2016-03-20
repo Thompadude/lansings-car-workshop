@@ -33,7 +33,7 @@ public class UpdateVehicleServlet extends HttpServlet {
         UpdateVehicle updateVehicle = new UpdateVehicle();
         updateVehicle.updateVehicle(vehicleWithUpdatedAttributes);
 
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("/ReadVehicleServlet?vehicleId=" + vehicleWithUpdatedAttributes.getId() + "&action=viewprofile");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

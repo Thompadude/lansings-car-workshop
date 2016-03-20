@@ -18,7 +18,6 @@ public class CreateVehicleServlet extends HttpServlet {
 
     private String registrationPlate, make, fuel;
     private LocalDate modelYear;
-    private Vehicle newVehicle;
     private int customerId;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,7 +44,7 @@ public class CreateVehicleServlet extends HttpServlet {
 
     private void createAndAddCarToDatabase() {
         //TODO add more methods for other types of vehicles.
-        newVehicle = new Car(registrationPlate, make, modelYear, fuel);
+        Vehicle newVehicle = new Car(registrationPlate, make, modelYear, fuel);
         CreateVehicle createVehicle = new CreateVehicle();
         createVehicle.createVehicle(newVehicle, customerId);
     }

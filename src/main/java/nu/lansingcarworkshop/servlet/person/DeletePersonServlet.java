@@ -2,6 +2,7 @@ package nu.lansingcarworkshop.servlet.person;
 
 import nu.lansingcarworkshop.service.person.DeletePerson;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +22,7 @@ public class DeletePersonServlet extends HttpServlet {
             deletePerson.deletePersonById(personId);
         }
 
-        response.getWriter().print("Deleted.");
+        response.sendRedirect("/ReadPersonServlet?&action=listpersons");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
