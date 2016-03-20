@@ -1,5 +1,4 @@
-<%@ page import="nu.lansingcarworkshop.entity.servicetask.ServiceTask" %>
-<%@ page import="nu.lansingcarworkshop.service.servicetask.ReadServiceTask" %>
+<%@ page import="nu.lansingcarworkshop.models.servicetask.ServiceTask" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -9,12 +8,9 @@
     <title>LCW &mdash; Service List</title>
 </head>
 <body>
-
 <%@include file="../menu.jsp" %>
-
 <%
-    ReadServiceTask readServiceTask = new ReadServiceTask();
-    List serviceTasks = readServiceTask.getAllServiceTasks();
+    List serviceTasks = (List) getServletConfig().getServletContext().getAttribute("listOfServiceTasks");
 
     if (serviceTasks.size() > 0 && serviceTasks != null) {
 %>
@@ -38,39 +34,23 @@
     %>
     <tbody>
     <tr id="entry-<%=serviceTaskToDisplay.getId()%>">
-        <td><%=serviceTaskToDisplay.getVehicle().getMake()%>
-        </td>
-        <td><%=serviceTaskToDisplay.getVehicle().getRegistrationPlate()%>
-        </td>
+        <td><%=serviceTaskToDisplay.getVehicle().getMake()%></td>
+        <td><%=serviceTaskToDisplay.getVehicle().getRegistrationPlate()%></td>
         <td>
-            <a href="/ReadPersonServlet?personId=<%=serviceTaskToDisplay.getVehicle().getCustomer().getId()%>">
-                <%=serviceTaskToDisplay.getVehicle().getCustomer().getName()%>
+            <a href="/ReadPersonServlet?personId=<%=serviceTaskToDisplay.getVehicle().getCustomer().getId()%>&action=viewprofile"><%=serviceTaskToDisplay.getVehicle().getCustomer().getName()%>
             </a>
         </td>
         <td>
-        <%if (serviceTaskToDisplay.getResponsibleEmployee() != null) {%>
-            <a href="/ReadPersonServlet?personId=<%=serviceTaskToDisplay.getResponsibleEmployee().getId()%>">
-                <%=serviceTaskToDisplay.getResponsibleEmployee().getName()%>
-            </a>
-        <%} else {%>
+            <%if (serviceTaskToDisplay.getResponsibleEmployee() != null) {%>
+            <a href="/ReadPersonServlet?personId=<%=serviceTaskToDisplay.getResponsibleEmployee().getId()%>&action=viewprofile"><%=serviceTaskToDisplay.getResponsibleEmployee().getName()%></a>
+            <%} else {%>
             No one assigned
-        <%}%>
+            <%}%>
         </td>
-        <td>
-            <%=serviceTaskToDisplay.getAppointmentTime()%>
-        </td>
-        <td>
-            <a href="#"><span class="glyphicon glyphicon-edit"></span></a>
-        </td>
-        <td><a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTaskToDisplay.getId()%>"><span
-                class="glyphicon glyphicon-info-sign"></span></a></td>
-        <td>
-            <a href="#">
-            <span class="glyphicon glyphicon-remove">
-                    <input type="hidden" value="<%=serviceTaskToDisplay.getId()%>">
-                </span>
-            </a>
-        </td>
+        <td><%=serviceTaskToDisplay.getAppointmentTime()%></td>
+        <td><a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTaskToDisplay.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <td><a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTaskToDisplay.getId()%>&action=viewprofile"><span class="glyphicon glyphicon-info-sign"></span></a></td>
+        <td><a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=serviceTaskToDisplay.getId()%>"></span></a></td>
     </tr>
     </tbody>
     <%

@@ -25,7 +25,7 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="">Vehicle
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="<%=request.getContextPath()%>/ReadVehicleServlet?action=listvehicles">List</a></li>
+                    <li><a href="/ReadVehicleServlet?action=listvehicles">List</a></li>
                     <%if (isAdminMenuEnabled) {%>
                     <li><a href="#">Statistics</a></li>
                     <%}%>
@@ -35,7 +35,7 @@
                 <a class="dropdown-toggle" data-toggle="dropdown" href="">Service
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="<%=request.getContextPath()%>/servicetask/servicetask-list.jsp">List</a></li>
+                    <li><a href="/ReadServiceTaskServlet?action=listservicetasks">List</a></li>
                     <%if (isAdminMenuEnabled) {%>
                     <li><a href="#">Today's Appointments</a></li>
                     <%}%>

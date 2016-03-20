@@ -1,6 +1,6 @@
-<%@ page import="nu.lansingcarworkshop.entity.servicetask.ServiceTask" %>
-<%@ page import="nu.lansingcarworkshop.entity.vehicle.Vehicle" %>
-<%@ page import="nu.lansingcarworkshop.service.servicetask.ReadServiceTask" %>
+<%@ page import="nu.lansingcarworkshop.models.servicetask.ServiceTask" %>
+<%@ page import="nu.lansingcarworkshop.models.vehicle.Vehicle" %>
+<%@ page import="nu.lansingcarworkshop.services.servicetask.ReadServiceTask" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -23,7 +23,7 @@
         <small><%=vehicleToDisplay.getId()%>
             <%if (isAdminLoggedIn) {%>
             &nbsp;
-            <a href="../servicetask/servicetask-create.jsp?vehicleId=<%=vehicleToDisplay.getId()%>"><span class="glyphicon glyphicon-wrench"></span></a>
+            <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=createservicetask"><span class="glyphicon glyphicon-wrench"></span></a>
             <a href="vehicle-update.jsp?vehicleId=<%=vehicleToDisplay.getId()%>"><span class="glyphicon glyphicon-edit"></span></a>
             <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=vehicleToDisplay.getId()%>"></span></a>
             <%}%>

@@ -1,4 +1,4 @@
-<%@ page import="nu.lansingcarworkshop.entity.servicetask.ServiceTask" %>
+<%@ page import="nu.lansingcarworkshop.models.servicetask.ServiceTask" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,21 +7,17 @@
     <title>LCW &mdash; Service Task</title>
 </head>
 <body>
-
 <%@include file="../menu.jsp" %>
-
 <%
-    ServiceTask serviceTaskToDisplay = (ServiceTask) getServletConfig().getServletContext().getAttribute("currentServiceTask");
+    ServiceTask serviceTask = (ServiceTask) getServletConfig().getServletContext().getAttribute("currentServiceTask");
 %>
 <div class="container">
     <h1>
         Service Task
-        <small><%=serviceTaskToDisplay.getId()%>
+        <small><%=serviceTask.getId()%>
             &nbsp;
-            <a href="servicetask-update.jsp?serviceTaskId=<%=serviceTaskToDisplay.getId()%>"><span
-                    class="glyphicon glyphicon-edit"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden"
-                                                                        value="<%=serviceTaskToDisplay.getId()%>"></span></a>
+            <a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTask.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a>
+            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=serviceTask.getId()%>"></span></a>
         </small>
     </h1>
     <br>
@@ -30,9 +26,11 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">Vehicle Owner</div>
-                <div class="panel-body"><a
-                        href="/ReadPersonServlet?personId=<%=serviceTaskToDisplay.getVehicle().getCustomer().getId()%>"><%=serviceTaskToDisplay.getVehicle().getCustomer().getName()%>
-                </a></div>
+                <div class="panel-body">
+                    <a href="/ReadPersonServlet?personId=<%=serviceTask.getVehicle().getCustomer().getId()%>&action=viewprofile">
+                    <%=serviceTask.getVehicle().getCustomer().getName()%>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -41,8 +39,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Registration Plate</div>
                 <div class="panel-body">
-                    <a href="/ReadVehicleServlet?vehicleId=<%=serviceTaskToDisplay.getVehicle().getId()%>">
-                        <%=serviceTaskToDisplay.getVehicle().getRegistrationPlate()%>
+                    <a href="/ReadVehicleServlet?vehicleId=<%=serviceTask.getVehicle().getId()%>&action=viewprofile">
+                        <%=serviceTask.getVehicle().getRegistrationPlate()%>
                     </a>
                 </div>
             </div>
@@ -50,7 +48,7 @@
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Make</div>
-                <div class="panel-body"><%=serviceTaskToDisplay.getVehicle().getMake()%>
+                <div class="panel-body"><%=serviceTask.getVehicle().getMake()%>
                 </div>
             </div>
         </div>
@@ -60,9 +58,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Responsible Technician</div>
                 <div class="panel-body">
-                    <%if (serviceTaskToDisplay.getResponsibleEmployee() != null) {%>
-                    <a href="/ReadPersonServlet?personId=<%=serviceTaskToDisplay.getResponsibleEmployee().getId()%>">
-                        <%=serviceTaskToDisplay.getResponsibleEmployee().getName()%>
+                    <%if (serviceTask.getResponsibleEmployee() != null) {%>
+                    <a href="/ReadPersonServlet?personId=<%=serviceTask.getResponsibleEmployee().getId()%>&action=viewprofile">
+                        <%=serviceTask.getResponsibleEmployee().getName()%>
                     </a>
                     <%} else {%>
                     No one assigned
@@ -74,7 +72,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Estimated Start Date</div>
                 <div class="panel-body">
-                    <%=serviceTaskToDisplay.getAppointmentTime()%>
+                    <%=serviceTask.getAppointmentTime()%>
                 </div>
             </div>
         </div>
@@ -83,7 +81,7 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">Notes</div>
-                <div class="panel-body"><%=serviceTaskToDisplay.getNote()%>
+                <div class="panel-body"><%=serviceTask.getNote()%>
                 </div>
             </div>
         </div>

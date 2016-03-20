@@ -1,4 +1,4 @@
-<%@ page import="nu.lansingcarworkshop.entity.vehicle.Vehicle" %>
+<%@ page import="nu.lansingcarworkshop.models.vehicle.Vehicle" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -36,7 +36,7 @@
         <td><%=vehicle.getMake()%></td>
         <td><%=vehicle.getRegistrationPlate()%></td>
         <td><a href="/ReadPersonServlet?personId=<%=vehicle.getCustomer().getId()%>&action=viewprofile"><%=vehicle.getCustomer().getName()%></a></td>
-        <%if (isAdminLoggedIn) {%><td><a href="../servicetask/servicetask-create.jsp?vehicleId=<%=vehicle.getId()%>"><span class="glyphicon glyphicon-wrench"></span></a></td><%}%>
+        <%if (isAdminLoggedIn) {%><td><a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=createservicetask"><span class="glyphicon glyphicon-wrench"></span></a></td><%}%>
         <td><a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=viewprofile"><span class="glyphicon glyphicon-info-sign"></span></a></td>
         <%if (isAdminLoggedIn) {%>
         <td>

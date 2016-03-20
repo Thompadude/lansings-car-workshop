@@ -1,4 +1,4 @@
-<%@ page import="nu.lansingcarworkshop.entity.person.Customer" %>
+<%@ page import="nu.lansingcarworkshop.models.person.Customer" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

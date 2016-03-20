@@ -1,7 +1,5 @@
-<%@ page import="nu.lansingcarworkshop.entity.person.Employee" %>
-<%@ page import="nu.lansingcarworkshop.entity.vehicle.Vehicle" %>
-<%@ page import="nu.lansingcarworkshop.service.person.ReadPerson" %>
-<%@ page import="nu.lansingcarworkshop.service.vehicle.ReadVehicle" %>
+<%@ page import="nu.lansingcarworkshop.models.person.Employee" %>
+<%@ page import="nu.lansingcarworkshop.models.vehicle.Vehicle" %>
 <%@ page import="java.util.List" %>
 <html>
 <head>
@@ -10,16 +8,15 @@
     <title>LCW &mdash; Create Service Task</title>
 </head>
 <body>
-
 <%
-    int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
+    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
-    ReadVehicle readVehicle = new ReadVehicle();
-    Vehicle vehicle = readVehicle.getVehicleById(vehicleId);
+    Vehicle vehicle = (Vehicle) getServletConfig().getServletContext().getAttribute("currentVehicle");
+    List employees = (List) getServletConfig().getServletContext().getAttribute("listOfEmployees");
+
+    if (isAdminLoggedIn) {
 %>
-
 <%@include file="../menu.jsp" %>
-
 <div class="container-fluid">
     <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Service</h1><br>
 
@@ -34,12 +31,7 @@
         <div class="form-group">
             <label for="employee-list">Responsible Employee
                 <select id="employee-list">
-                    <%
-                        ReadPerson readPerson = new ReadPerson();
-                        List employees = readPerson.getAllEmployees();
-
-                        for (Object employee : employees) {
-                    %>
+                    <%for (Object employee : employees) {%>
                     <option value="<%=((Employee)employee).getId()%>"><%=((Employee) employee).getName()%>
                     </option>
                     <%}%>
@@ -52,6 +44,9 @@
     </form>
 
     <p id="feedback"></p>
+<%}else{%>
+<h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1>
+<%}%>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="../js/servicetask-create.js"></script>

@@ -3,17 +3,17 @@
 
     <persistence-unit name="carworkshop" transaction-type="RESOURCE_LOCAL">
 
-        <class>nu.lansingcarworkshop.entity.person.Person</class>
-        <class>nu.lansingcarworkshop.entity.person.Customer</class>
-        <class>nu.lansingcarworkshop.entity.person.Employee</class>
+        <class>nu.lansingcarworkshop.models.person.Person</class>
+        <class>nu.lansingcarworkshop.models.person.Customer</class>
+        <class>nu.lansingcarworkshop.models.person.Employee</class>
 
-        <class>nu.lansingcarworkshop.entity.vehicle.Vehicle</class>
-        <class>nu.lansingcarworkshop.entity.vehicle.Car</class>
+        <class>nu.lansingcarworkshop.models.vehicle.Vehicle</class>
+        <class>nu.lansingcarworkshop.models.vehicle.Car</class>
 
-        <class>nu.lansingcarworkshop.entity.servicetask.ServiceTask</class>
+        <class>nu.lansingcarworkshop.models.servicetask.ServiceTask</class>
 
-        <class>nu.lansingcarworkshop.entity.converter.LocalDateConverter</class>
-        <class>nu.lansingcarworkshop.entity.converter.LocalDateTimeConverter</class>
+        <class>nu.lansingcarworkshop.services.converters.LocalDateConverter</class>
+        <class>nu.lansingcarworkshop.services.converters.LocalDateTimeConverter</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

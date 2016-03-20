@@ -1,4 +1,4 @@
-<%@ page import="nu.lansingcarworkshop.entity.person.Customer" %>
+<%@ page import="nu.lansingcarworkshop.models.person.Customer" %>
 <%@ page import="java.util.List" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <%

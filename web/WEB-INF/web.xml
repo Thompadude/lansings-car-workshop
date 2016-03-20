@@ -10,7 +10,7 @@
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.login.LoginServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.login.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -19,7 +19,7 @@
 
     <servlet>
         <servlet-name>CreatePersonServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.person.CreatePersonServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.person.CreatePersonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreatePersonServlet</servlet-name>
@@ -28,7 +28,7 @@
 
     <servlet>
         <servlet-name>ReadPersonServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.person.ReadPersonServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.person.ReadPersonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ReadPersonServlet</servlet-name>
@@ -37,7 +37,7 @@
 
     <servlet>
         <servlet-name>UpdatePersonServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.person.UpdatePersonServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.person.UpdatePersonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdatePersonServlet</servlet-name>
@@ -46,7 +46,7 @@
 
     <servlet>
         <servlet-name>DeletePersonServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.person.DeletePersonServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.person.DeletePersonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeletePersonServlet</servlet-name>
@@ -55,7 +55,7 @@
 
     <servlet>
         <servlet-name>CreateVehicleServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.vehicle.CreateVehicleServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.vehicle.CreateVehicleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreateVehicleServlet</servlet-name>
@@ -64,7 +64,7 @@
 
     <servlet>
         <servlet-name>ReadVehicleServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.vehicle.ReadVehicleServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.vehicle.ReadVehicleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ReadVehicleServlet</servlet-name>
@@ -73,7 +73,7 @@
 
     <servlet>
         <servlet-name>UpdateVehicleServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.vehicle.UpdateVehicleServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.vehicle.UpdateVehicleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdateVehicleServlet</servlet-name>
@@ -82,7 +82,7 @@
 
     <servlet>
         <servlet-name>DeleteVehicleServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.vehicle.DeleteVehicleServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.vehicle.DeleteVehicleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteVehicleServlet</servlet-name>
@@ -91,7 +91,7 @@
 
     <servlet>
         <servlet-name>CreateServiceTaskServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.servicetask.CreateServiceTaskServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.servicetask.CreateServiceTaskServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreateServiceTaskServlet</servlet-name>
@@ -100,7 +100,7 @@
 
     <servlet>
         <servlet-name>ReadServiceTaskServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.servicetask.ReadServiceTaskServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.servicetask.ReadServiceTaskServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ReadServiceTaskServlet</servlet-name>
@@ -109,7 +109,7 @@
 
     <servlet>
         <servlet-name>UpdateServiceTaskServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.servicetask.UpdateServiceTaskServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.servicetask.UpdateServiceTaskServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdateServiceTaskServlet</servlet-name>
@@ -118,7 +118,7 @@
 
     <servlet>
         <servlet-name>DeleteServiceTaskServlet</servlet-name>
-        <servlet-class>nu.lansingcarworkshop.servlet.servicetask.DeleteServiceTaskServlet</servlet-class>
+        <servlet-class>nu.lansingcarworkshop.servlets.servicetask.DeleteServiceTaskServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteServiceTaskServlet</servlet-name>
