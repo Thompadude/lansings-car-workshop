@@ -116,6 +116,20 @@ public class SetContextAttributes {
         return isAttributeSetSuccessfully;
     }
 
+    public boolean setServiceTasksListByVehicle(ServletContext servletContext, String vehicleId) {
+        boolean isAttributeSetSuccessfully = false;
+
+        ReadServiceTask readServiceTask = new ReadServiceTask();
+        List serviceTasks = readServiceTask.getAllServiceTasksByCarId(Integer.parseInt(vehicleId));
+
+        if (serviceTasks != null) {
+            servletContext.setAttribute("listOfServiceTasks", serviceTasks);
+            isAttributeSetSuccessfully = true;
+        }
+
+        return isAttributeSetSuccessfully;
+    }
+
     public boolean setCurrentServiceTask(ServletContext servletContext, String serviceTaskId) {
         boolean isAttributeSetSuccessfully = false;
 

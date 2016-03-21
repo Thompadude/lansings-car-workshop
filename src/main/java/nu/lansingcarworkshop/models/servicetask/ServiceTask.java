@@ -1,5 +1,6 @@
 package nu.lansingcarworkshop.models.servicetask;
 
+import nu.lansingcarworkshop.models.person.Customer;
 import nu.lansingcarworkshop.models.person.Employee;
 import nu.lansingcarworkshop.models.vehicle.Vehicle;
 
@@ -11,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 @Entity
 @Table
 public class ServiceTask implements Serializable {
+
+    @OneToMany
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +27,9 @@ public class ServiceTask implements Serializable {
     private Employee responsibleEmployee;
 
     @OneToOne
+    private Customer customer;
+
+    @OneToOne
     private Vehicle vehicle;
 
     public ServiceTask(LocalDateTime time, String note, Employee responsibleEmployee, Vehicle vehicle) {
@@ -31,6 +37,7 @@ public class ServiceTask implements Serializable {
         this.note = note;
         this.responsibleEmployee = responsibleEmployee;
         this.vehicle = vehicle;
+        this.customer = vehicle.getCustomer();
         this.isCompleted = false;
     }
 
@@ -71,6 +78,10 @@ public class ServiceTask implements Serializable {
 
     public void setResponsibleEmployee(Employee responsibleEmployee) {
         this.responsibleEmployee = responsibleEmployee;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     public Vehicle getVehicle() {

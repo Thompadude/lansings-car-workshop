@@ -19,7 +19,6 @@ public class CreatePersonServlet extends javax.servlet.http.HttpServlet {
     private LocalDate birthday;
     private Sex sex;
     private Role role;
-    private Person newPerson;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -52,7 +51,7 @@ public class CreatePersonServlet extends javax.servlet.http.HttpServlet {
     }
 
     private void createAndAddPersonToDatabase() {
-        newPerson = checkTypeAndCreateNewPerson();
+        Person newPerson = checkTypeAndCreateNewPerson();
         CreatePerson createPerson = new CreatePerson();
         createPerson.createPerson(newPerson);
     }

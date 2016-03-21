@@ -26,11 +26,16 @@ public class DeleteServiceTask {
         @SuppressWarnings("unchecked")
         List<ServiceTask> serviceTasks = readServiceTask.getAllServiceTasksByCustomerId(customerId);
 
-        for (ServiceTask serviceTask : serviceTasks) {
-            deleteServiceTaskById(serviceTask.getId());
-        }
+        removeListOfServiceTasks(serviceTasks);
 
         entityManagerCoordinator.commitTransactionAndCloseDatabase();
+    }
+
+    private void removeListOfServiceTasks(List<ServiceTask> serviceTasks) {
+        for (ServiceTask serviceTask : serviceTasks) {
+            ServiceTask serviceTaskToDelete = entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceTask.getId());
+            entityManagerCoordinator.getEntityManager().remove(serviceTaskToDelete);
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package nu.lansingcarworkshop.servlets.person;
 
+import nu.lansingcarworkshop.servlets.helpers.GetRedirectUrl;
 import nu.lansingcarworkshop.servlets.helpers.SetContextAttributes;
 
 import javax.servlet.ServletException;
@@ -42,22 +43,9 @@ public class ReadPersonServlet extends HttpServlet {
     }
 
     private void redirectToCorrectJsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        switch (action) {
-            case "addvehicle":
-                response.sendRedirect(request.getContextPath() + "/person/person-addvehicle.jsp");
-                break;
-            case "listpersons":
-                response.sendRedirect(request.getContextPath() + "/person/persons-edit-delete.jsp");
-                break;
-            case "viewprofile":
-                response.sendRedirect(request.getContextPath() + "/person/person-profile.jsp");
-                break;
-            case "updateprofile":
-                response.sendRedirect(request.getContextPath() + "/person/person-update.jsp");
-                break;
-            default:
-                response.sendRedirect(request.getContextPath() + "/login.jsp");
-        }
+        GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
+        String redirectUrl = getRedirectUrl.getReadPersonServletRedirectUrl(action, request);
+        response.sendRedirect(redirectUrl);
     }
 
 }

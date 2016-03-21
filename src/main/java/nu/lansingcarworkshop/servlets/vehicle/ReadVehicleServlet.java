@@ -1,5 +1,6 @@
 package nu.lansingcarworkshop.servlets.vehicle;
 
+import nu.lansingcarworkshop.servlets.helpers.GetRedirectUrl;
 import nu.lansingcarworkshop.servlets.helpers.SetContextAttributes;
 
 import javax.servlet.ServletException;
@@ -38,6 +39,7 @@ public class ReadVehicleServlet extends HttpServlet {
         } else {
             String vehicleId = request.getParameter("vehicleId");
             isActionsSuccessfullyExecuted = setContextAttributes.setCurrentVehicle(getServletContext(), vehicleId);
+            isActionsSuccessfullyExecuted = setContextAttributes.setServiceTasksListByVehicle(getServletContext(), vehicleId);
             if (action.equalsIgnoreCase("createservicetask") && isActionsSuccessfullyExecuted) {
                 isActionsSuccessfullyExecuted = setContextAttributes.setEmployeeList(getServletContext());
             }
@@ -46,23 +48,9 @@ public class ReadVehicleServlet extends HttpServlet {
     }
 
     private void redirectToCorrectJsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        switch (action) {
-            case "listvehicles":
-                response.sendRedirect(request.getContextPath() + "/vehicle/vehicles-list.jsp");
-                break;
-            case "viewprofile":
-                response.sendRedirect(request.getContextPath() + "/vehicle/vehicle-profile.jsp");
-                break;
-            case "updateprofile":
-                response.sendRedirect(request.getContextPath() + "/vehicle/vehicles-update.jsp");
-                break;
-            case "createservicetask":
-                response.sendRedirect(request.getContextPath() + "/servicetask/servicetask-create.jsp");
-                break;
-            default:
-                response.sendRedirect(request.getContextPath() + "login.jsp");
-        }
+        GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
+        String redirectUrl = getRedirectUrl.getReadVehicleServletRedirectUrl(action, request);
+        response.sendRedirect(redirectUrl);
     }
-
 
 }

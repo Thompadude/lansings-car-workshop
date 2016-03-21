@@ -37,8 +37,8 @@ $(document).ready(function () {
                     'vehicle-fueltype': $fuelType,
                     'customerId': $customerId
                 },
-                success: function (response) {
-                    $('#feedback').html($registrationPlate + response).hide().fadeIn('fast');
+                success: function () {
+                    $('#feedback').html($registrationPlate + " created.").hide().fadeIn('fast');
                 }
             });
         }

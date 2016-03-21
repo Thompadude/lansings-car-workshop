@@ -1,7 +1,6 @@
 package nu.lansingcarworkshop.services.servicetask;
 
 import nu.lansingcarworkshop.models.servicetask.ServiceTask;
-import nu.lansingcarworkshop.models.vehicle.Vehicle;
 import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
 
 import javax.persistence.Query;
@@ -20,10 +19,10 @@ public class ReadServiceTask {
         return entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceTaskId);
     }
 
-    public List getAllServiceTasksByCarId(Vehicle vehicle) {
-        //TODO add more methods for other types of vehicles.
-        queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s JOIN Car c WHERE c.id = :id");
-        queryResponse.setParameter("id", vehicle.getId());
+    public List getAllServiceTasksByCarId(int vehicleId) {
+        //TODO (optional) add more methods for other types of vehicles.
+        queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s WHERE s.vehicle.id = :id");
+        queryResponse.setParameter("id", vehicleId);
         return queryResponse.getResultList();
     }
 
@@ -34,8 +33,9 @@ public class ReadServiceTask {
     }
 
     public List getAllServiceTasksByCustomerId(int customerId) {
-        queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s JOIN Customer c WHERE c.id = :id");
+        queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s JOIN Customer c ON s.customer.id = c.id WHERE s.customer.id = :id");
         queryResponse.setParameter("id", customerId);
         return queryResponse.getResultList();
     }
+
 }

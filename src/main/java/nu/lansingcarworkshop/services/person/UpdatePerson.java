@@ -1,5 +1,6 @@
 package nu.lansingcarworkshop.services.person;
 
+import nu.lansingcarworkshop.models.person.Employee;
 import nu.lansingcarworkshop.models.person.Person;
 import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
 
@@ -29,6 +30,10 @@ public class UpdatePerson {
         personToUpdate.setContactInformation(personWithUpdatedAttributes.getContactInformation());
         personToUpdate.setBirthdate(personWithUpdatedAttributes.getBirthdate());
         personToUpdate.setSex(personWithUpdatedAttributes.getSex());
+
+        if (personToUpdate instanceof Employee) {
+            ((Employee) personToUpdate).setRole(((Employee) personWithUpdatedAttributes).getRole());
+        }
     }
 
 }

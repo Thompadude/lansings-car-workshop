@@ -91,7 +91,7 @@
                         <%=((Vehicle) vehicle).getRegistrationPlate()%>
                     </td>
                     <td>
-                        <a href="/ReadVehicleServlet?vehicleId=<%=((Vehicle) vehicle).getId()%>"><span class="glyphicon glyphicon-info-sign"></span></a>
+                        <a href="/ReadVehicleServlet?vehicleId=<%=((Vehicle) vehicle).getId()%>&action=viewprofile"><span class="glyphicon glyphicon-info-sign"></span></a>
                     </td>
                 </tr>
                 <%}%>

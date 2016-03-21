@@ -11,6 +11,7 @@
 </head>
 <body>
 <%@include file="../menu.jsp" %>
+<div class="container-fluid">
 <%
     boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
@@ -19,8 +20,7 @@
     if (isAdminLoggedIn) {
         if (!(personToUpdate == null)) {
 %>
-<div class="container-fluid">
-    <form role="form" action="/UpdatePersonServlet" method="POST">
+    <form id="updateform" role="form" action="/UpdatePersonServlet" method="POST">
         <div class="form-group">
             <input type="text" class="form-control" name="person-name" value="<%=personToUpdate.getName()%>" placeholder="Name">
         </div>
@@ -52,9 +52,10 @@
         <a href="persons-edit-delete.jsp"><button type="button" class="btn btn-danger">Cancel</button></a>
         <input type="hidden" name="personid" value="<%=personToUpdate.getId()%>">
     </form>
-</div>
 <%} else {%>
 <h1>Go to <a href="persons-edit-delete.jsp">person list</a> and choose person to update.</h1>
 <%}} else {%><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
+</div>
+<script src="../js/updateform.js"></script>
 </body>
 </html>

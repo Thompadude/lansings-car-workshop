@@ -2,6 +2,7 @@ package nu.lansingcarworkshop.servlets.person;
 
 import nu.lansingcarworkshop.models.person.ContactInformation;
 import nu.lansingcarworkshop.models.person.Person;
+import nu.lansingcarworkshop.models.person.Role;
 import nu.lansingcarworkshop.models.person.Sex;
 import nu.lansingcarworkshop.services.person.ReadPerson;
 import nu.lansingcarworkshop.services.person.UpdatePerson;
@@ -23,6 +24,7 @@ public class UpdatePersonServlet extends HttpServlet {
     private String name;
     private ContactInformation contactInformation;
     private LocalDate birthday;
+    private Role role;
     private Sex sex;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +36,7 @@ public class UpdatePersonServlet extends HttpServlet {
 
         initializeVariablesFromPostRequest(request);
 
-        setNewAttributes(request);
+        setNewAttributes();
 
         UpdatePerson updatePerson = new UpdatePerson();
         updatePerson.updatePerson(personWithUpdatedAttributes);
@@ -52,14 +54,15 @@ public class UpdatePersonServlet extends HttpServlet {
         String birthdayString = request.getParameter("person-birthday");
         birthday = LocalDate.parse(birthdayString);
         sex = personAttributeBuilder.createSex(request);
+        role = personAttributeBuilder.createRole(request);
     }
 
-    private void setNewAttributes(HttpServletRequest request) {
+    private void setNewAttributes() {
         personWithUpdatedAttributes.setName(name);
         personWithUpdatedAttributes.setContactInformation(contactInformation);
         personWithUpdatedAttributes.setBirthdate(birthday);
         personWithUpdatedAttributes.setSex(sex);
-        personAttributeBuilder.changeRole(personWithUpdatedAttributes, request);
+        personAttributeBuilder.changeRole(personWithUpdatedAttributes, role);
     }
 
 }

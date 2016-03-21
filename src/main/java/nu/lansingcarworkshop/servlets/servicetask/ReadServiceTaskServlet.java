@@ -1,5 +1,6 @@
 package nu.lansingcarworkshop.servlets.servicetask;
 
+import nu.lansingcarworkshop.servlets.helpers.GetRedirectUrl;
 import nu.lansingcarworkshop.servlets.helpers.SetContextAttributes;
 
 import javax.servlet.ServletException;
@@ -41,19 +42,9 @@ public class ReadServiceTaskServlet extends HttpServlet {
     }
 
     private void redirectToCorrectJsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        switch (action) {
-            case "listservicetasks":
-                response.sendRedirect(request.getContextPath() + "/servicetask/servicetask-list.jsp");
-                break;
-            case "viewprofile":
-                response.sendRedirect(request.getContextPath() + "/servicetask/servicetask-profile.jsp");
-                break;
-            case "updateprofile":
-                response.sendRedirect(request.getContextPath() + "/servicetask/servicetask-update.jsp");
-                break;
-            default:
-                response.sendRedirect(request.getContextPath() + "login.jsp");
-        }
+        GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
+        String redirectUrl = getRedirectUrl.getReadServiceTaskServletRedirectUrl(action, request);
+        response.sendRedirect(redirectUrl);
     }
 
 }

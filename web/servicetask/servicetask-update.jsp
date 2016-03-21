@@ -10,6 +10,7 @@
 </head>
 <body>
 <%@include file="../menu.jsp" %>
+<div class="container-fluid">
 <%
     boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
@@ -19,8 +20,7 @@
     if (isAdminLoggedIn) {
         if (!(serviceTaskToUpdate == null)) {
 %>
-<div class="container-fluid">
-    <form role="form" action="/UpdateServiceTaskServlet" method="POST">
+    <form id="updateform" role="form" action="/UpdateServiceTaskServlet" method="POST">
         <form role="form">
             <div class="form-group">
                 <label for="service-time">Service Date</label>
@@ -44,9 +44,10 @@
             <input type="hidden" name="servicetaskid" value="<%=serviceTaskToUpdate.getId()%>">
         </form>
     </form>
-<%}} else {%>
+<%} else {%>
 <h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1>
-<%}%>
+<%}} else {%><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
 </div>
+<script src="../js/updateform.js"></script>
 </body>
 </html>

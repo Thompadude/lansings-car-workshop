@@ -8,6 +8,7 @@
 </head>
 <body>
 <%@include file="../menu.jsp" %>
+<div class="container-fluid">
 <%
     boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
@@ -16,8 +17,7 @@
     if (isAdminLoggedIn) {
         if (!(vehicleToUpdate == null)) {
 %>
-<div class="container-fluid">
-    <form role="form" action="/UpdateVehicleServlet" method="POST">
+    <form id="updateform" role="form" action="/UpdateVehicleServlet" method="POST">
         <div class="form-group">
             <input type="text" class="form-control" name="vehicle-registrationplate"
                    value="<%=vehicleToUpdate.getRegistrationPlate()%>">
@@ -42,12 +42,9 @@
         </a>
         <input type="hidden" name="vehicleid" value="<%=vehicleToUpdate.getId()%>">
     </form>
-</div>
 <%} else {%>
 <h1>No vehicle choosen. <a href="/ReadVehicleServlet?action=listvehicles">Go back</a> to list of vehicles</h1>
-<%
-    }
-} else {
-%><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
+<%}} else {%><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
+</div>
 </body>
 </html>

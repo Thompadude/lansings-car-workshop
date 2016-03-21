@@ -31,10 +31,9 @@ public class PersonAttributeBuilder {
         return null;
     }
 
-    public void changeRole(Person personToUpdate, HttpServletRequest request) {
+    public void changeRole(Person personToUpdate, Role role) {
         if (personToUpdate instanceof Employee) {
-            String roleString = request.getParameter("person-role");
-            if (roleString.equals("technician")) {
+            if (role == Role.TECHNICIAN) {
                 ((Employee) personToUpdate).setRole(Role.TECHNICIAN);
             } else {
                 ((Employee) personToUpdate).setRole(Role.SPECIALIST);

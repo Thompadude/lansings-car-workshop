@@ -26,8 +26,6 @@ public class CreateVehicleServlet extends HttpServlet {
         initializeVariablesFromPostRequest(request);
 
         createAndAddCarToDatabase();
-
-        response.getWriter().print(" created.");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,7 +41,7 @@ public class CreateVehicleServlet extends HttpServlet {
     }
 
     private void createAndAddCarToDatabase() {
-        //TODO add more methods for other types of vehicles.
+        //TODO (optional) add more methods for other types of vehicles.
         Vehicle newVehicle = new Car(registrationPlate, make, modelYear, fuel);
         CreateVehicle createVehicle = new CreateVehicle();
         createVehicle.createVehicle(newVehicle, customerId);

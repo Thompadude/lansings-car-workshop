@@ -57,7 +57,7 @@
         }
     } else {
     %>
-    <h1>No services booked. <a href="../vehicle/vehicles-list.jsp">Go back to list of vehicles.</a></h1>
+    <h1>No services booked. <a href="/ReadVehicleServlet?action=listvehicles">Go back to list of vehicles.</a></h1>
     <%}%>
 </table>
 <script src="../js/servicetask-delete.js"></script>

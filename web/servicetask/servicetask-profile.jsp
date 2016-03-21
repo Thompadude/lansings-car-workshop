@@ -27,7 +27,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Vehicle Owner</div>
                 <div class="panel-body">
-                    <a href="/ReadPersonServlet?personId=<%=serviceTask.getVehicle().getCustomer().getId()%>&action=viewprofile">
+                    <a href="/ReadPersonServlet?personId=<%=serviceTask.getCustomer().getId()%>&action=viewprofile">
                     <%=serviceTask.getVehicle().getCustomer().getName()%>
                     </a>
                 </div>
