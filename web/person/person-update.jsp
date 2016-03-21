@@ -39,12 +39,8 @@
         </div>
         <%if (personToUpdate instanceof Employee) {%>
         <div class="form-group">
-            <label><input type="radio" name="person-role"
-                          value="technician"<%if(((Employee)personToUpdate).getRole() == Role.TECHNICIAN) {%>
-                          checked="checked"<%}%>> Technician</label>
-            <label><input type="radio" name="person-role"
-                          value="specialist"<%if (((Employee)personToUpdate).getRole() == Role.SPECIALIST) {%>
-                          checked="checked"<%}%>> Specialist</label>
+            <label><input type="radio" name="person-role" value="technician"<%if(((Employee)personToUpdate).getRole() == Role.TECHNICIAN) {%> checked="checked"<%}%>> Technician</label>
+            <label><input type="radio" name="person-role" value="specialist"<%if (((Employee)personToUpdate).getRole() == Role.SPECIALIST) {%> checked="checked"<%}%>> Specialist</label>
         </div>
         <%}%>
         <button type="submit" class="btn btn-success" value="submit">Update</button>

@@ -18,14 +18,21 @@ public class ReadServiceTaskServlet extends HttpServlet {
     private String action;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         action = request.getParameter("action");
 
+        isActionsSuccessfullyExecuted = checkUserActionAndReactAccordingly(request);
+
+        redirectToCorrectJsp(request, response);
+    }
+
+    private boolean checkUserActionAndReactAccordingly(HttpServletRequest request) {
         if (action.equalsIgnoreCase("listservicetasks")) {
-            isActionsSuccessfullyExecuted = setContextAttributes.setServiceTasksList(getServletContext());
+            isActionsSuccessfullyExecuted = setContextAttributes.setServiceTasksLists(getServletContext());
+        } else if (action.equalsIgnoreCase("listupcomingservicetasks")) {
+            isActionsSuccessfullyExecuted = setContextAttributes.setUpcomingServiceTasksLists(getServletContext());
         } else {
             String serviceTaskId = request.getParameter("serviceTaskId");
             isActionsSuccessfullyExecuted = setContextAttributes.setCurrentServiceTask(getServletContext(), serviceTaskId);
@@ -33,18 +40,17 @@ public class ReadServiceTaskServlet extends HttpServlet {
                 setContextAttributes.setEmployeeList(getServletContext());
             }
         }
-
-        if (isActionsSuccessfullyExecuted) {
-            redirectToCorrectJsp(request, response);
-        } else {
-            //TODO redirect to error page.
-        }
+        return isActionsSuccessfullyExecuted;
     }
 
     private void redirectToCorrectJsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
-        String redirectUrl = getRedirectUrl.getReadServiceTaskServletRedirectUrl(action, request);
-        response.sendRedirect(redirectUrl);
+        if (isActionsSuccessfullyExecuted) {
+            GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
+            String redirectUrl = getRedirectUrl.getReadServiceTaskServletRedirectUrl(action, request);
+            response.sendRedirect(redirectUrl);
+        } else {
+            response.sendRedirect(getServletContext().getContextPath() + "/error.jsp");
+        }
     }
 
 }

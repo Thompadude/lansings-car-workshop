@@ -15,12 +15,23 @@ public class ReadServiceTask {
         return entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s ORDER BY s.time").getResultList();
     }
 
+    public List getTodaysServiceTasks() {
+        return entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s WHERE FUNCTION('DAY', s.time) = FUNCTION('DAY', CURRENT_DATE)").getResultList();
+    }
+
+    public List getThisMonthsServiceTasks() {
+        return entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s WHERE FUNCTION('MONTH', s.time) = FUNCTION('MONTH', CURRENT_DATE)").getResultList();
+    }
+
+    public List getNextMonthsServiceTasks() {
+        return entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s WHERE FUNCTION('MONTH', s.time) = (FUNCTION('MONTH', CURRENT_DATE) + 1)").getResultList();
+    }
+
     public ServiceTask getServiceTaskById(int serviceTaskId) {
         return entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceTaskId);
     }
 
     public List getAllServiceTasksByCarId(int vehicleId) {
-        //TODO (optional) add more methods for other types of vehicles.
         queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT s FROM ServiceTask s WHERE s.vehicle.id = :id");
         queryResponse.setParameter("id", vehicleId);
         return queryResponse.getResultList();

@@ -18,7 +18,6 @@ public class ReadVehicleServlet extends HttpServlet {
     private String action;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,11 +25,7 @@ public class ReadVehicleServlet extends HttpServlet {
 
         isActionsSuccessfullyExecuted = checkUserActionAndReactAccordingly(request);
 
-        if (isActionsSuccessfullyExecuted) {
-            redirectToCorrectJsp(request, response);
-        } else {
-            //TODO redirect to error page.
-        }
+        redirectToCorrectJsp(request, response);
     }
 
     private boolean checkUserActionAndReactAccordingly(HttpServletRequest request) {
@@ -48,9 +43,13 @@ public class ReadVehicleServlet extends HttpServlet {
     }
 
     private void redirectToCorrectJsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
-        String redirectUrl = getRedirectUrl.getReadVehicleServletRedirectUrl(action, request);
-        response.sendRedirect(redirectUrl);
+        if (isActionsSuccessfullyExecuted) {
+            GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
+            String redirectUrl = getRedirectUrl.getReadVehicleServletRedirectUrl(action, request);
+            response.sendRedirect(redirectUrl);
+        } else {
+            response.sendRedirect(getServletContext().getContextPath() + "/error.jsp");
+        }
     }
 
 }

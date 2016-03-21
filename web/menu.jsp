@@ -36,9 +36,7 @@
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/ReadServiceTaskServlet?action=listservicetasks">List</a></li>
-                    <%if (isAdminMenuEnabled) {%>
-                    <li><a href="#">Today's Appointments</a></li>
-                    <%}%>
+                    <li><a href="/ReadServiceTaskServlet?action=listupcomingservicetasks">Upcoming Appointments</a></li>
                 </ul>
             </li>
         </ul>

@@ -8,6 +8,8 @@
     <title>LCW &mdash; Create Service Task</title>
 </head>
 <body>
+<%@include file="../menu.jsp" %>
+<div class="container-fluid">
 <%
     boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
@@ -16,8 +18,6 @@
 
     if (isAdminLoggedIn) {
 %>
-<%@include file="../menu.jsp" %>
-<div class="container-fluid">
     <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Service</h1><br>
 
     <form role="form">

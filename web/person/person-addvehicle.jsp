@@ -8,15 +8,13 @@
 </head>
 <body>
 <%@include file="../menu.jsp" %>
-
+<div class="container-fluid">
 <%
     boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
 
     if (isAdminLoggedIn) {
         Customer customer = (Customer) getServletConfig().getServletContext().getAttribute("currentPerson");
 %>
-
-<div class="container-fluid">
     <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Vehicle to <%=customer.getName()%></h1><br>
 
     <form role="form">

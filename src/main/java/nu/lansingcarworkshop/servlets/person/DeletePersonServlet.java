@@ -23,7 +23,7 @@ public class DeletePersonServlet extends HttpServlet {
         if (isDeletePersonInquired && isAdminLoggedIn) {
             DeletePerson deletePerson = new DeletePerson();
             deletePerson.deletePersonById(personId);
-            setContextAttributes.setServiceTasksList(getServletContext());
+            setContextAttributes.setServiceTasksLists(getServletContext());
         }
 
         response.sendRedirect("/ReadPersonServlet?&action=listpersons");

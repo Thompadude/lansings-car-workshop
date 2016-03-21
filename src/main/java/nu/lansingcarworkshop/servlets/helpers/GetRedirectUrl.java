@@ -19,7 +19,7 @@ public class GetRedirectUrl {
             case "updateprofile":
                 return baseUrl + "/person/person-update.jsp";
             default:
-                return baseUrl + "/login.jsp";
+                return baseUrl + "/error.jsp";
         }
     }
 
@@ -33,8 +33,10 @@ public class GetRedirectUrl {
                 return baseUrl + "/servicetask/servicetask-profile.jsp";
             case "updateprofile":
                 return baseUrl + "/servicetask/servicetask-update.jsp";
+            case "listupcomingservicetasks":
+                return baseUrl + "/servicetask/servicetask-upcoming-list.jsp";
             default:
-                return baseUrl + "/login.jsp";
+                return baseUrl + "/error.jsp";
         }
     }
 
@@ -51,7 +53,7 @@ public class GetRedirectUrl {
             case "createservicetask":
                 return baseUrl + "/servicetask/servicetask-create.jsp";
             default:
-                return baseUrl + "/login.jsp";
+                return baseUrl + "/error.jsp";
         }
     }
 

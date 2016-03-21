@@ -25,11 +25,7 @@ public class ReadPersonServlet extends HttpServlet {
 
         isActionsSuccessfullyExecuted = checkUserActionAndReactAccordingly(request);
 
-        if (isActionsSuccessfullyExecuted) {
-            redirectToCorrectJsp(request, response);
-        } else {
-            //TODO redirect to error page.
-        }
+        redirectToCorrectJsp(request, response);
     }
 
     private boolean checkUserActionAndReactAccordingly(HttpServletRequest request) {
@@ -43,9 +39,13 @@ public class ReadPersonServlet extends HttpServlet {
     }
 
     private void redirectToCorrectJsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
-        String redirectUrl = getRedirectUrl.getReadPersonServletRedirectUrl(action, request);
-        response.sendRedirect(redirectUrl);
+        if (isActionsSuccessfullyExecuted) {
+            GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
+            String redirectUrl = getRedirectUrl.getReadPersonServletRedirectUrl(action, request);
+            response.sendRedirect(redirectUrl);
+        } else {
+            response.sendRedirect(getServletContext().getContextPath() + "/error.jsp");
+        }
     }
 
 }

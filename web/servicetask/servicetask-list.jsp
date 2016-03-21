@@ -10,6 +10,8 @@
 <body>
 <%@include file="../menu.jsp" %>
 <%
+    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
+
     List serviceTasks = (List) getServletConfig().getServletContext().getAttribute("listOfServiceTasks");
 
     if (serviceTasks.size() > 0 && serviceTasks != null) {
@@ -23,9 +25,9 @@
         <th>Vehicle Owner</th>
         <th>Responsible Technician</th>
         <th>Estimated Start Date</th>
-        <th>Update</th>
+        <%if(isAdminLoggedIn){%><th>Update</th><%}%>
         <th>Info</th>
-        <th>Remove</th>
+        <%if(isAdminLoggedIn){%><th>Remove</th><%}%>
     </tr>
     </thead>
     <%
@@ -48,15 +50,12 @@
             <%}%>
         </td>
         <td><%=serviceTaskToDisplay.getAppointmentTime()%></td>
-        <td><a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTaskToDisplay.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <%if(isAdminLoggedIn){%><td><a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTaskToDisplay.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a></td><%}%>
         <td><a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTaskToDisplay.getId()%>&action=viewprofile"><span class="glyphicon glyphicon-info-sign"></span></a></td>
-        <td><a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=serviceTaskToDisplay.getId()%>"></span></a></td>
+        <%if(isAdminLoggedIn){%><td><a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=serviceTaskToDisplay.getId()%>"></span></a></td><%}%>
     </tr>
     </tbody>
-    <%
-        }
-    } else {
-    %>
+    <%}}else{%>
     <h1>No services booked. <a href="/ReadVehicleServlet?action=listvehicles">Go back to list of vehicles.</a></h1>
     <%}%>
 </table>

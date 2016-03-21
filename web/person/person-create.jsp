@@ -6,14 +6,13 @@
     <title>LCW &mdash; Create Person</title>
 </head>
 <body>
-
 <%@include file="../menu.jsp" %>
+<div class="container-fluid">
 
 <%
     boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
     if (isAdminLoggedIn) {
 %>
-<div class="container-fluid">
     <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Person</h1><br>
 
     <form role="form">

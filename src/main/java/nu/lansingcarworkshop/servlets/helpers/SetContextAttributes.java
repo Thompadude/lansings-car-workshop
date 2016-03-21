@@ -102,17 +102,34 @@ public class SetContextAttributes {
         return isAttributeSetSuccessfully;
     }
 
-    public boolean setServiceTasksList(ServletContext servletContext) {
+    public boolean setServiceTasksLists(ServletContext servletContext) {
         boolean isAttributeSetSuccessfully = false;
 
         ReadServiceTask readServiceTask = new ReadServiceTask();
-        List serviceTasks = readServiceTask.getAllServiceTasks();
 
-        if (serviceTasks != null) {
-            servletContext.setAttribute("listOfServiceTasks", serviceTasks);
+        List allServiceTasks = readServiceTask.getAllServiceTasks();
+
+        if (allServiceTasks != null) {
+            servletContext.setAttribute("listOfServiceTasks", allServiceTasks);
             isAttributeSetSuccessfully = true;
         }
 
+        return isAttributeSetSuccessfully;
+    }
+
+    public boolean setUpcomingServiceTasksLists(ServletContext servletContext) {
+        boolean isAttributeSetSuccessfully = false;
+
+        ReadServiceTask readServiceTask = new ReadServiceTask();
+
+        List todaysServiceTasks = readServiceTask.getTodaysServiceTasks();
+        List nextMonthsServiceTasks = readServiceTask.getNextMonthsServiceTasks();
+
+        if (todaysServiceTasks != null && nextMonthsServiceTasks != null) {
+            servletContext.setAttribute("listOfTodaysServiceTasks", todaysServiceTasks);
+            servletContext.setAttribute("listOfNextMonthsServiceTasks", nextMonthsServiceTasks);
+            isAttributeSetSuccessfully = true;
+        }
         return isAttributeSetSuccessfully;
     }
 
