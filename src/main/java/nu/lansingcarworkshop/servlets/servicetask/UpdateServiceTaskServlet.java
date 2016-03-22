@@ -2,11 +2,9 @@ package nu.lansingcarworkshop.servlets.servicetask;
 
 import nu.lansingcarworkshop.models.person.Employee;
 import nu.lansingcarworkshop.models.servicetask.ServiceTask;
-import nu.lansingcarworkshop.models.vehicle.Vehicle;
 import nu.lansingcarworkshop.services.person.ReadPerson;
 import nu.lansingcarworkshop.services.servicetask.ReadServiceTask;
 import nu.lansingcarworkshop.services.servicetask.UpdateServiceTask;
-import nu.lansingcarworkshop.services.vehicle.ReadVehicle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,13 +20,14 @@ public class UpdateServiceTaskServlet extends HttpServlet {
     private Employee responsibleEmployee;
     private LocalDateTime time;
     private ServiceTask serviceTaskWithUpdatedAttributes;
-    private String note;
-    private Vehicle vehicleInService;
+    private String action, note;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
+        action = request.getParameter("action");
         int serviceTaskId = Integer.parseInt(request.getParameter("servicetaskid"));
+
         ReadServiceTask readServiceTask = new ReadServiceTask();
         serviceTaskWithUpdatedAttributes = readServiceTask.getServiceTaskById(serviceTaskId);
 
@@ -47,9 +46,11 @@ public class UpdateServiceTaskServlet extends HttpServlet {
     }
 
     private void initializeVariablesFromPostRequest(HttpServletRequest request) {
-        time = LocalDateTime.parse(request.getParameter("service-time"));
-        note = request.getParameter("service-note");
-        initializeEmployee(request);
+        if (action.equalsIgnoreCase("update")) {
+            time = LocalDateTime.parse(request.getParameter("service-time"));
+            note = request.getParameter("service-note");
+            initializeEmployee(request);
+        }
     }
 
     private void initializeEmployee(HttpServletRequest request) {
@@ -58,9 +59,21 @@ public class UpdateServiceTaskServlet extends HttpServlet {
     }
 
     private void setNewAttributes() {
-        serviceTaskWithUpdatedAttributes.setResponsibleEmployee(responsibleEmployee);
-        serviceTaskWithUpdatedAttributes.setTime(time);
-        serviceTaskWithUpdatedAttributes.setNote(note);
+        if (action.equalsIgnoreCase("update")) {
+            serviceTaskWithUpdatedAttributes.setResponsibleEmployee(responsibleEmployee);
+            serviceTaskWithUpdatedAttributes.setTime(time);
+            serviceTaskWithUpdatedAttributes.setNote(note);
+        } else if (action.equalsIgnoreCase("togglecompletion")) {
+            toggleServiceTaskCompletion();
+        }
+    }
+
+    private void toggleServiceTaskCompletion() {
+        if (!serviceTaskWithUpdatedAttributes.isCompleted()) {
+            serviceTaskWithUpdatedAttributes.setCompleted(true);
+        } else {
+            serviceTaskWithUpdatedAttributes.setCompleted(false);
+        }
     }
 
 }

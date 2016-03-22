@@ -30,19 +30,15 @@ public class SetContextAttributes {
         return isAttributeSetSuccessfully;
     }
 
-    /**
-     * Set the context employee list. Is successful - set the customer employee list as well.
-     *
-     * @param servletContext the web context to update.
-     * @return true if both actions is successful.
-     */
     public boolean setPersonList(ServletContext servletContext) {
-        boolean isAttributeSetSuccessfully;
+        boolean isAttributeSetSuccessfully = false;
 
-        isAttributeSetSuccessfully = setEmployeeList(servletContext);
+        ReadPerson readPerson = new ReadPerson();
+        List persons = readPerson.getAllPersons();
 
-        if (isAttributeSetSuccessfully) {
-            isAttributeSetSuccessfully = setCustomerList(servletContext);
+        if (persons != null) {
+            servletContext.setAttribute("listOfPersons", persons);
+            isAttributeSetSuccessfully = true;
         }
 
         return isAttributeSetSuccessfully;
@@ -98,7 +94,7 @@ public class SetContextAttributes {
         boolean isAttributeSetSuccessfully = false;
 
         ReadVehicle readVehicle = new ReadVehicle();
-        List vehicles = readVehicle.getAllCars();
+        List vehicles = readVehicle.getAllVehicles();
 
         if (vehicles != null) {
             servletContext.setAttribute("listOfVehicles", vehicles);
@@ -176,7 +172,7 @@ public class SetContextAttributes {
         boolean isAttributeSetSuccessfully = false;
 
         ReadVehicle readVehicle = new ReadVehicle();
-        List vehicles = readVehicle.getAllCarsByCustomerId(currentPerson.getId());
+        List vehicles = readVehicle.getAllVehiclesByCustomerId(currentPerson.getId());
         servletContext.setAttribute("currentPersonsVehicles", vehicles);
 
         if (servletContext.getAttribute("currentPersonsVehicles") != null) {

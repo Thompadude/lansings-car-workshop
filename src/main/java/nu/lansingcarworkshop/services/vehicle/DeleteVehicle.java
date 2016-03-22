@@ -27,7 +27,7 @@ public class DeleteVehicle {
         //TODO (optional) add more delete queries for other types of vehicles.
 
         @SuppressWarnings("unchecked")
-        List<Vehicle> vehicles = readVehicle.getAllCarsByCustomerId(customerId);
+        List<Vehicle> vehicles = readVehicle.getAllVehiclesByCustomerId(customerId);
 
         deleteListOfVehicles(entityManagerCoordinator.getEntityManager(), vehicles);
 

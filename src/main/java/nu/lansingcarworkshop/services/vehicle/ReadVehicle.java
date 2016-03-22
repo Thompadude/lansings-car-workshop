@@ -14,12 +14,12 @@ public class ReadVehicle {
         return entityManagerCoordinator.getEntityManager().find(Vehicle.class, vehicleId);
     }
 
-    public List getAllCars() {
-        return entityManagerCoordinator.getEntityManager().createQuery("SELECT c FROM Car c ORDER BY c.customer.id").getResultList();
+    public List getAllVehicles() {
+        return entityManagerCoordinator.getEntityManager().createQuery("SELECT v FROM Vehicle v").getResultList();
     }
 
-    public List getAllCarsByCustomerId(int customerId) {
-        Query query = entityManagerCoordinator.getEntityManager().createQuery("SELECT car FROM Car car JOIN Customer cus ON car.customer.id = cus.id WHERE cus.id = :id");
+    public List getAllVehiclesByCustomerId(int customerId) {
+        Query query = entityManagerCoordinator.getEntityManager().createQuery("SELECT v FROM Vehicle v WHERE v.customer.id = :id");
         query.setParameter("id", customerId);
         return query.getResultList();
     }

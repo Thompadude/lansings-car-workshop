@@ -18,7 +18,7 @@
         if (isAdminLoggedIn) {
             if (!(serviceTaskToUpdate == null)) {
     %>
-    <form id="updateform" role="form" action="/UpdateServiceTaskServlet" method="POST">
+    <form id="updateform" role="form" action="/UpdateServiceTaskServlet?action=update" method="POST">
         <form role="form">
             <div class="form-group">
                 <label for="service-time">Service Date</label>

@@ -37,7 +37,8 @@ public class ReadPersonServlet extends HttpServlet {
      */
     private boolean checkUserActionAndReactAccordingly(HttpServletRequest request) {
         if (action.equalsIgnoreCase("listpersons")) {
-            isActionsSuccessfullyExecuted = setContextAttributes.setPersonList(getServletContext());
+            isActionsSuccessfullyExecuted = setContextAttributes.setEmployeeList(getServletContext());
+            isActionsSuccessfullyExecuted = setContextAttributes.setCustomerList(getServletContext());
         } else {
             String personId = request.getParameter("personId");
             isActionsSuccessfullyExecuted = setContextAttributes.setCurrentPerson(getServletContext(), personId);

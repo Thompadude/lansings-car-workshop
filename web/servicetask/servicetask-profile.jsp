@@ -19,6 +19,9 @@
             &nbsp;
             <a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTask.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a>
             <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=serviceTask.getId()%>"></span></a>
+            <br>
+            <br>
+            <button type="button" class="btn btn-default" id="togglecompletion">Toggle Completion</button>
             <%}%>
         </small>
     </h1>
@@ -80,15 +83,29 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Notes</div>
                 <div class="panel-body"><%=serviceTask.getNote()%>
                 </div>
             </div>
         </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Status</div>
+                <div class="panel-body">
+                    <%if (serviceTask.isCompleted()) {%>
+                    <span class="iscompleted">Completed</span>
+                    <%} else {%>
+                    <span class="iscompleted">Not completed</span>
+                    <%}%>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<input type="hidden" name="servicetaskid" value="<%=serviceTask.getId()%>">
 <script src="../js/servicetask-delete.js"></script>
+<script src="../js/servicetask-tooglestatus.js"></script>
 </body>
 </html>
