@@ -11,8 +11,6 @@
 <body>
 <%@include file="../menu.jsp" %>
 <%
-    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
-
     Vehicle vehicleToDisplay = (Vehicle) getServletConfig().getServletContext().getAttribute("currentVehicle");
     List serviceTasks = (List) getServletConfig().getServletContext().getAttribute("listOfServiceTasks");
 %>
@@ -22,10 +20,8 @@
         <small><%=vehicleToDisplay.getId()%>
             <%if (isAdminLoggedIn) {%>
             &nbsp;
-            <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=createservicetask"><span
-                    class="glyphicon glyphicon-wrench"></span></a>
-            <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=updateprofile"><span
-                    class="glyphicon glyphicon-edit"></span></a>
+            <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=createservicetask"><span class="glyphicon glyphicon-wrench"></span></a>
+            <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a>
             <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=vehicleToDisplay.getId()%>"></span></a>
             <%}%>
         </small>
@@ -36,7 +32,8 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">Owner</div>
-                <div class="panel-body"><a href="/ReadPersonServlet?personId=<%=vehicleToDisplay.getCustomer().getId()%>&action=viewprofile"><%=vehicleToDisplay.getCustomer().getName()%></a></div>
+                <div class="panel-body"><a href="/ReadPersonServlet?personId=<%=vehicleToDisplay.getCustomer().getId()%>&action=viewprofile"><%=vehicleToDisplay.getCustomer().getName()%>
+                </a></div>
             </div>
         </div>
     </div>
@@ -44,13 +41,15 @@
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Registration Plate</div>
-                <div class="panel-body"><%=vehicleToDisplay.getRegistrationPlate()%></div>
+                <div class="panel-body"><%=vehicleToDisplay.getRegistrationPlate()%>
+                </div>
             </div>
         </div>
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Make</div>
-                <div class="panel-body"><%=vehicleToDisplay.getMake()%></div>
+                <div class="panel-body"><%=vehicleToDisplay.getMake()%>
+                </div>
             </div>
         </div>
     </div>
@@ -58,13 +57,15 @@
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Model Year</div>
-                <div class="panel-body"><%=vehicleToDisplay.getModelYear().getYear()%></div>
+                <div class="panel-body"><%=vehicleToDisplay.getModelYear().getYear()%>
+                </div>
             </div>
         </div>
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Fuel Type</div>
-                <div class="panel-body"><%=vehicleToDisplay.getFuel()%></div>
+                <div class="panel-body"><%=vehicleToDisplay.getFuel()%>
+                </div>
             </div>
         </div>
     </div>
@@ -82,7 +83,7 @@
                 <tbody>
                 <%
                     for (Object serviceTask : serviceTasks) {
-                    ServiceTask serviceTaskToDisplay = ((ServiceTask) serviceTask);
+                        ServiceTask serviceTaskToDisplay = ((ServiceTask) serviceTask);
                 %>
                 <tr>
                     <td><%=serviceTaskToDisplay.getAppointmentTime()%>

@@ -10,14 +10,12 @@
 <body>
 <%@include file="../menu.jsp" %>
 <div class="container-fluid">
-<%
-    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
+    <%
+        Vehicle vehicle = (Vehicle) getServletConfig().getServletContext().getAttribute("currentVehicle");
+        List employees = (List) getServletConfig().getServletContext().getAttribute("listOfEmployees");
 
-    Vehicle vehicle = (Vehicle) getServletConfig().getServletContext().getAttribute("currentVehicle");
-    List employees = (List) getServletConfig().getServletContext().getAttribute("listOfEmployees");
-
-    if (isAdminLoggedIn) {
-%>
+        if (isAdminLoggedIn) {
+    %>
     <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Service</h1><br>
 
     <form role="form">
@@ -44,9 +42,9 @@
     </form>
 
     <p id="feedback"></p>
-<%}else{%>
-<h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1>
-<%}%>
+    <%} else {%>
+    <h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1>
+    <%}%>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="../js/servicetask-create.js"></script>

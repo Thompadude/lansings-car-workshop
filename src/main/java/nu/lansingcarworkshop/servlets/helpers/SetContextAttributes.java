@@ -30,6 +30,12 @@ public class SetContextAttributes {
         return isAttributeSetSuccessfully;
     }
 
+    /**
+     * Set the context employee list. Is successful - set the customer employee list as well.
+     *
+     * @param servletContext the web context to update.
+     * @return true if both actions is successful.
+     */
     public boolean setPersonList(ServletContext servletContext) {
         boolean isAttributeSetSuccessfully;
 
@@ -52,8 +58,8 @@ public class SetContextAttributes {
             servletContext.setAttribute("listOfCustomers", customers);
             isAttributeSetSuccessfully = true;
         }
-        return isAttributeSetSuccessfully;
 
+        return isAttributeSetSuccessfully;
     }
 
     public boolean setEmployeeList(ServletContext servletContext) {
@@ -106,7 +112,6 @@ public class SetContextAttributes {
         boolean isAttributeSetSuccessfully = false;
 
         ReadServiceTask readServiceTask = new ReadServiceTask();
-
         List allServiceTasks = readServiceTask.getAllServiceTasks();
 
         if (allServiceTasks != null) {
@@ -117,6 +122,7 @@ public class SetContextAttributes {
         return isAttributeSetSuccessfully;
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean setUpcomingServiceTasksLists(ServletContext servletContext) {
         boolean isAttributeSetSuccessfully = false;
 
@@ -130,6 +136,7 @@ public class SetContextAttributes {
             servletContext.setAttribute("listOfNextMonthsServiceTasks", nextMonthsServiceTasks);
             isAttributeSetSuccessfully = true;
         }
+
         return isAttributeSetSuccessfully;
     }
 

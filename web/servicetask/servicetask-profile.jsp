@@ -15,9 +15,11 @@
     <h1>
         Service Task
         <small><%=serviceTask.getId()%>
+            <%if (isAdminLoggedIn) {%>
             &nbsp;
             <a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTask.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a>
             <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=serviceTask.getId()%>"></span></a>
+            <%}%>
         </small>
     </h1>
     <br>
@@ -28,7 +30,7 @@
                 <div class="panel-heading">Vehicle Owner</div>
                 <div class="panel-body">
                     <a href="/ReadPersonServlet?personId=<%=serviceTask.getCustomer().getId()%>&action=viewprofile">
-                    <%=serviceTask.getVehicle().getCustomer().getName()%>
+                        <%=serviceTask.getVehicle().getCustomer().getName()%>
                     </a>
                 </div>
             </div>

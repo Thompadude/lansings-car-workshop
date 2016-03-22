@@ -12,14 +12,12 @@
 <body>
 <%@include file="../menu.jsp" %>
 <div class="container-fluid">
-<%
-    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
+    <%
+        Person personToUpdate = (Person) getServletConfig().getServletContext().getAttribute("currentPerson");
 
-    Person personToUpdate = (Person) getServletConfig().getServletContext().getAttribute("currentPerson");
-
-    if (isAdminLoggedIn) {
-        if (!(personToUpdate == null)) {
-%>
+        if (isAdminLoggedIn) {
+            if (!(personToUpdate == null)) {
+    %>
     <form id="updateform" role="form" action="/UpdatePersonServlet" method="POST">
         <div class="form-group">
             <input type="text" class="form-control" name="person-name" value="<%=personToUpdate.getName()%>" placeholder="Name">
@@ -27,7 +25,7 @@
         <div class="form-group">
             <input type="text" class="form-control" name="person-address" value="<%=personToUpdate.getContactInformation().getAddress()%>" placeholder="Address">
         </div>
-        <div class="form-group"> <input type="tel" class="form-control" name="person-phone" value="<%=personToUpdate.getContactInformation().getPhonenumber()%>" placeholder="Phone">
+        <div class="form-group"><input type="tel" class="form-control" name="person-phone" value="<%=personToUpdate.getContactInformation().getPhonenumber()%>" placeholder="Phone">
         </div>
         <div class="form-group">
             <label for="date">Birthday</label>
@@ -45,12 +43,17 @@
         <%}%>
         <button type="submit" class="btn btn-success" value="submit">Update</button>
         <button type="reset" class="btn btn-danger">Reset</button>
-        <a href="persons-edit-delete.jsp"><button type="button" class="btn btn-danger">Cancel</button></a>
+        <a href="persons-edit-delete.jsp">
+            <button type="button" class="btn btn-danger">Cancel</button>
+        </a>
         <input type="hidden" name="personid" value="<%=personToUpdate.getId()%>">
     </form>
-<%} else {%>
-<h1>Go to <a href="persons-edit-delete.jsp">person list</a> and choose person to update.</h1>
-<%}} else {%><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
+    <%} else {%>
+    <h1>Go to <a href="persons-edit-delete.jsp">person list</a> and choose person to update.</h1>
+    <%
+        }
+    } else {
+    %><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
 </div>
 <script src="../js/updateform.js"></script>
 </body>

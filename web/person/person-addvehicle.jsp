@@ -9,13 +9,14 @@
 <body>
 <%@include file="../menu.jsp" %>
 <div class="container-fluid">
-<%
-    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
-
-    if (isAdminLoggedIn) {
-        Customer customer = (Customer) getServletConfig().getServletContext().getAttribute("currentPerson");
-%>
-    <h1><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Vehicle to <%=customer.getName()%></h1><br>
+    <%
+        if (isAdminLoggedIn) {
+            Customer customer = (Customer) getServletConfig().getServletContext().getAttribute("currentPerson");
+    %>
+    <h1>
+        <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;Add Vehicle to <%=customer.getName()%>
+    </h1>
+    <br>
 
     <form role="form">
         <div class="form-group">
@@ -36,7 +37,6 @@
         <button type="reset" class="btn btn-danger">Reset</button>
         <input type="hidden" name="customerid" value="<%=customer.getId()%>">
     </form>
-
     <p id="feedback"></p>
     <%} else {%><h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1><%}%>
 </div>

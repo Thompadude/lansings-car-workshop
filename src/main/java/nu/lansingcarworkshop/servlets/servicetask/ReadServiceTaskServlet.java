@@ -28,10 +28,16 @@ public class ReadServiceTaskServlet extends HttpServlet {
         redirectToCorrectJsp(request, response);
     }
 
+    /**
+     * If the user do not request a list of service tasks the user has requested to view a profile.
+     * Update the correct context.
+     *
+     * @param request the request from the client.
+     * @return true if action is successfully executed.
+     */
     private boolean checkUserActionAndReactAccordingly(HttpServletRequest request) {
-        if (action.equalsIgnoreCase("listservicetasks")) {
+        if (action.equalsIgnoreCase("listservicetasks") || action.equalsIgnoreCase("listupcomingservicetasks")) {
             isActionsSuccessfullyExecuted = setContextAttributes.setServiceTasksLists(getServletContext());
-        } else if (action.equalsIgnoreCase("listupcomingservicetasks")) {
             isActionsSuccessfullyExecuted = setContextAttributes.setUpcomingServiceTasksLists(getServletContext());
         } else {
             String serviceTaskId = request.getParameter("serviceTaskId");

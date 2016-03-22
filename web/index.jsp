@@ -7,5 +7,8 @@
 </head>
 <body>
 <%@include file="menu.jsp"%>
+<div class="container">
+    <img class="img-responsive" src="images/banner.jpg" alt="Banner">
+</div>
 </body>
 </html>

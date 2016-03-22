@@ -28,6 +28,13 @@ public class ReadPersonServlet extends HttpServlet {
         redirectToCorrectJsp(request, response);
     }
 
+    /**
+     * If the user do not request a list of persons the user has requested to view a profile.
+     * Update the correct context.
+     *
+     * @param request the request from the client.
+     * @return true if action is successfully executed.
+     */
     private boolean checkUserActionAndReactAccordingly(HttpServletRequest request) {
         if (action.equalsIgnoreCase("listpersons")) {
             isActionsSuccessfullyExecuted = setContextAttributes.setPersonList(getServletContext());

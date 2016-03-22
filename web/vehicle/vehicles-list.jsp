@@ -10,8 +10,6 @@
 <body>
 <%@include file="../menu.jsp" %>
 <%
-    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
-
     List vehicles = (List) getServletConfig().getServletContext().getAttribute("listOfVehicles");
     if (vehicles.size() > 0 && vehicles != null) {
 %>
@@ -22,29 +20,40 @@
         <th>Make</th>
         <th>Registration Plate</th>
         <th>Owner</th>
-        <%if (isAdminLoggedIn) {%><th>Book Service</th><%}%>
+        <%if (isAdminLoggedIn) {%>
+        <th>Book Service</th>
+        <%}%>
         <th>View Details</th>
-        <%if (isAdminLoggedIn) {%><th>Remove</th><%}%>
+        <%if (isAdminLoggedIn) {%>
+        <th>Remove</th>
+        <%}%>
     </tr>
     </thead>
     <%
         for (Object vehicleToDisplay : vehicles) {
-        Vehicle vehicle = ((Vehicle) vehicleToDisplay);
+            Vehicle vehicle = ((Vehicle) vehicleToDisplay);
     %>
     <tbody>
     <tr id="entry-<%=vehicle.getId()%>">
-        <td><%=vehicle.getMake()%></td>
-        <td><%=vehicle.getRegistrationPlate()%></td>
-        <td><a href="/ReadPersonServlet?personId=<%=vehicle.getCustomer().getId()%>&action=viewprofile"><%=vehicle.getCustomer().getName()%></a></td>
-        <%if (isAdminLoggedIn) {%><td><a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=createservicetask"><span class="glyphicon glyphicon-wrench"></span></a></td><%}%>
-        <td><a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=viewprofile"><span class="glyphicon glyphicon-info-sign"></span></a></td>
+        <td><%=vehicle.getMake()%>
+        </td>
+        <td><%=vehicle.getRegistrationPlate()%>
+        </td>
+        <td>
+            <a href="/ReadPersonServlet?personId=<%=vehicle.getCustomer().getId()%>&action=viewprofile"><%=vehicle.getCustomer().getName()%>
+            </a>
+        </td>
         <%if (isAdminLoggedIn) {%>
         <td>
-            <a href="#">
-                <span class="glyphicon glyphicon-remove">
-                    <input type="hidden" value="<%=vehicle.getId()%>">
-                </span>
-            </a>
+            <a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=createservicetask"><span class="glyphicon glyphicon-wrench"></span></a>
+        </td>
+        <%}%>
+        <td>
+            <a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=viewprofile"><span class="glyphicon glyphicon-info-sign"></span></a>
+        </td>
+        <%if (isAdminLoggedIn) {%>
+        <td>
+            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=vehicle.getId()%>"></span></a>
         </td>
         <%}%>
     </tr>

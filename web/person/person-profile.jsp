@@ -15,8 +15,6 @@
 <body>
 <%@include file="../menu.jsp" %>
 <%
-    boolean isAdminLoggedIn = (boolean) session.getAttribute("isAdminLoggedIn");
-
     Person currentPerson = (Person) getServletConfig().getServletContext().getAttribute("currentPerson");
     List currentPersonsVehicles = (List) getServletConfig().getServletContext().getAttribute("currentPersonsVehicles");
 
@@ -29,8 +27,12 @@
         <small><%=currentPerson.getId()%>
             <%if (isAdminLoggedIn) {%>
             &nbsp;
-            <a href="/ReadPersonServlet?personId=<%=currentPerson.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a>
-            <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=currentPerson.getId()%>"></span></a>
+            <a href="/ReadPersonServlet?personId=<%=currentPerson.getId()%>&action=updateprofile">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            <a href="#"><span class="glyphicon glyphicon-remove">
+                <input type="hidden" value="<%=currentPerson.getId()%>"></span>
+            </a>
             <%}%>
         </small>
     </h1>
@@ -82,16 +84,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <%for (Object vehicle : currentPersonsVehicles) {%>
+                <%
+                    for (Object vehicle : currentPersonsVehicles) {
+                        Vehicle vehicleToDisplay = (Vehicle) vehicle;
+                %>
                 <tr>
                     <td>
-                        <%=((Vehicle) vehicle).getMake()%>
+                        <%=vehicleToDisplay.getMake()%>
                     </td>
                     <td>
-                        <%=((Vehicle) vehicle).getRegistrationPlate()%>
+                        <%=vehicleToDisplay.getRegistrationPlate()%>
                     </td>
                     <td>
-                        <a href="/ReadVehicleServlet?vehicleId=<%=((Vehicle) vehicle).getId()%>&action=viewprofile"><span class="glyphicon glyphicon-info-sign"></span></a>
+                        <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=viewprofile">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </a>
                     </td>
                 </tr>
                 <%}%>
@@ -99,17 +106,20 @@
             </table>
         </div>
     </div>
-    <%} else {%>
+    <%
+    } else {
+        Employee employee = (Employee) currentPerson;
+    %>
     <div class="row">
         <div class="col-lg-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Company Role</div>
-                <div class="panel-body"><%=((Employee) currentPerson).getRoleFormatted()%></div>
+                <div class="panel-body"><%=employee.getRoleFormatted()%>
+                </div>
             </div>
         </div>
     </div>
     <%}%>
-</div>
 </div>
 <script src="../js/person-delete.js"></script>
 </body>
