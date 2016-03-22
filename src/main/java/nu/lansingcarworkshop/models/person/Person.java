@@ -14,13 +14,10 @@ public abstract class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     @Enumerated(EnumType.ORDINAL)
     private Sex sex;
-
     @Embedded
     private ContactInformation contactInformation;
-
     private LocalDate birthdate;
     private String name;
 

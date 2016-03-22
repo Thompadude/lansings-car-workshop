@@ -13,22 +13,16 @@ import java.time.format.DateTimeFormatter;
 @Table
 public class ServiceTask implements Serializable {
 
-    @OneToMany
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     private LocalDateTime time;
     private String note;
     private boolean isCompleted;
-
     @OneToOne
     private Employee responsibleEmployee;
-
     @OneToOne
     private Customer customer;
-
     @OneToOne
     private Vehicle vehicle;
 

@@ -19,30 +19,37 @@ public class DeletePerson {
 
         Person person = entityManagerCoordinator.getEntityManager().find(Person.class, personId);
 
-        removeSubObjects(personId, person);
+        removeSubsequentObjectsFromPerson(personId, person);
 
         entityManagerCoordinator.getEntityManager().remove(person);
 
         entityManagerCoordinator.commitTransactionAndCloseDatabase();
     }
 
-    private void removeSubObjects(int personId, Person person) {
+    private void removeSubsequentObjectsFromPerson(int personId, Person person) {
         if (person instanceof Customer) {
             removeSubObjectsFromCustomer(personId);
         } else {
-            removeEmployeeFromServiceTask(personId);
+            removeEmployeeFromServiceTasks(personId);
         }
     }
 
     private void removeSubObjectsFromCustomer(int personId) {
-        DeleteVehicle deleteVehicle = new DeleteVehicle();
-        deleteVehicle.deleteAllVehiclesFromCustomer(personId);
+        removeCustomerVehicles(personId);
+        removeCustomerServiceTasks(personId);
+    }
 
+    private void removeCustomerServiceTasks(int personId) {
         DeleteServiceTask deleteServiceTask = new DeleteServiceTask();
         deleteServiceTask.deleteAllServiceTasksFromCustomer(personId);
     }
 
-    private void removeEmployeeFromServiceTask(int personId) {
+    private void removeCustomerVehicles(int personId) {
+        DeleteVehicle deleteVehicle = new DeleteVehicle();
+        deleteVehicle.deleteAllVehiclesFromCustomer(personId);
+    }
+
+    private void removeEmployeeFromServiceTasks(int personId) {
         @SuppressWarnings("unchecked")
         List<ServiceTask> serviceTasks = getServiceTasks(personId);
 

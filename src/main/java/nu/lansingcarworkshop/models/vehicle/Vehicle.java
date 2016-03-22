@@ -16,10 +16,8 @@ public abstract class Vehicle implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
     @ManyToOne
     private Customer customer;
-
     private String registrationPlate, make, fuel;
     private LocalDate modelYear;
 

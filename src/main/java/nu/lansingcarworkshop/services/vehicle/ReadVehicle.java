@@ -19,7 +19,7 @@ public class ReadVehicle {
     }
 
     public List getAllCarsByCustomerId(int customerId) {
-        Query query = entityManagerCoordinator.getEntityManager().createQuery("SELECT car FROM Car car JOIN Customer cus ON car.customer.id = cus.id WHERE cus.id LIKE :id");
+        Query query = entityManagerCoordinator.getEntityManager().createQuery("SELECT car FROM Car car JOIN Customer cus ON car.customer.id = cus.id WHERE cus.id = :id");
         query.setParameter("id", customerId);
         return query.getResultList();
     }

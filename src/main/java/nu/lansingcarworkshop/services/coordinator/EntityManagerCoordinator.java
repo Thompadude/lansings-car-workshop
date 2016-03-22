@@ -6,6 +6,7 @@ import javax.persistence.Persistence;
 
 public class EntityManagerCoordinator {
 
+    @SuppressWarnings("SpellCheckingInspection")
     private static final String DATABASE_URL = "carworkshop";
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;

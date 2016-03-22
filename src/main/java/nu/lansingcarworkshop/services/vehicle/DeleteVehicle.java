@@ -2,7 +2,6 @@ package nu.lansingcarworkshop.services.vehicle;
 
 import nu.lansingcarworkshop.models.vehicle.Vehicle;
 import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
-import nu.lansingcarworkshop.services.servicetask.DeleteServiceTask;
 
 import javax.persistence.EntityManager;
 import java.util.List;
