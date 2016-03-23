@@ -22,7 +22,7 @@ public class DeleteVehicleServlet extends HttpServlet {
             deleteVehicle.deleteVehicleById(vehicleId);
         }
 
-        response.sendRedirect("/ReadVehicleServlet?&action=listvehicles");
+        response.sendRedirect("/ReadVehicleServlet?&action=list-vehicles");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

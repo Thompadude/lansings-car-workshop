@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/stylesheet.css">
     <title>LCW &mdash; Welcome</title>
-    <style>
-        .img-responsive {
-            margin: 0 auto;
-        }
-    </style>
 </head>
 <body>
 <%@include file="menu.jsp" %>
-<div class="container">
-    <br>
-    <br>
-    <br>
+<div class="container-fluid">
+    <% if (!isAdminLoggedIn) {%>
+    <div class="alert alert-info">
+        You are logged in as a guest. You only have read rights.
+    </div>
+    <%}%>
     <img class="img-responsive" src="images/banner.jpg" alt="Banner">
 </div>
 <script src="js/index.js"></script>

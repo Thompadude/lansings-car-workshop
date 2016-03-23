@@ -17,7 +17,7 @@
         <small><%=serviceTask.getId()%>
             <%if (isAdminLoggedIn) {%>
             &nbsp;
-            <a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTask.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a>
+            <a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTask.getId()%>&action=update-service-task"><span class="glyphicon glyphicon-edit"></span></a>
             <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=serviceTask.getId()%>"></span></a>
             <br>
             <br>
@@ -32,7 +32,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Vehicle Owner</div>
                 <div class="panel-body">
-                    <a href="/ReadPersonServlet?personId=<%=serviceTask.getCustomer().getId()%>&action=viewprofile">
+                    <a href="/ReadPersonServlet?personId=<%=serviceTask.getCustomer().getId()%>&action=view-person-profile">
                         <%=serviceTask.getVehicle().getCustomer().getName()%>
                     </a>
                 </div>
@@ -44,7 +44,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Registration Plate</div>
                 <div class="panel-body">
-                    <a href="/ReadVehicleServlet?vehicleId=<%=serviceTask.getVehicle().getId()%>&action=viewprofile">
+                    <a href="/ReadVehicleServlet?vehicleId=<%=serviceTask.getVehicle().getId()%>&action=view-vehicle">
                         <%=serviceTask.getVehicle().getRegistrationPlate()%>
                     </a>
                 </div>
@@ -64,7 +64,7 @@
                 <div class="panel-heading">Responsible Technician</div>
                 <div class="panel-body">
                     <%if (serviceTask.getResponsibleEmployee() != null) {%>
-                    <a href="/ReadPersonServlet?personId=<%=serviceTask.getResponsibleEmployee().getId()%>&action=viewprofile">
+                    <a href="/ReadPersonServlet?personId=<%=serviceTask.getResponsibleEmployee().getId()%>&action=view-person-profile">
                         <%=serviceTask.getResponsibleEmployee().getName()%>
                     </a>
                     <%} else {%>

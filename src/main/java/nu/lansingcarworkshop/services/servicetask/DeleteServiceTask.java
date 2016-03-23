@@ -8,6 +8,8 @@ import java.util.List;
 public class DeleteServiceTask {
 
     private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private ReadServiceTask readServiceTask = new ReadServiceTask();
+    private List serviceTasks;
 
     public void deleteServiceTaskById(int serviceTaskId) {
         entityManagerCoordinator.beginTransaction();
@@ -22,10 +24,20 @@ public class DeleteServiceTask {
     public void deleteAllServiceTasksFromCustomer(int customerId) {
         entityManagerCoordinator.beginTransaction();
 
-        ReadServiceTask readServiceTask = new ReadServiceTask();
-        @SuppressWarnings("unchecked")
-        List<ServiceTask> serviceTasks = readServiceTask.getAllServiceTasksByCustomerId(customerId);
+        serviceTasks = readServiceTask.getAllServiceTasksByCustomerId(customerId);
 
+        //noinspection unchecked
+        removeListOfServiceTasks(serviceTasks);
+
+        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+    }
+
+    public void deleteAllServiceTasksFromVehicle(int vehicleId) {
+        entityManagerCoordinator.beginTransaction();
+
+        serviceTasks = readServiceTask.getAllServiceTasksByVehicleId(vehicleId);
+
+        //noinspection unchecked
         removeListOfServiceTasks(serviceTasks);
 
         entityManagerCoordinator.commitTransactionAndCloseDatabase();

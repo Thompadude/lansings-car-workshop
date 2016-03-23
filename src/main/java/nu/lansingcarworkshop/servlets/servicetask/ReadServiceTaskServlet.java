@@ -2,6 +2,7 @@ package nu.lansingcarworkshop.servlets.servicetask;
 
 import nu.lansingcarworkshop.servlets.helpers.GetRedirectUrl;
 import nu.lansingcarworkshop.servlets.helpers.SetContextAttributes;
+import nu.lansingcarworkshop.servlets.helpers.UserActions;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,49 +14,68 @@ import java.io.IOException;
 @WebServlet(name = "ReadServiceTaskServlet")
 public class ReadServiceTaskServlet extends HttpServlet {
 
-    private boolean isActionsSuccessfullyExecuted;
+    private boolean actionsSuccessful;
     private SetContextAttributes setContextAttributes = new SetContextAttributes();
-    private String action;
+    private UserActions userAction;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        action = request.getParameter("action");
+        setUserAction(request.getParameter("action"));
 
-        isActionsSuccessfullyExecuted = checkUserActionAndReactAccordingly(request);
+        actionsSuccessful = checkUserActionAndReactAccordingly(request);
 
         redirectToCorrectJsp(request, response);
     }
 
-    /**
-     * If the user do not request a list of service tasks the user has requested to view a profile.
-     * Update the correct context.
-     *
-     * @param request the request from the client.
-     * @return true if action is successfully executed.
-     */
     private boolean checkUserActionAndReactAccordingly(HttpServletRequest request) {
-        if (action.equalsIgnoreCase("listservicetasks") || action.equalsIgnoreCase("listupcomingservicetasks")) {
-            isActionsSuccessfullyExecuted = setContextAttributes.setServiceTasksLists(getServletContext());
-            isActionsSuccessfullyExecuted = setContextAttributes.setUpcomingServiceTasksLists(getServletContext());
+        if (userAction == UserActions.VIEWSERVICETASKLIST || userAction == UserActions.VIEWUPCOMINGSERVICETASKS) {
+            setServiceTaskLists();
         } else {
-            String serviceTaskId = request.getParameter("serviceTaskId");
-            isActionsSuccessfullyExecuted = setContextAttributes.setCurrentServiceTask(getServletContext(), serviceTaskId);
-            if (action.equalsIgnoreCase("updateprofile") && isActionsSuccessfullyExecuted) {
+            setCurrentServiceTask(request);
+            if (userAction == UserActions.UPDATESERVICETASK && actionsSuccessful) {
                 setContextAttributes.setEmployeeList(getServletContext());
             }
         }
-        return isActionsSuccessfullyExecuted;
+        return actionsSuccessful;
+    }
+
+    private boolean setServiceTaskLists() {
+        actionsSuccessful = setContextAttributes.setServiceTasksLists(getServletContext());
+        actionsSuccessful = setContextAttributes.setUpcomingServiceTasksLists(getServletContext());
+        return actionsSuccessful;
+    }
+
+    private boolean setCurrentServiceTask(HttpServletRequest request) {
+        String serviceTaskId = request.getParameter("serviceTaskId");
+        actionsSuccessful = setContextAttributes.setCurrentServiceTask(getServletContext(), serviceTaskId);
+        return actionsSuccessful;
     }
 
     private void redirectToCorrectJsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (isActionsSuccessfullyExecuted) {
-            GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
-            String redirectUrl = getRedirectUrl.getReadServiceTaskServletRedirectUrl(action, request);
-            response.sendRedirect(redirectUrl);
+        if (actionsSuccessful) {
+            redirectToCorrectJspWhenActionsIsSuccessful(request, response);
         } else {
             response.sendRedirect(getServletContext().getContextPath() + "/error.jsp");
+        }
+    }
+
+    private void redirectToCorrectJspWhenActionsIsSuccessful(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
+        String redirectUrl = getRedirectUrl.getRedirectUrl(userAction, request);
+        response.sendRedirect(redirectUrl);
+    }
+
+    public void setUserAction(String action) {
+        if (action.equalsIgnoreCase("list-service-tasks")) {
+            this.userAction = UserActions.VIEWSERVICETASKLIST;
+        } else if (action.equalsIgnoreCase("view-service-task-profile")) {
+            this.userAction = UserActions.VIEWSERVICETASK;
+        } else if (action.equalsIgnoreCase("update-service-task")) {
+            this.userAction = UserActions.UPDATESERVICETASK;
+        } else if (action.equalsIgnoreCase("list-upcoming-service-tasks")) {
+            this.userAction = UserActions.VIEWUPCOMINGSERVICETASKS;
         }
     }
 

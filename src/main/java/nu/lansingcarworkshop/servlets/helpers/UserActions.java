@@ -1,0 +1,19 @@
+package nu.lansingcarworkshop.servlets.helpers;
+
+@SuppressWarnings("SpellCheckingInspection")
+public enum UserActions {
+
+    VIEWPERSON,
+    VIEWPERSONLIST,
+    UPDATEPERSON,
+    ADDVEHICLETOPERSON,
+    VIEWVEHICLE,
+    VIEWVEHICLELIST,
+    UPDATEVEHICLE,
+    CREATESERVICETASK,
+    VIEWSERVICETASK,
+    VIEWSERVICETASKLIST,
+    VIEWUPCOMINGSERVICETASKS,
+    UPDATESERVICETASK
+
+}

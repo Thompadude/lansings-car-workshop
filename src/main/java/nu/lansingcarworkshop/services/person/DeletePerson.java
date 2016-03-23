@@ -28,13 +28,13 @@ public class DeletePerson {
 
     private void removeSubsequentObjectsFromPerson(int personId, Person person) {
         if (person instanceof Customer) {
-            removeSubObjectsFromCustomer(personId);
+            removeSubsequentObjectsFromCustomer(personId);
         } else {
             removeEmployeeFromServiceTasks(personId);
         }
     }
 
-    private void removeSubObjectsFromCustomer(int personId) {
+    private void removeSubsequentObjectsFromCustomer(int personId) {
         removeCustomerVehicles(personId);
         removeCustomerServiceTasks(personId);
     }

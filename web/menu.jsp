@@ -23,14 +23,14 @@
                         <%if (isAdminLoggedIn) {%>
                         <li><a href="<%=request.getContextPath()%>/person/person-create.jsp">Create</a></li>
                         <%}%>
-                        <li><a href="/ReadPersonServlet?action=listpersons">List</a></li>
+                        <li><a href="/ReadPersonServlet?action=list-persons">List</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">Vehicle
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/ReadVehicleServlet?action=listvehicles">List</a></li>
+                        <li><a href="/ReadVehicleServlet?action=list-vehicles">List</a></li>
                         <%if (isAdminLoggedIn) {%>
                         <li><a href="#">Statistics</a></li>
                         <%}%>
@@ -40,8 +40,8 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">Service
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/ReadServiceTaskServlet?action=listservicetasks">List</a></li>
-                        <li><a href="/ReadServiceTaskServlet?action=listupcomingservicetasks">Upcoming Appointments</a></li>
+                        <li><a href="/ReadServiceTaskServlet?action=list-service-tasks">List</a></li>
+                        <li><a href="/ReadServiceTaskServlet?action=list-upcoming-service-tasks">Upcoming Appointments</a></li>
                     </ul>
                 </li>
             </ul>

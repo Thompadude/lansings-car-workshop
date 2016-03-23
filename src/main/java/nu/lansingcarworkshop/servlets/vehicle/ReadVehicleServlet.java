@@ -2,6 +2,7 @@ package nu.lansingcarworkshop.servlets.vehicle;
 
 import nu.lansingcarworkshop.servlets.helpers.GetRedirectUrl;
 import nu.lansingcarworkshop.servlets.helpers.SetContextAttributes;
+import nu.lansingcarworkshop.servlets.helpers.UserActions;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,49 +14,63 @@ import java.io.IOException;
 @WebServlet(name = "ReadVehicleServlet")
 public class ReadVehicleServlet extends HttpServlet {
 
-    private boolean isActionsSuccessfullyExecuted;
+    private boolean actionsSuccessful;
     private SetContextAttributes setContextAttributes = new SetContextAttributes();
-    private String action;
+    private UserActions userAction;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        action = request.getParameter("action");
+        setUserAction(request.getParameter("action"));
 
-        isActionsSuccessfullyExecuted = checkUserActionAndReactAccordingly(request);
+        actionsSuccessful = checkUserActionAndSetContext(request);
 
         redirectToCorrectJsp(request, response);
     }
 
-    /**
-     * If the user do not request a list of vehicles the user has requested to view a profile.
-     * Update the correct context.
-     *
-     * @param request the request from the client.
-     * @return true if action is successfully executed.
-     */
-    private boolean checkUserActionAndReactAccordingly(HttpServletRequest request) {
-        if (action.equalsIgnoreCase("listvehicles")) {
-            isActionsSuccessfullyExecuted = setContextAttributes.setVehicleList(getServletContext());
+    private boolean checkUserActionAndSetContext(HttpServletRequest request) {
+        if (userAction == UserActions.VIEWVEHICLELIST) {
+            actionsSuccessful = setContextAttributes.setVehicleList(getServletContext());
         } else {
-            String vehicleId = request.getParameter("vehicleId");
-            isActionsSuccessfullyExecuted = setContextAttributes.setCurrentVehicle(getServletContext(), vehicleId);
-            isActionsSuccessfullyExecuted = setContextAttributes.setServiceTasksListByVehicle(getServletContext(), vehicleId);
-            if (action.equalsIgnoreCase("createservicetask") && isActionsSuccessfullyExecuted) {
-                isActionsSuccessfullyExecuted = setContextAttributes.setEmployeeList(getServletContext());
+            actionsSuccessful = setCurrentVehicleAndThatVehiclesServiceTasks(request);
+            if (userAction == UserActions.CREATESERVICETASK && actionsSuccessful) {
+                actionsSuccessful = setContextAttributes.setEmployeeList(getServletContext());
             }
         }
-        return isActionsSuccessfullyExecuted;
+        return actionsSuccessful;
+    }
+
+    private boolean setCurrentVehicleAndThatVehiclesServiceTasks(HttpServletRequest request) {
+        String vehicleId = request.getParameter("vehicleId");
+        actionsSuccessful = setContextAttributes.setCurrentVehicle(getServletContext(), vehicleId);
+        actionsSuccessful = setContextAttributes.setServiceTasksListByVehicle(getServletContext(), vehicleId);
+        return actionsSuccessful;
     }
 
     private void redirectToCorrectJsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (isActionsSuccessfullyExecuted) {
-            GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
-            String redirectUrl = getRedirectUrl.getReadVehicleServletRedirectUrl(action, request);
-            response.sendRedirect(redirectUrl);
+        if (actionsSuccessful) {
+            redirectToCorrectJspWhenActionsIsSuccessful(request, response);
         } else {
             response.sendRedirect(getServletContext().getContextPath() + "/error.jsp");
+        }
+    }
+
+    private void redirectToCorrectJspWhenActionsIsSuccessful(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
+        String redirectUrl = getRedirectUrl.getRedirectUrl(userAction, request);
+        response.sendRedirect(redirectUrl);
+    }
+
+    public void setUserAction(String action) {
+        if (action.equalsIgnoreCase("list-vehicles")) {
+            this.userAction = UserActions.VIEWVEHICLELIST;
+        } else if (action.equalsIgnoreCase("view-vehicle")) {
+            this.userAction = UserActions.VIEWVEHICLE;
+        } else if (action.equalsIgnoreCase("update-vehicle")) {
+            this.userAction = UserActions.UPDATEVEHICLE;
+        } else if (action.equalsIgnoreCase("create-service-task")) {
+            this.userAction = UserActions.CREATESERVICETASK;
         }
     }
 

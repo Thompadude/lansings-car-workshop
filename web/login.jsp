@@ -6,14 +6,15 @@
     <title>LCW &mdash; LOGIN</title>
 </head>
 <body>
-<div class="container">
-    <h1><span class="glyphicon glyphicon-wrench"></span> Lansing's Car Workshop Login</h1>
+<div class="container-fluid">
+    <h1><span class="glyphicon glyphicon-wrench"></span> Lansing's Car Workshop</h1>
     <br>
     <br>
-    <form role="form">
+
+    <form class="form-inline" role="form">
         <div class="form-group">
             <label for="username">
-                <input id="username" class="form-control" type="text" placeholder="User">
+                <input id="username" class="form-control" type="text" placeholder="User Name">
             </label>
             <label for="password">
                 <input id="password" class="form-control" type="password" placeholder="Password">
@@ -24,9 +25,15 @@
     <br>
     <br>
 
-    <p>admin/admin for admin login.</p>
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="alert alert-info">
+                <p>admin/admin for admin login.</p>
 
-    <p>Any user name/password for guest login.</p>
+                <p>Any user name/password for guest login.</p>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="js/login.js"></script>

@@ -37,7 +37,7 @@
         <input type="hidden" name="vehicleid" value="<%=vehicleToUpdate.getId()%>">
     </form>
     <%} else {%>
-    <h1>No vehicle choosen. <a href="/ReadVehicleServlet?action=listvehicles">Go back</a> to list of vehicles</h1>
+    <h1>No vehicle choosen. <a href="/ReadVehicleServlet?action=list-vehicles">Go back</a> to list of vehicles</h1>
     <%
         }
     } else {

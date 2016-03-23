@@ -13,60 +13,65 @@
     List vehicles = (List) getServletConfig().getServletContext().getAttribute("listOfVehicles");
     if (vehicles.size() > 0 && vehicles != null) {
 %>
-<h1>All Vehicles</h1>
+<div class="container-fluid">
+    <h1>All Vehicles</h1>
 
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Make</th>
-            <th>Registration Plate</th>
-            <th>Owner</th>
-            <%if (isAdminLoggedIn) {%>
-            <th>Book Service</th>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Make</th>
+                <th>Registration Plate</th>
+                <th>Owner</th>
+                <%if (isAdminLoggedIn) {%>
+                <th>Book Service</th>
+                <%}%>
+                <th>View Details</th>
+                <%if (isAdminLoggedIn) {%>
+                <th>Remove</th>
+                <%}%>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                for (Object vehicleToDisplay : vehicles) {
+                    Vehicle vehicle = ((Vehicle) vehicleToDisplay);
+            %>
+            <tr id="entry-<%=vehicle.getId()%>">
+                <td><%=vehicle.getMake()%>
+                </td>
+                <td><%=vehicle.getRegistrationPlate()%>
+                </td>
+                <td>
+                    <a href="/ReadPersonServlet?personId=<%=vehicle.getCustomer().getId()%>&action=view-person-profile"><%=vehicle.getCustomer().getName()%>
+                    </a>
+                </td>
+                <%if (isAdminLoggedIn) {%>
+                <td>
+                    <a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=create-service-task"><span class="glyphicon glyphicon-wrench"></span></a>
+                </td>
+                <%}%>
+                <td>
+                    <a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=view-vehicle"><span class="glyphicon glyphicon-info-sign"></span></a>
+                </td>
+                <%if (isAdminLoggedIn) {%>
+                <td>
+                    <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=vehicle.getId()%>"></span></a>
+                </td>
+                <%}%>
+            </tr>
+            <%
+                }
+            } else {
+            %>
+            </tbody>
+            <h1>No vehicles added. <a href="/ReadPersonServlet?action=list-persons">Go back to list of persons.</a></h1>
             <%}%>
-            <th>View Details</th>
-            <%if (isAdminLoggedIn) {%>
-            <th>Remove</th>
-            <%}%>
-        </tr>
-        </thead>
-        <tbody>
-        <%
-            for (Object vehicleToDisplay : vehicles) {
-                Vehicle vehicle = ((Vehicle) vehicleToDisplay);
-        %>
-        <tr id="entry-<%=vehicle.getId()%>">
-            <td><%=vehicle.getMake()%>
-            </td>
-            <td><%=vehicle.getRegistrationPlate()%>
-            </td>
-            <td>
-                <a href="/ReadPersonServlet?personId=<%=vehicle.getCustomer().getId()%>&action=viewprofile"><%=vehicle.getCustomer().getName()%>
-                </a>
-            </td>
-            <%if (isAdminLoggedIn) {%>
-            <td>
-                <a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=createservicetask"><span class="glyphicon glyphicon-wrench"></span></a>
-            </td>
-            <%}%>
-            <td>
-                <a href="/ReadVehicleServlet?vehicleId=<%=vehicle.getId()%>&action=viewprofile"><span class="glyphicon glyphicon-info-sign"></span></a>
-            </td>
-            <%if (isAdminLoggedIn) {%>
-            <td>
-                <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=vehicle.getId()%>"></span></a>
-            </td>
-            <%}%>
-        </tr>
-        <%
-            }
-        } else {
-        %>
-        </tbody>
-        <h1>No vehicles added. <a href="/ReadPersonServlet?action=listpersons">Go back to list of persons.</a></h1>
-        <%}%>
-    </table>
+        </table>
+    </div>
+    <%if (isAdminLoggedIn) {%>
+    <div class="alert alert-warning">Removing a vehicle will also remove all linked service tasks.</div>
+    <%}%>
 </div>
 <script src="../js/vehicle-delete.js"></script>
 </body>

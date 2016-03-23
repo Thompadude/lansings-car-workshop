@@ -41,7 +41,7 @@ public class UpdatePersonServlet extends HttpServlet {
         UpdatePerson updatePerson = new UpdatePerson();
         updatePerson.updatePerson(personWithUpdatedAttributes);
 
-        response.sendRedirect("/ReadPersonServlet?personId=" + personWithUpdatedAttributes.getId() + "&action=viewprofile");
+        response.sendRedirect("/ReadPersonServlet?personId=" + personWithUpdatedAttributes.getId() + "&action=view-person-profile");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

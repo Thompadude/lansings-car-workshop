@@ -38,7 +38,7 @@ public class UpdateServiceTaskServlet extends HttpServlet {
         UpdateServiceTask updateServiceTask = new UpdateServiceTask();
         updateServiceTask.updateServiceTask(serviceTaskWithUpdatedAttributes);
 
-        response.sendRedirect("/ReadServiceTaskServlet?serviceTaskId=" + serviceTaskWithUpdatedAttributes.getId() + "&action=viewprofile");
+        response.sendRedirect("/ReadServiceTaskServlet?serviceTaskId=" + serviceTaskWithUpdatedAttributes.getId() + "&action=view-service-task-profile");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

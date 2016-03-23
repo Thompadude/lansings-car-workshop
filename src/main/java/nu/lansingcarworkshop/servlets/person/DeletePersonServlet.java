@@ -26,7 +26,7 @@ public class DeletePersonServlet extends HttpServlet {
             setContextAttributes.setServiceTasksLists(getServletContext());
         }
 
-        response.sendRedirect("/ReadPersonServlet?&action=listpersons");
+        response.sendRedirect("/ReadPersonServlet?&action=list-persons");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -20,8 +20,8 @@
         <small><%=vehicleToDisplay.getId()%>
             <%if (isAdminLoggedIn) {%>
             &nbsp;
-            <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=createservicetask"><span class="glyphicon glyphicon-wrench"></span></a>
-            <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=updateprofile"><span class="glyphicon glyphicon-edit"></span></a>
+            <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=create-service-task"><span class="glyphicon glyphicon-wrench"></span></a>
+            <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=update-vehicle"><span class="glyphicon glyphicon-edit"></span></a>
             <a href="#"><span class="glyphicon glyphicon-remove"><input type="hidden" value="<%=vehicleToDisplay.getId()%>"></span></a>
             <%}%>
         </small>
@@ -32,7 +32,7 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">Owner</div>
-                <div class="panel-body"><a href="/ReadPersonServlet?personId=<%=vehicleToDisplay.getCustomer().getId()%>&action=viewprofile"><%=vehicleToDisplay.getCustomer().getName()%>
+                <div class="panel-body"><a href="/ReadPersonServlet?personId=<%=vehicleToDisplay.getCustomer().getId()%>&action=view-person-profile"><%=vehicleToDisplay.getCustomer().getName()%>
                 </a></div>
             </div>
         </div>
@@ -71,6 +71,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
+            <%if (serviceTasks.size() > 0) {%>
             <h1>Services Booked</h1>
             <table class="table table-striped">
                 <thead>
@@ -87,15 +88,23 @@
                 %>
                 <tr>
                     <td><%=serviceTaskToDisplay.getAppointmentTime()%>
-                    </td>
                     <td>
-                        <a href="/ReadPersonServlet?personId=<%=((ServiceTask) serviceTask).getResponsibleEmployee().getId()%>"><%=serviceTaskToDisplay.getResponsibleEmployee().getName()%>
+                        <%if (serviceTaskToDisplay.getResponsibleEmployee() != null) {%>
+                        <a href="/ReadPersonServlet?personId=<%=serviceTaskToDisplay.getResponsibleEmployee().getId()%>&action=view-person-profile"><%=serviceTaskToDisplay.getResponsibleEmployee().getName()%>
                         </a>
+                        <%} else {%>
+                        No one assigned
+                        <%}%>
                     </td>
                     <td>
-                        <a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTaskToDisplay.getId()%>&action=viewprofile"><span class="glyphicon glyphicon-info-sign"></span></a></td>
+                        <a href="/ReadServiceTaskServlet?serviceTaskId=<%=serviceTaskToDisplay.getId()%>&action=view-service-task-profile"><span class="glyphicon glyphicon-info-sign"></span></a></td>
                     <td>
                 </tr>
+                <%
+                    }
+                } else {
+                %>
+                <h3>No services planned.</h3>
                 <%}%>
                 </tbody>
             </table>

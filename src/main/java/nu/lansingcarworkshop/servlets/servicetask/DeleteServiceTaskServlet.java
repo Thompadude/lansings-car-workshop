@@ -27,7 +27,7 @@ public class DeleteServiceTaskServlet extends HttpServlet {
             deleteServiceTask.deleteServiceTaskById(serviceTaskId);
         }
 
-        response.sendRedirect("/ReadServiceTaskServlet?&action=listservicetasks");
+        response.sendRedirect("/ReadServiceTaskServlet?&action=list-service-tasks");
     }
 
 }

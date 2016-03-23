@@ -2,6 +2,7 @@ package nu.lansingcarworkshop.services.vehicle;
 
 import nu.lansingcarworkshop.models.vehicle.Vehicle;
 import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.servicetask.DeleteServiceTask;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -14,6 +15,9 @@ public class DeleteVehicle {
         entityManagerCoordinator.beginTransaction();
 
         Vehicle vehicle = entityManagerCoordinator.getEntityManager().find(Vehicle.class, vehicleId);
+
+        removeSubsequentObjectsFromVehicle(vehicleId);
+
         entityManagerCoordinator.getEntityManager().remove(vehicle);
 
         entityManagerCoordinator.commitTransactionAndCloseDatabase();
@@ -24,14 +28,17 @@ public class DeleteVehicle {
 
         ReadVehicle readVehicle = new ReadVehicle();
 
-        //TODO (optional) add more delete queries for other types of vehicles.
-
         @SuppressWarnings("unchecked")
         List<Vehicle> vehicles = readVehicle.getAllVehiclesByCustomerId(customerId);
 
         deleteListOfVehicles(entityManagerCoordinator.getEntityManager(), vehicles);
 
         entityManagerCoordinator.commitTransactionAndCloseDatabase();
+    }
+
+    private void removeSubsequentObjectsFromVehicle(int vehicleId) {
+        DeleteServiceTask deleteServiceTask = new DeleteServiceTask();
+        deleteServiceTask.deleteAllServiceTasksFromVehicle(vehicleId);
     }
 
     private void deleteListOfVehicles(EntityManager entityManager, List<Vehicle> vehicles) {

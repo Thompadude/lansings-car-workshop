@@ -27,7 +27,7 @@
         <small><%=currentPerson.getId()%>
             <%if (isAdminLoggedIn) {%>
             &nbsp;
-            <a href="/ReadPersonServlet?personId=<%=currentPerson.getId()%>&action=updateprofile">
+            <a href="/ReadPersonServlet?personId=<%=currentPerson.getId()%>&action=update-person-profile">
                 <span class="glyphicon glyphicon-edit"></span>
             </a>
             <a href="#"><span class="glyphicon glyphicon-remove">
@@ -96,7 +96,7 @@
                         <%=vehicleToDisplay.getRegistrationPlate()%>
                     </td>
                     <td>
-                        <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=viewprofile">
+                        <a href="/ReadVehicleServlet?vehicleId=<%=vehicleToDisplay.getId()%>&action=view-vehicle">
                             <span class="glyphicon glyphicon-info-sign"></span>
                         </a>
                     </td>

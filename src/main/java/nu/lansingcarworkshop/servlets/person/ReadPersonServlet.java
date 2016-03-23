@@ -2,6 +2,7 @@ package nu.lansingcarworkshop.servlets.person;
 
 import nu.lansingcarworkshop.servlets.helpers.GetRedirectUrl;
 import nu.lansingcarworkshop.servlets.helpers.SetContextAttributes;
+import nu.lansingcarworkshop.servlets.helpers.UserActions;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,46 +14,65 @@ import java.io.IOException;
 @WebServlet(name = "ReadPersonServlet")
 public class ReadPersonServlet extends HttpServlet {
 
-    private boolean isActionsSuccessfullyExecuted;
+    private boolean actionsSuccessful;
+    private UserActions userAction;
     private SetContextAttributes setContextAttributes = new SetContextAttributes();
-    private String action;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        action = request.getParameter("action");
+        setUserAction(request.getParameter("action"));
 
-        isActionsSuccessfullyExecuted = checkUserActionAndReactAccordingly(request);
+        actionsSuccessful = checkUserActionAndSetContext(request);
 
         redirectToCorrectJsp(request, response);
     }
 
-    /**
-     * If the user do not request a list of persons the user has requested to view a profile.
-     * Update the correct context.
-     *
-     * @param request the request from the client.
-     * @return true if action is successfully executed.
-     */
-    private boolean checkUserActionAndReactAccordingly(HttpServletRequest request) {
-        if (action.equalsIgnoreCase("listpersons")) {
-            isActionsSuccessfullyExecuted = setContextAttributes.setEmployeeList(getServletContext());
-            isActionsSuccessfullyExecuted = setContextAttributes.setCustomerList(getServletContext());
+    private boolean checkUserActionAndSetContext(HttpServletRequest request) {
+        if (userAction == UserActions.VIEWPERSONLIST) {
+            actionsSuccessful = setPersonList();
         } else {
-            String personId = request.getParameter("personId");
-            isActionsSuccessfullyExecuted = setContextAttributes.setCurrentPerson(getServletContext(), personId);
+            actionsSuccessful = setCurrentPerson(request);
         }
-        return isActionsSuccessfullyExecuted;
+        return actionsSuccessful;
+    }
+
+    private boolean setPersonList() {
+        actionsSuccessful = setContextAttributes.setEmployeeList(getServletContext());
+        actionsSuccessful = setContextAttributes.setCustomerList(getServletContext());
+        return actionsSuccessful;
+    }
+
+    private boolean setCurrentPerson(HttpServletRequest request) {
+        String personId = request.getParameter("personId");
+        actionsSuccessful = setContextAttributes.setCurrentPerson(getServletContext(), personId);
+        return actionsSuccessful;
     }
 
     private void redirectToCorrectJsp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (isActionsSuccessfullyExecuted) {
-            GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
-            String redirectUrl = getRedirectUrl.getReadPersonServletRedirectUrl(action, request);
-            response.sendRedirect(redirectUrl);
+        if (actionsSuccessful) {
+            redirectToCorrectJspWhenActionsIsSuccessful(request, response);
         } else {
             response.sendRedirect(getServletContext().getContextPath() + "/error.jsp");
+        }
+    }
+
+    private void redirectToCorrectJspWhenActionsIsSuccessful(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        GetRedirectUrl getRedirectUrl = new GetRedirectUrl();
+        String redirectUrl = getRedirectUrl.getRedirectUrl(userAction, request);
+        response.sendRedirect(redirectUrl);
+    }
+
+    public void setUserAction(String action) {
+        if (action.equalsIgnoreCase("list-persons")) {
+            this.userAction = UserActions.VIEWPERSONLIST;
+        } else if (action.equalsIgnoreCase("view-person-profile")) {
+            this.userAction = UserActions.VIEWPERSON;
+        } else if (action.equalsIgnoreCase("update-person-profile")) {
+            this.userAction = UserActions.UPDATEPERSON;
+        } else if (action.equalsIgnoreCase("add-vehicle-to-person")) {
+            this.userAction = UserActions.ADDVEHICLETOPERSON;
         }
     }
 

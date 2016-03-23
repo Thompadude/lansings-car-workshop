@@ -140,7 +140,7 @@ public class SetContextAttributes {
         boolean isAttributeSetSuccessfully = false;
 
         ReadServiceTask readServiceTask = new ReadServiceTask();
-        List serviceTasks = readServiceTask.getAllServiceTasksByCarId(Integer.parseInt(vehicleId));
+        List serviceTasks = readServiceTask.getAllServiceTasksByVehicleId(Integer.parseInt(vehicleId));
 
         if (serviceTasks != null) {
             servletContext.setAttribute("listOfServiceTasks", serviceTasks);
