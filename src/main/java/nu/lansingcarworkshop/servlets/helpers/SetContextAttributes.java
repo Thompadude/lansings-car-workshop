@@ -10,118 +10,102 @@ import nu.lansingcarworkshop.services.vehicle.ReadVehicle;
 import javax.servlet.ServletContext;
 import java.util.List;
 
+/**
+ * All methods return true if the context attributes is set successfully, else false.
+ */
 public class SetContextAttributes {
 
     public boolean setCurrentPerson(ServletContext servletContext, String personId) {
-        boolean isAttributeSetSuccessfully = false;
-
-        Person currentPerson = null;
+        Person currentPerson;
 
         if (personId != null) {
             ReadPerson readPerson = new ReadPerson();
             currentPerson = readPerson.getPersonById(Integer.parseInt(personId));
+        } else {
+            return false;
         }
 
         if (currentPerson != null) {
             servletContext.setAttribute("currentPerson", currentPerson);
-            isAttributeSetSuccessfully = setCurrentPersonsVehicles(servletContext, currentPerson);
+            return setCurrentPersonsVehicles(servletContext, currentPerson);
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
 
     public boolean setPersonList(ServletContext servletContext) {
-        boolean isAttributeSetSuccessfully = false;
-
         ReadPerson readPerson = new ReadPerson();
         List persons = readPerson.getAllPersons();
 
         if (persons != null) {
             servletContext.setAttribute("listOfPersons", persons);
-            isAttributeSetSuccessfully = true;
+            return true;
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
 
     public boolean setCustomerList(ServletContext servletContext) {
-        boolean isAttributeSetSuccessfully = false;
-
         ReadPerson readPerson = new ReadPerson();
         List customers = readPerson.getAllCustomers();
 
         if (customers != null) {
             servletContext.setAttribute("listOfCustomers", customers);
-            isAttributeSetSuccessfully = true;
+            return true;
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
 
     public boolean setEmployeeList(ServletContext servletContext) {
-        boolean isAttributeSetSuccessfully = false;
-
         ReadPerson getEmployees = new ReadPerson();
         List employees = getEmployees.getAllEmployees();
 
         if (employees != null) {
             servletContext.setAttribute("listOfEmployees", employees);
-            isAttributeSetSuccessfully = true;
+            return true;
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
 
     public boolean setCurrentVehicle(ServletContext servletContext, String vehicleId) {
-        boolean isAttributeSetSuccessfully = false;
-
-        Vehicle currentVehicle = null;
+        Vehicle currentVehicle;
 
         if (vehicleId != null) {
             ReadVehicle readVehicle = new ReadVehicle();
             currentVehicle = readVehicle.getVehicleById(Integer.parseInt(vehicleId));
+        } else {
+            return false;
         }
 
         if (currentVehicle != null) {
             servletContext.setAttribute("currentVehicle", currentVehicle);
-            isAttributeSetSuccessfully = true;
+            return true;
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
 
     public boolean setVehicleList(ServletContext servletContext) {
-        boolean isAttributeSetSuccessfully = false;
-
         ReadVehicle readVehicle = new ReadVehicle();
         List vehicles = readVehicle.getAllVehicles();
 
         if (vehicles != null) {
             servletContext.setAttribute("listOfVehicles", vehicles);
-            isAttributeSetSuccessfully = true;
+            return true;
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
 
     public boolean setServiceTasksLists(ServletContext servletContext) {
-        boolean isAttributeSetSuccessfully = false;
-
         ReadServiceTask readServiceTask = new ReadServiceTask();
         List allServiceTasks = readServiceTask.getAllServiceTasks();
 
         if (allServiceTasks != null) {
             servletContext.setAttribute("listOfServiceTasks", allServiceTasks);
-            isAttributeSetSuccessfully = true;
+            return true;
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
 
     @SuppressWarnings("SpellCheckingInspection")
     public boolean setUpcomingServiceTasksLists(ServletContext servletContext) {
-        boolean isAttributeSetSuccessfully = false;
-
         ReadServiceTask readServiceTask = new ReadServiceTask();
 
         List todaysServiceTasks = readServiceTask.getTodaysServiceTasks();
@@ -130,55 +114,48 @@ public class SetContextAttributes {
         if (todaysServiceTasks != null && nextMonthsServiceTasks != null) {
             servletContext.setAttribute("listOfTodaysServiceTasks", todaysServiceTasks);
             servletContext.setAttribute("listOfNextMonthsServiceTasks", nextMonthsServiceTasks);
-            isAttributeSetSuccessfully = true;
+            return true;
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
 
     public boolean setServiceTasksListByVehicle(ServletContext servletContext, String vehicleId) {
-        boolean isAttributeSetSuccessfully = false;
-
         ReadServiceTask readServiceTask = new ReadServiceTask();
         List serviceTasks = readServiceTask.getAllServiceTasksByVehicleId(Integer.parseInt(vehicleId));
 
         if (serviceTasks != null) {
             servletContext.setAttribute("listOfServiceTasks", serviceTasks);
-            isAttributeSetSuccessfully = true;
+            return true;
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
 
     public boolean setCurrentServiceTask(ServletContext servletContext, String serviceTaskId) {
-        boolean isAttributeSetSuccessfully = false;
-
-        ServiceTask currentServiceTask = null;
+        ServiceTask currentServiceTask;
 
         if (serviceTaskId != null) {
             ReadServiceTask readServiceTask = new ReadServiceTask();
             currentServiceTask = readServiceTask.getServiceTaskById(Integer.parseInt(serviceTaskId));
+        } else {
+            return false;
         }
 
         if (currentServiceTask != null) {
             servletContext.setAttribute("currentServiceTask", currentServiceTask);
-            isAttributeSetSuccessfully = true;
+            return true;
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
 
     private boolean setCurrentPersonsVehicles(ServletContext servletContext, Person currentPerson) {
-        boolean isAttributeSetSuccessfully = false;
-
         ReadVehicle readVehicle = new ReadVehicle();
         List vehicles = readVehicle.getAllVehiclesByCustomerId(currentPerson.getId());
         servletContext.setAttribute("currentPersonsVehicles", vehicles);
 
         if (servletContext.getAttribute("currentPersonsVehicles") != null) {
-            isAttributeSetSuccessfully = true;
+            return true;
         }
-
-        return isAttributeSetSuccessfully;
+        return false;
     }
+
 }

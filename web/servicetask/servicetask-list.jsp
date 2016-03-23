@@ -102,7 +102,10 @@
         }
         if (isAdminLoggedIn) {
     %>
-    <div class="alert alert-info">To toggle completion of a service task - go to that service task's profile page.</div>
+    <div class="alert alert-info">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        To toggle completion of a service task - go to that service task's profile page.
+    </div>
     <%}%>
 </div>
 <script src="../js/servicetask-delete.js"></script>

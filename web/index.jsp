@@ -11,6 +11,7 @@
 <div class="container-fluid">
     <% if (!isAdminLoggedIn) {%>
     <div class="alert alert-info">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         You are logged in as a guest. You only have read rights.
     </div>
     <%}%>

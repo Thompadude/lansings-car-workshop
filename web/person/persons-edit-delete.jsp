@@ -59,7 +59,10 @@
     <h3>No customers added.</h3>
     <%}%>
     <%if (isAdminLoggedIn) {%>
-    <div class="alert alert-warning">Removing a customer will also remove all linked vehicles and service tasks.</div>
+    <div class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Removing a customer will also remove all linked vehicles and service tasks.
+    </div>
     <%}%>
     <h1>Staff</h1>
     <%if (employees.size() > 0 && employees != null) {%>

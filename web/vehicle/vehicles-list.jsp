@@ -70,7 +70,10 @@
         </table>
     </div>
     <%if (isAdminLoggedIn) {%>
-    <div class="alert alert-warning">Removing a vehicle will also remove all linked service tasks.</div>
+    <div class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        Removing a vehicle will also remove all linked service tasks.
+    </div>
     <%}%>
 </div>
 <script src="../js/vehicle-delete.js"></script>

@@ -27,14 +27,13 @@
             <input type="text" class="form-control" name="service-note" placeholder="Notes">
         </div>
         <div class="form-group">
-            <label for="employee-list">Responsible Employee
-                <select id="employee-list">
+            <label for="employee-list">Responsible Employee</label>
+                <select class="form-control" id="employee-list">
                     <%for (Object employee : employees) {%>
                     <option value="<%=((Employee)employee).getId()%>"><%=((Employee) employee).getName()%>
                     </option>
                     <%}%>
                 </select>
-            </label>
         </div>
         <button type="button" class="btn btn-success">Book Service</button>
         <button type="reset" class="btn btn-danger">Reset</button>
@@ -46,7 +45,6 @@
     <h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1>
     <%}%>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="../js/servicetask-create.js"></script>
 </body>
 </html>
