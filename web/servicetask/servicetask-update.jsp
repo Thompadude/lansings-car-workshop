@@ -28,18 +28,17 @@
                 <input type="text" class="form-control" name="service-note" placeholder="Notes" value="<%=serviceTaskToUpdate.getNote()%>">
             </div>
             <div class="form-group">
-                <label for="employee-list">Responsible Employee
-                    <select id="employee-list" name="employee-list">
-                        <%for (Object employee : employees) {%>
-                        <option value="<%=((Employee)employee).getId()%>"><%=((Employee) employee).getName()%>
-                        </option>
-                        <%}%>
-                    </select>
-                </label>
+                <label for="employee-list">Responsible Employee</label>
+                <select class="form-control" id="employee-list" name="employee-list">
+                    <%for (Object employee : employees) {%>
+                    <option value="<%=((Employee)employee).getId()%>"><%=((Employee) employee).getName()%>
+                    </option>
+                    <%}%>
+                </select>
             </div>
             <button type="submit" class="btn btn-success">Update Service</button>
             <button type="reset" class="btn btn-danger">Reset</button>
-            <input type="hidden" name="servicetaskid" value="<%=serviceTaskToUpdate.getId()%>">
+            <input type="hidden" name="service-task-id" value="<%=serviceTaskToUpdate.getId()%>">
         </form>
     </form>
     <%} else {%>

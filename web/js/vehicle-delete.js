@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var $vehicleProfileWindow = '/vehicle/vehicle-profile.jsp';
+    var urlToVehicleProfile = '/vehicle/vehicle-profile.jsp';
 
     $(document).on('click', '.glyphicon.glyphicon-remove', function (event) {
         event.preventDefault();
@@ -12,14 +12,17 @@ $(document).ready(function () {
             url: '/DeleteVehicleServlet',
             data: {
                 'deleteVehicle': 'true',
-                'vehicleId': $vehicleId
+                'vehicle-id': $vehicleId
             },
-            success: function (response) {
-                if (window.location.pathname === $vehicleProfileWindow) {
+            success: function () {
+                if (window.location.pathname === urlToVehicleProfile) {
                     $('.container').fadeOut('slow');
                 } else {
                     $('#entry-' + $vehicleId).fadeOut('fast');
                 }
+            },
+            error: function () {
+                alert("Server communication error - contact webmaster!");
             }
         })
     });

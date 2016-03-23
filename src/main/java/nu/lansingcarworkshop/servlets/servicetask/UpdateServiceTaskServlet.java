@@ -26,7 +26,7 @@ public class UpdateServiceTaskServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         action = request.getParameter("action");
-        int serviceTaskId = Integer.parseInt(request.getParameter("servicetaskid"));
+        int serviceTaskId = Integer.parseInt(request.getParameter("service-task-id"));
 
         ReadServiceTask readServiceTask = new ReadServiceTask();
         serviceTaskWithUpdatedAttributes = readServiceTask.getServiceTaskById(serviceTaskId);
@@ -35,8 +35,11 @@ public class UpdateServiceTaskServlet extends HttpServlet {
 
         setNewAttributes();
 
-        UpdateServiceTask updateServiceTask = new UpdateServiceTask();
-        updateServiceTask.updateServiceTask(serviceTaskWithUpdatedAttributes);
+        boolean isAdminLoggedIn = (boolean) request.getSession().getAttribute("isAdminLoggedIn");
+        if (isAdminLoggedIn) {
+            UpdateServiceTask updateServiceTask = new UpdateServiceTask();
+            updateServiceTask.updateServiceTask(serviceTaskWithUpdatedAttributes);
+        }
 
         response.sendRedirect("/ReadServiceTaskServlet?serviceTaskId=" + serviceTaskWithUpdatedAttributes.getId() + "&action=view-service-task-profile");
     }
@@ -63,7 +66,7 @@ public class UpdateServiceTaskServlet extends HttpServlet {
             serviceTaskWithUpdatedAttributes.setResponsibleEmployee(responsibleEmployee);
             serviceTaskWithUpdatedAttributes.setTime(time);
             serviceTaskWithUpdatedAttributes.setNote(note);
-        } else if (action.equalsIgnoreCase("togglecompletion")) {
+        } else if (action.equalsIgnoreCase("toggle-completion")) {
             toggleServiceTaskCompletion();
         }
     }

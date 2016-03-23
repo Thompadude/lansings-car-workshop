@@ -37,7 +37,7 @@
         </div>
         <button type="button" class="btn btn-success">Book Service</button>
         <button type="reset" class="btn btn-danger">Reset</button>
-        <input type="hidden" name="vehicleid" value="<%=vehicle.getId()%>">
+        <input type="hidden" name="vehicle-id" value="<%=vehicle.getId()%>">
     </form>
 
     <p id="feedback"></p>
@@ -45,6 +45,6 @@
     <h1>Access denied. <a href="../login.jsp">Log in</a> as admin to gain access.</h1>
     <%}%>
 </div>
-<script src="../js/servicetask-create.js"></script>
+<script src="../js/service-task-create.js"></script>
 </body>
 </html>

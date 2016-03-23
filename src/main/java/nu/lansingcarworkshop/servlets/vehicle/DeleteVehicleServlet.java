@@ -12,21 +12,32 @@ import java.io.IOException;
 @WebServlet(name = "DeleteVehicleServlet")
 public class DeleteVehicleServlet extends HttpServlet {
 
+    boolean isDeleteVehicleInquired;
+    int vehicleId;
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean isDeleteVehicleInquired = Boolean.parseBoolean(request.getParameter("deleteVehicle"));
-        int vehicleId = Integer.parseInt(request.getParameter("vehicleId"));
+        initializeVariablesFromGetRequest(request);
 
         boolean isAdminLoggedIn = (boolean) request.getSession().getAttribute("isAdminLoggedIn");
         if (isDeleteVehicleInquired && isAdminLoggedIn) {
-            DeleteVehicle deleteVehicle = new DeleteVehicle();
-            deleteVehicle.deleteVehicleById(vehicleId);
+            deleteVehicle(vehicleId);
         }
 
         response.sendRedirect("/ReadVehicleServlet?&action=list-vehicles");
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void initializeVariablesFromGetRequest(HttpServletRequest request) {
+        isDeleteVehicleInquired = Boolean.parseBoolean(request.getParameter("deleteVehicle"));
+        vehicleId = Integer.parseInt(request.getParameter("vehicle-id"));
+    }
 
+    private void deleteVehicle(int vehicleId) {
+        DeleteVehicle deleteVehicle = new DeleteVehicle();
+        deleteVehicle.deleteVehicleById(vehicleId);
     }
 
 }

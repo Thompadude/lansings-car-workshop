@@ -74,6 +74,7 @@
     <%if (currentPerson instanceof Customer) {%>
     <div class="row">
         <div class="col-lg-6">
+            <%if (currentPersonsVehicles.size() > 0) {%>
             <h1>Vehicles Owned</h1>
             <table class="table table-striped">
                 <thead>
@@ -101,6 +102,17 @@
                         </a>
                     </td>
                 </tr>
+                <%
+                    }
+                } else {
+                %>
+                <h3>No cars connected to customer.
+                    <%if (isAdminLoggedIn) {%>
+                    <a href="/ReadPersonServlet?personId=<%=currentPerson.getId()%>&action=add-vehicle-to-person">
+                        Add one!
+                    </a>
+                    <%}%>
+                </h3>
                 <%}%>
                 </tbody>
             </table>

@@ -48,12 +48,12 @@ public class CreateServiceTaskServlet extends HttpServlet {
 
     private void initializeEmployee(HttpServletRequest request) {
         ReadPerson readPerson = new ReadPerson();
-        responsibleEmployee = (Employee) readPerson.getPersonById(Integer.parseInt(request.getParameter("employeeid")));
+        responsibleEmployee = (Employee) readPerson.getPersonById(Integer.parseInt(request.getParameter("employee-id")));
     }
 
     private void initializeVehicle(HttpServletRequest request) {
         ReadVehicle readVehicle = new ReadVehicle();
-        vehicleInService = readVehicle.getVehicleById(Integer.parseInt(request.getParameter("vehicleid")));
+        vehicleInService = readVehicle.getVehicleById(Integer.parseInt(request.getParameter("vehicle-id")));
     }
 
 }

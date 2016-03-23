@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/stylesheet.css">
     <title>LCW &mdash; Service Task</title>
 </head>
 <body>
@@ -95,17 +96,17 @@
                 <div class="panel-heading">Status</div>
                 <div class="panel-body">
                     <%if (serviceTask.isCompleted()) {%>
-                    <span class="iscompleted">Completed</span>
+                    <span class="iscompleted completed">Completed</span>
                     <%} else {%>
-                    <span class="iscompleted">Not completed</span>
+                    <span class="iscompleted incomplete">Not completed</span>
                     <%}%>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<input type="hidden" name="servicetaskid" value="<%=serviceTask.getId()%>">
+<input type="hidden" value="<%=serviceTask.getId()%>">
 <script src="../js/servicetask-delete.js"></script>
-<script src="../js/servicetask-tooglestatus.js"></script>
+<script src="../js/servicetask-toogle-status.js"></script>
 </body>
 </html>

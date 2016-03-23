@@ -1,51 +1,53 @@
 $(document).ready(function () {
 
-    var $userName, $password;
-
-    var validateForm = function () {
-        isFormValid = true;
-        $('input').each(function (array) {
+    function isLoginFormFieldsFilled() {
+        var isFormValid = true;
+        $('input').each(function () {
             if ($(this).val() === '' || $(this).val() === null) {
                 $(this).fadeOut('fast').fadeIn('fast');
                 isFormValid = false;
             }
         });
         return isFormValid;
-    };
+    }
 
-    var initializeVariables = function () {
-        $userName = $('#username').val();
-        $password = $('#password').val();
-    };
+    function getUserName() {
+        return $('#username').val();
+    }
 
-    var loginPrompt = function () {
-        initializeVariables();
-        validateForm();
+    function getPassword() {
+        return $('#password').val();
+    }
 
-        if (isFormValid) {
+    function sendUserInputToLoginServletForValidation() {
+        if (isLoginFormFieldsFilled()) {
             $.ajax({
                 type: 'post',
                 url: '/LoginServlet',
                 data: {
                     'action': 'login',
-                    'username': $userName,
-                    'password': $password
+                    'username': getUserName(),
+                    'password': getPassword()
                 },
-                success: function (response) {
+                success: function () {
                     document.location.replace("index.jsp");
+                },
+                error: function() {
+                    alert("Server communication error - contact webmaster!")
                 }
             });
         }
-    };
 
-    $(document).on('click', 'button[type=button]', function (event) {
-        loginPrompt();
+    }
+
+    $(document).on('click', 'button[type=button]', function () {
+        sendUserInputToLoginServletForValidation();
     });
 
     $(document).on('keypress', function (event) {
         if (event.which === 13) {
-            loginPrompt();
+            sendUserInputToLoginServletForValidation();
         }
-    });
+    })
 
 });

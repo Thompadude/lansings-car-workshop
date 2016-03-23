@@ -1,10 +1,8 @@
 $(document).ready(function () {
 
-    var isFormValid;
-
-    var validateForm = function () {
-        isFormValid = true;
-        $('input').each(function (array) {
+    function isAllUpdateFormFieldsFilled() {
+        var isFormValid = true;
+        $('input').each(function () {
             if ($(this).val() === '' || $(this).val() === null) {
                 $(this).fadeOut('fast').fadeIn('fast');
                 $('#feedback').html('Fill in all form fields.').fadeIn('fast');
@@ -12,14 +10,10 @@ $(document).ready(function () {
             }
         });
         return isFormValid;
-    };
+    }
 
-    $('#updateform').submit(function(event){
-        validateForm();
-
-        console.log("clicked")
-
-        if (!isFormValid) {
+    $('#updateform').submit(function (event) {
+        if (!isAllUpdateFormFieldsFilled()) {
             event.preventDefault();
         }
     })

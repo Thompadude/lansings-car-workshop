@@ -3,17 +3,20 @@ $(document).ready(function () {
     $(document).on('click', '#togglecompletion', function (event) {
         event.preventDefault();
 
-        var $servicetaskid = $(document).find('input[type=hidden]').val();
+        var $serviceTaskId = $(document).find('input[type=hidden]').val();
 
         $.ajax({
             type: 'post',
             url: '/UpdateServiceTaskServlet',
             data: {
-                'action': 'togglecompletion',
-                'servicetaskid': $servicetaskid
+                'action': 'toggle-completion',
+                'service-task-id': $serviceTaskId
             },
-            success: function (response) {
+            success: function () {
                 $('.iscompleted').load(location.href + " .iscompleted");
+            },
+            error: function () {
+                alert("Server communication error - contact webmaster!");
             }
         })
     });

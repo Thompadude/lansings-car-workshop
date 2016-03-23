@@ -33,11 +33,11 @@ public class CreateVehicleServlet extends HttpServlet {
     }
 
     private void initializeVariablesFromPostRequest(HttpServletRequest request) {
-        registrationPlate = request.getParameter("vehicle-registrationplate").toUpperCase();
+        registrationPlate = request.getParameter("vehicle-registration-plate").toUpperCase();
         make = request.getParameter("vehicle-make");
-        fuel = request.getParameter("vehicle-fueltype");
-        modelYear = LocalDate.parse(request.getParameter("vehicle-modelyear"));
-        customerId = Integer.parseInt(request.getParameter("customerId"));
+        fuel = request.getParameter("vehicle-fuel-type");
+        modelYear = LocalDate.parse(request.getParameter("vehicle-model-year"));
+        customerId = Integer.parseInt(request.getParameter("customer-id"));
     }
 
     private void createAndAddCarToDatabase() {

@@ -13,21 +13,32 @@ import java.io.IOException;
 
 public class DeleteServiceTaskServlet extends HttpServlet {
 
+    boolean isDeleteServiceTaskInquired;
+    int serviceTaskId;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean isDeleteServiceTaskInquired = Boolean.parseBoolean(request.getParameter("deleteServiceTask"));
-        int serviceTaskId = Integer.parseInt(request.getParameter("serviceTaskId"));
+        initializeVariablesFromGetRequest(request);
 
         boolean isAdminLoggedIn = (boolean) request.getSession().getAttribute("isAdminLoggedIn");
         if (isDeleteServiceTaskInquired && isAdminLoggedIn) {
-            DeleteServiceTask deleteServiceTask = new DeleteServiceTask();
-            deleteServiceTask.deleteServiceTaskById(serviceTaskId);
+            deleteServiceTask(serviceTaskId);
         }
 
         response.sendRedirect("/ReadServiceTaskServlet?&action=list-service-tasks");
+    }
+
+    private void initializeVariablesFromGetRequest(HttpServletRequest request) {
+        isDeleteServiceTaskInquired = Boolean.parseBoolean(request.getParameter("deleteServiceTask"));
+        serviceTaskId = Integer.parseInt(request.getParameter("service-task-id"));
+    }
+
+    private void deleteServiceTask(int serviceTaskId) {
+        DeleteServiceTask deleteServiceTask = new DeleteServiceTask();
+        deleteServiceTask.deleteServiceTaskById(serviceTaskId);
     }
 
 }

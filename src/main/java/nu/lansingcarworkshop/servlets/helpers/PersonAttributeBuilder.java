@@ -23,11 +23,14 @@ public class PersonAttributeBuilder {
 
     public Role createRole(HttpServletRequest request) {
         String roleString = request.getParameter("person-role");
-        if (roleString.equals("technician")) {
-            return Role.TECHNICIAN;
-        } else if (roleString.equals("specialist")) {
-            return Role.SPECIALIST;
+        if (roleString != null && !(roleString.equals(""))) {
+            if (roleString.equals("technician")) {
+                return Role.TECHNICIAN;
+            } else if (roleString.equals("specialist")) {
+                return Role.SPECIALIST;
+            }
         }
+
         return null;
     }
 

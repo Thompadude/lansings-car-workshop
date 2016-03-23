@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var $serviceTaskProfileWindow = '/servicetask/servicetask-profile.jsp';
+    var urlToServiceTaskProfile = '/servicetask/servicetask-profile.jsp';
 
     $(document).on('click', '.glyphicon.glyphicon-remove', function (event) {
         event.preventDefault();
@@ -12,14 +12,17 @@ $(document).ready(function () {
             url: '/DeleteServiceTaskServlet',
             data: {
                 'deleteServiceTask': 'true',
-                'serviceTaskId': $serviceTaskId
+                'service-task-id': $serviceTaskId
             },
-            success: function (response) {
-                if (window.location.pathname === $serviceTaskProfileWindow) {
+            success: function () {
+                if (window.location.pathname === urlToServiceTaskProfile) {
                     $('.container').fadeOut('slow');
                 } else {
                     $('#entry-' + $serviceTaskId).fadeOut('fast');
                 }
+            },
+            error: function () {
+                alert("Server communication error - contact webmaster!");
             }
         })
     });

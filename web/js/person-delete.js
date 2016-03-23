@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var $personProfileWindow = '/person/person-profile.jsp';
+    var urlToPersonProfile = '/person/person-profile.jsp';
 
     $(document).on('click', '.glyphicon.glyphicon-remove', function (event) {
         event.preventDefault();
@@ -14,12 +14,15 @@ $(document).ready(function () {
                 'deletePerson': 'true',
                 'personId': $personId
             },
-            success: function (response) {
-                if (window.location.pathname === $personProfileWindow) {
+            success: function () {
+                if (window.location.pathname === urlToPersonProfile) {
                     $('.container').fadeOut('fast');
                 } else {
                     $('#entry-' + $personId).fadeOut('fast');
                 }
+            },
+            error: function () {
+                alert("Server communication error - contact webmaster!");
             }
         })
     });
