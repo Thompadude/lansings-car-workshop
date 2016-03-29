@@ -1,4 +1,4 @@
-package nu.lansingcarworkshop.servlets.helpers;
+package nu.lansingcarworkshop.servlets.helpers.setcontext;
 
 import nu.lansingcarworkshop.models.person.Person;
 import nu.lansingcarworkshop.models.servicetask.ServiceTask;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * All methods return true if the context attributes is set successfully, else false.
  */
-public class SetContextAttributes {
+public class SetEntityClassesContext {
 
     public boolean setCurrentPerson(ServletContext servletContext, String personId) {
         Person currentPerson;
@@ -55,8 +55,8 @@ public class SetContextAttributes {
     }
 
     public boolean setEmployeeList(ServletContext servletContext) {
-        ReadPerson getEmployees = new ReadPerson();
-        List employees = getEmployees.getAllEmployees();
+        ReadPerson readPerson = new ReadPerson();
+        List employees = readPerson.getAllEmployees();
 
         if (employees != null) {
             servletContext.setAttribute("listOfEmployees", employees);
@@ -107,7 +107,6 @@ public class SetContextAttributes {
     @SuppressWarnings("SpellCheckingInspection")
     public boolean setUpcomingServiceTasksLists(ServletContext servletContext) {
         ReadServiceTask readServiceTask = new ReadServiceTask();
-
         List todaysServiceTasks = readServiceTask.getTodaysServiceTasks();
         List nextMonthsServiceTasks = readServiceTask.getNextMonthsServiceTasks();
 
@@ -152,10 +151,7 @@ public class SetContextAttributes {
         List vehicles = readVehicle.getAllVehiclesByCustomerId(currentPerson.getId());
         servletContext.setAttribute("currentPersonsVehicles", vehicles);
 
-        if (servletContext.getAttribute("currentPersonsVehicles") != null) {
-            return true;
-        }
-        return false;
+        return servletContext.getAttribute("currentPersonsVehicles") != null;
     }
 
 }

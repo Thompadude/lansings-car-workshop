@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "DeleteServiceTaskServlet")
+@WebServlet(name = "DeleteServiceTaskServlet", urlPatterns = "/DeleteServiceTaskServlet")
 
 public class DeleteServiceTaskServlet extends HttpServlet {
 

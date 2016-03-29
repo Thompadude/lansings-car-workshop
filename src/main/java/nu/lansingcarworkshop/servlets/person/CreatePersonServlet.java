@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 
-@WebServlet(name = "CreatePersonServlet")
+@WebServlet(name = "CreatePersonServlet", urlPatterns = "/CreatePersonServlet")
 public class CreatePersonServlet extends javax.servlet.http.HttpServlet {
 
     private PersonAttributeBuilder personAttributeBuilder = new PersonAttributeBuilder();

@@ -1,8 +1,8 @@
 package nu.lansingcarworkshop.servlets.person;
 
 import nu.lansingcarworkshop.servlets.helpers.GetRedirectUrl;
-import nu.lansingcarworkshop.servlets.helpers.SetContextAttributes;
 import nu.lansingcarworkshop.servlets.helpers.UserActions;
+import nu.lansingcarworkshop.servlets.helpers.setcontext.SetEntityClassesContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ReadPersonServlet")
+@WebServlet(name = "ReadPersonServlet", urlPatterns = "/ReadPersonServlet")
 public class ReadPersonServlet extends HttpServlet {
 
     private boolean actionsSuccessful;
     private UserActions userAction;
-    private SetContextAttributes setContextAttributes = new SetContextAttributes();
+    private SetEntityClassesContext setEntityClassesContext = new SetEntityClassesContext();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
@@ -39,14 +39,16 @@ public class ReadPersonServlet extends HttpServlet {
     }
 
     private boolean setPersonList() {
-        actionsSuccessful = setContextAttributes.setEmployeeList(getServletContext());
-        actionsSuccessful = setContextAttributes.setCustomerList(getServletContext());
+        actionsSuccessful = setEntityClassesContext.setEmployeeList(getServletContext());
+        if (actionsSuccessful) {
+            actionsSuccessful = setEntityClassesContext.setCustomerList(getServletContext());
+        }
         return actionsSuccessful;
     }
 
     private boolean setCurrentPerson(HttpServletRequest request) {
         String personId = request.getParameter("personId");
-        actionsSuccessful = setContextAttributes.setCurrentPerson(getServletContext(), personId);
+        actionsSuccessful = setEntityClassesContext.setCurrentPerson(getServletContext(), personId);
         return actionsSuccessful;
     }
 

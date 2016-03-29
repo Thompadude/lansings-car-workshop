@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-@WebServlet(name = "CreateServiceTaskServlet")
+@WebServlet(name = "CreateServiceTaskServlet", urlPatterns = "/CreateServiceTaskServlet")
 public class CreateServiceTaskServlet extends HttpServlet {
 
     private LocalDateTime time;

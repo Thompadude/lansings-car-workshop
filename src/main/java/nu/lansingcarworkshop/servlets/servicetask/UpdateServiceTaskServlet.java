@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-@WebServlet(name = "UpdateServiceTaskServlet")
+@WebServlet(name = "UpdateServiceTaskServlet", urlPatterns = "/UpdateServiceTaskServlet")
 public class UpdateServiceTaskServlet extends HttpServlet {
 
     private Employee responsibleEmployee;

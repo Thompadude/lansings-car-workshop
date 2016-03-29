@@ -1,7 +1,7 @@
 package nu.lansingcarworkshop.servlets.vehicle;
 
 import nu.lansingcarworkshop.servlets.helpers.GetRedirectUrl;
-import nu.lansingcarworkshop.servlets.helpers.SetContextAttributes;
+import nu.lansingcarworkshop.servlets.helpers.setcontext.SetEntityClassesContext;
 import nu.lansingcarworkshop.servlets.helpers.UserActions;
 
 import javax.servlet.ServletException;
@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ReadVehicleServlet")
+@WebServlet(name = "ReadVehicleServlet", urlPatterns = "/ReadVehicleServlet")
 public class ReadVehicleServlet extends HttpServlet {
 
     private boolean actionsSuccessful;
-    private SetContextAttributes setContextAttributes = new SetContextAttributes();
+    private SetEntityClassesContext setEntityClassesContext = new SetEntityClassesContext();
     private UserActions userAction;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,11 +31,11 @@ public class ReadVehicleServlet extends HttpServlet {
 
     private boolean checkUserActionAndSetContext(HttpServletRequest request) {
         if (userAction == UserActions.VIEWVEHICLELIST) {
-            actionsSuccessful = setContextAttributes.setVehicleList(getServletContext());
+            actionsSuccessful = setEntityClassesContext.setVehicleList(getServletContext());
         } else {
             actionsSuccessful = setCurrentVehicleAndThatVehiclesServiceTasks(request);
             if (userAction == UserActions.CREATESERVICETASK && actionsSuccessful) {
-                actionsSuccessful = setContextAttributes.setEmployeeList(getServletContext());
+                actionsSuccessful = setEntityClassesContext.setEmployeeList(getServletContext());
             }
         }
         return actionsSuccessful;
@@ -43,8 +43,10 @@ public class ReadVehicleServlet extends HttpServlet {
 
     private boolean setCurrentVehicleAndThatVehiclesServiceTasks(HttpServletRequest request) {
         String vehicleId = request.getParameter("vehicleId");
-        actionsSuccessful = setContextAttributes.setCurrentVehicle(getServletContext(), vehicleId);
-        actionsSuccessful = setContextAttributes.setServiceTasksListByVehicle(getServletContext(), vehicleId);
+        actionsSuccessful = setEntityClassesContext.setCurrentVehicle(getServletContext(), vehicleId);
+        if (actionsSuccessful) {
+            actionsSuccessful = setEntityClassesContext.setServiceTasksListByVehicle(getServletContext(), vehicleId);
+        }
         return actionsSuccessful;
     }
 

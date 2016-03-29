@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "DeleteVehicleServlet")
+@WebServlet(name = "DeleteVehicleServlet", urlPatterns = "/DeleteVehicleServlet")
 public class DeleteVehicleServlet extends HttpServlet {
 
     boolean isDeleteVehicleInquired;

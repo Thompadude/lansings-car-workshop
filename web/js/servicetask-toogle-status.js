@@ -13,6 +13,9 @@ $(document).ready(function () {
                 'service-task-id': $serviceTaskId
             },
             success: function () {
+
+                console.log("SUCCESS");
+
                 $('.iscompleted').load(location.href + " .iscompleted");
             },
             error: function () {

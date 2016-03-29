@@ -32,6 +32,8 @@ public class GetRedirectUrl {
                 return baseUrl + "/servicetask/servicetask-update.jsp";
             case VIEWUPCOMINGSERVICETASKS:
                 return baseUrl + "/servicetask/servicetask-upcoming-list.jsp";
+            case VIEWSERVICETASKSTATISTICS:
+                return baseUrl + "/servicetask/service-task-statistics.jsp";
             default:
                 return baseUrl + "/error.jsp";
         }

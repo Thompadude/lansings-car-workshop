@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 
-@WebServlet(name = "UpdatePersonServlet")
+@WebServlet(name = "UpdatePersonServlet", urlPatterns = "/UpdatePersonServlet")
 public class UpdatePersonServlet extends HttpServlet {
 
     private PersonAttributeBuilder personAttributeBuilder = new PersonAttributeBuilder();
@@ -30,7 +30,9 @@ public class UpdatePersonServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        int personId = Integer.parseInt(request.getParameter("personid"));
+        String personIdString = request.getParameter("personid");
+
+        int personId = Integer.parseInt(personIdString);
         ReadPerson readPerson = new ReadPerson();
         personWithUpdatedAttributes = readPerson.getPersonById(personId);
 

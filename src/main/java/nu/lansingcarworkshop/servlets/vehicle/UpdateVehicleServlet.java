@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 
-@WebServlet(name = "UpdateVehicleServlet")
+@WebServlet(name = "UpdateVehicleServlet", urlPatterns = "/UpdateVehicleServlet")
 public class UpdateVehicleServlet extends HttpServlet {
 
     private String registrationPlate, make, fuel;

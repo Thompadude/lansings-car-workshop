@@ -1,7 +1,7 @@
 package nu.lansingcarworkshop.servlets.person;
 
 import nu.lansingcarworkshop.services.person.DeletePerson;
-import nu.lansingcarworkshop.servlets.helpers.SetContextAttributes;
+import nu.lansingcarworkshop.servlets.helpers.setcontext.SetEntityClassesContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "DeletePersonServlet")
+@WebServlet(name = "DeletePersonServlet", urlPatterns = "/DeletePersonServlet")
 public class DeletePersonServlet extends HttpServlet {
 
-    SetContextAttributes setContextAttributes = new SetContextAttributes();
+    SetEntityClassesContext setEntityClassesContext = new SetEntityClassesContext();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean isDeletePersonInquired = Boolean.parseBoolean(request.getParameter("deletePerson"));
@@ -23,7 +23,7 @@ public class DeletePersonServlet extends HttpServlet {
         if (isDeletePersonInquired && isAdminLoggedIn) {
             DeletePerson deletePerson = new DeletePerson();
             deletePerson.deletePersonById(personId);
-            setContextAttributes.setServiceTasksLists(getServletContext());
+            setEntityClassesContext.setServiceTasksLists(getServletContext());
         }
 
         response.sendRedirect("/ReadPersonServlet?&action=list-persons");

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 
-@WebServlet(name = "CreateVehicleServlet")
+@WebServlet(name = "CreateVehicleServlet", urlPatterns = "/CreateVehicleServlet")
 public class CreateVehicleServlet extends HttpServlet {
 
     private String registrationPlate, make, fuel;

@@ -1,7 +1,7 @@
 package nu.lansingcarworkshop.servlets.servicetask;
 
 import nu.lansingcarworkshop.servlets.helpers.GetRedirectUrl;
-import nu.lansingcarworkshop.servlets.helpers.SetContextAttributes;
+import nu.lansingcarworkshop.servlets.helpers.setcontext.SetEntityClassesContext;
 import nu.lansingcarworkshop.servlets.helpers.UserActions;
 
 import javax.servlet.ServletException;
@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ReadServiceTaskServlet")
+@WebServlet(name = "ReadServiceTaskServlet", urlPatterns = "/ReadServiceTaskServlet")
 public class ReadServiceTaskServlet extends HttpServlet {
 
     private boolean actionsSuccessful;
-    private SetContextAttributes setContextAttributes = new SetContextAttributes();
+    private SetEntityClassesContext setEntityClassesContext = new SetEntityClassesContext();
     private UserActions userAction;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,25 +31,27 @@ public class ReadServiceTaskServlet extends HttpServlet {
 
     private boolean checkUserActionAndReactAccordingly(HttpServletRequest request) {
         if (userAction == UserActions.VIEWSERVICETASKLIST || userAction == UserActions.VIEWUPCOMINGSERVICETASKS) {
-            setServiceTaskLists();
+            actionsSuccessful = setServiceTaskLists();
         } else {
             setCurrentServiceTask(request);
             if (userAction == UserActions.UPDATESERVICETASK && actionsSuccessful) {
-                setContextAttributes.setEmployeeList(getServletContext());
+                setEntityClassesContext.setEmployeeList(getServletContext());
             }
         }
         return actionsSuccessful;
     }
 
     private boolean setServiceTaskLists() {
-        actionsSuccessful = setContextAttributes.setServiceTasksLists(getServletContext());
-        actionsSuccessful = setContextAttributes.setUpcomingServiceTasksLists(getServletContext());
+        actionsSuccessful = setEntityClassesContext.setServiceTasksLists(getServletContext());
+        if (actionsSuccessful) {
+            actionsSuccessful = setEntityClassesContext.setUpcomingServiceTasksLists(getServletContext());
+        }
         return actionsSuccessful;
     }
 
     private boolean setCurrentServiceTask(HttpServletRequest request) {
         String serviceTaskId = request.getParameter("serviceTaskId");
-        actionsSuccessful = setContextAttributes.setCurrentServiceTask(getServletContext(), serviceTaskId);
+        actionsSuccessful = setEntityClassesContext.setCurrentServiceTask(getServletContext(), serviceTaskId);
         return actionsSuccessful;
     }
 

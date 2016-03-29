@@ -42,6 +42,9 @@
                     <ul class="dropdown-menu">
                         <li><a href="/ReadServiceTaskServlet?action=list-service-tasks">List</a></li>
                         <li><a href="/ReadServiceTaskServlet?action=list-upcoming-service-tasks">Upcoming Appointments</a></li>
+                        <%if (isAdminLoggedIn) {%>
+                        <li><a href="/StatisticsServlet?action=view-service-task-statistics">Statistics</a></li>
+                        <%}%>
                     </ul>
                 </li>
             </ul>
