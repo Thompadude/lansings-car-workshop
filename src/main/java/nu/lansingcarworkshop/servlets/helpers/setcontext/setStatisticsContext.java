@@ -1,5 +1,6 @@
 package nu.lansingcarworkshop.servlets.helpers.setcontext;
 
+import nu.lansingcarworkshop.models.person.Customer;
 import nu.lansingcarworkshop.services.statistics.ReadStatistics;
 
 import javax.servlet.ServletContext;
@@ -13,6 +14,9 @@ public class SetStatisticsContext {
         boolean isContextSetSuccessfully = setAmountOfCompletedServiceTasks(servletContext);
         if (isContextSetSuccessfully) {
             isContextSetSuccessfully = setNumberOfUniqueCustomersWithServiceBookings(servletContext);
+        }
+        if (isContextSetSuccessfully) {
+            isContextSetSuccessfully = setCustomerWithTheMostServiceBookings(servletContext);
         }
         return isContextSetSuccessfully;
     }
@@ -31,6 +35,14 @@ public class SetStatisticsContext {
         servletContext.setAttribute("numberOfUniqueCustomersWithServiceBookings", numberOfUniqueCustomersWithServiceBookings);
 
         return servletContext.getAttribute("numberOfUniqueCustomersWithServiceBookings") != null;
+    }
+
+    public boolean setCustomerWithTheMostServiceBookings(ServletContext servletContext) {
+        ReadStatistics readStatistics = new ReadStatistics();
+        Customer customerWithTheMostServiceBookings = readStatistics.getCustomerWithMostServiceBookings();
+        servletContext.setAttribute("customerWithTheMostServiceBookings", customerWithTheMostServiceBookings);
+
+        return servletContext.getAttribute("customerWithTheMostServiceBookings") != null;
     }
 
 }

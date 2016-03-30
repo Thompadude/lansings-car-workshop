@@ -1,3 +1,5 @@
+<%@ page import="nu.lansingcarworkshop.models.person.Customer" %>
+<%@ page import="nu.lansingcarworkshop.services.statistics.ReadStatistics" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -8,8 +10,12 @@
 <body>
 <%@include file="../menu.jsp" %>
 <%
+    ReadStatistics readStatistics = new ReadStatistics();
+    readStatistics.getCustomerWithMostServiceBookings();
+
     Long amountOfCompletedServiceTasks = (Long) getServletConfig().getServletContext().getAttribute("amountOfCompletedServiceTasks");
     int numberOfUniqueCustomersWithServiceBookings = (int) getServletConfig().getServletContext().getAttribute("numberOfUniqueCustomersWithServiceBookings");
+    Customer customerWithTheMostServiceBookings = (Customer) getServletConfig().getServletContext().getAttribute("customerWithTheMostServiceBookings");
 %>
 <div class="container">
     <div class="row">
@@ -31,6 +37,20 @@
                 </div>
                 <div class="panel-body">
                     <h1><%=numberOfUniqueCustomersWithServiceBookings%>
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Customer With the Most Service Bookings</div>
+                <div class="panel-body">
+                    <h1>
+                        <a href="/ReadPersonServlet?personId=<%=customerWithTheMostServiceBookings.getId()%>&action=view-person-profile">
+                            <%=customerWithTheMostServiceBookings.getName()%>
+                        </a>
                     </h1>
                 </div>
             </div>

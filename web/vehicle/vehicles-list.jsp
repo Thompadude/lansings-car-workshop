@@ -74,6 +74,10 @@
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         Removing a vehicle will also remove all linked service tasks.
     </div>
+    <div class="alert alert-info">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        To add more vehicles, go to <a href="/ReadPersonServlet?action=list-persons">person list</a> and click on +
+    </div>
     <%}%>
 </div>
 <script src="../js/vehicle-delete.js"></script>
