@@ -19,17 +19,21 @@ public class ReadStatistics {
         return listOfUniqueCustomersWithServiceBookings.size();
     }
 
-    public Customer getCustomerWithMostServiceBookings() {
+    public Customer getCustomerWithTheMostServiceBookings() {
         Query query = entityManagerCoordinator.getEntityManager().createQuery("SELECT COUNT(s.customer.id), s.customer FROM ServiceTask s GROUP BY s.customer.id");
 
         @SuppressWarnings("unchecked")
         List<Object[]> queryResults = query.getResultList();
 
-        Long amountOfServiceBookings = 0L;
+        return findTheCustomerWithTheMostServiceBookings(queryResults);
+    }
+
+    private Customer findTheCustomerWithTheMostServiceBookings(List<Object[]> queryResults) {
+        Long amountOfServiceBookings = -1L, amountOfServiceBookingsForSpecificCustomer;
         Customer customerWithTheMostServiceBookings = null;
 
         for (Object[] queryResult : queryResults) {
-            Long amountOfServiceBookingsForSpecificCustomer = ((Number) queryResult[0]).longValue();
+            amountOfServiceBookingsForSpecificCustomer = ((Number) queryResult[0]).longValue();
 
             if (amountOfServiceBookingsForSpecificCustomer > amountOfServiceBookings) {
                 amountOfServiceBookings = amountOfServiceBookingsForSpecificCustomer;

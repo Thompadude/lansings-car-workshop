@@ -11,7 +11,7 @@
 <%@include file="../menu.jsp" %>
 <%
     ReadStatistics readStatistics = new ReadStatistics();
-    readStatistics.getCustomerWithMostServiceBookings();
+    readStatistics.getCustomerWithTheMostServiceBookings();
 
     Long amountOfCompletedServiceTasks = (Long) getServletConfig().getServletContext().getAttribute("amountOfCompletedServiceTasks");
     int numberOfUniqueCustomersWithServiceBookings = (int) getServletConfig().getServletContext().getAttribute("numberOfUniqueCustomersWithServiceBookings");

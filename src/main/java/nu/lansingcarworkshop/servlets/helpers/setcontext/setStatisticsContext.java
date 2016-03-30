@@ -39,7 +39,7 @@ public class SetStatisticsContext {
 
     public boolean setCustomerWithTheMostServiceBookings(ServletContext servletContext) {
         ReadStatistics readStatistics = new ReadStatistics();
-        Customer customerWithTheMostServiceBookings = readStatistics.getCustomerWithMostServiceBookings();
+        Customer customerWithTheMostServiceBookings = readStatistics.getCustomerWithTheMostServiceBookings();
         servletContext.setAttribute("customerWithTheMostServiceBookings", customerWithTheMostServiceBookings);
 
         return servletContext.getAttribute("customerWithTheMostServiceBookings") != null;
