@@ -28,9 +28,7 @@ public class CreateServiceTaskServlet extends HttpServlet {
 
         initializeVariablesFromPostRequest(request);
 
-        ServiceTask serviceTask = new ServiceTask(time, note, responsibleEmployee, vehicleInService);
-        CreateServiceTask createServiceTask = new CreateServiceTask();
-        createServiceTask.createServiceTask(serviceTask, vehicleInService, responsibleEmployee);
+        createAndAddServiceTaskToDatabase();
 
         response.getWriter().print("Service task booked.");
     }
@@ -54,6 +52,12 @@ public class CreateServiceTaskServlet extends HttpServlet {
     private void initializeVehicle(HttpServletRequest request) {
         ReadVehicle readVehicle = new ReadVehicle();
         vehicleInService = readVehicle.getVehicleById(Integer.parseInt(request.getParameter("vehicle-id")));
+    }
+
+    private void createAndAddServiceTaskToDatabase() {
+        ServiceTask serviceTask = new ServiceTask(time, note, responsibleEmployee, vehicleInService);
+        CreateServiceTask createServiceTask = new CreateServiceTask();
+        createServiceTask.createServiceTask(serviceTask, vehicleInService, responsibleEmployee);
     }
 
 }

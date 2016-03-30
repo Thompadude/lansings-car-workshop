@@ -42,18 +42,18 @@ public class CreatePersonServlet extends javax.servlet.http.HttpServlet {
         role = personAttributeBuilder.createRole(request);
     }
 
+    private void createAndAddPersonToDatabase() {
+        Person newPerson = checkTypeAndCreateNewPerson();
+        CreatePerson createPerson = new CreatePerson();
+        createPerson.createPerson(newPerson);
+    }
+
     private Person checkTypeAndCreateNewPerson() {
         if (role == null) {
             return new Customer(name, contactInformation, birthday, sex);
         } else {
             return new Employee(name, contactInformation, birthday, sex, role);
         }
-    }
-
-    private void createAndAddPersonToDatabase() {
-        Person newPerson = checkTypeAndCreateNewPerson();
-        CreatePerson createPerson = new CreatePerson();
-        createPerson.createPerson(newPerson);
     }
 
 }

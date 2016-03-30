@@ -32,7 +32,7 @@ public class Employee extends Person {
             case TECHNICIAN:
                 return "Technician";
         }
-        return null;
+        return "No Role Assigned";
     }
 
     public void setRole(Role role) {

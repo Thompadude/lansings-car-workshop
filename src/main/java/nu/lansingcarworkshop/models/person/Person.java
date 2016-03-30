@@ -75,7 +75,7 @@ public abstract class Person implements Serializable {
             case MALE:
                 return "Male";
         }
-        return null;
+        return "Unknown";
     }
 
 }
