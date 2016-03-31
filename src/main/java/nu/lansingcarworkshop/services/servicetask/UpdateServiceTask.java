@@ -1,12 +1,12 @@
 package nu.lansingcarworkshop.services.servicetask;
 
 import nu.lansingcarworkshop.models.servicetask.ServiceTask;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 
 public class UpdateServiceTask {
 
     private ServiceTask serviceTaskWithUpdatedAttributes;
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
 
     /**
      * Fetch the service task to update from the database and use the temp service task's attributes for the update.
@@ -17,12 +17,12 @@ public class UpdateServiceTask {
     public void updateServiceTask(ServiceTask serviceTaskWithUpdatedAttributes) {
         this.serviceTaskWithUpdatedAttributes = serviceTaskWithUpdatedAttributes;
 
-        entityManagerCoordinator.beginTransaction();
+        entityManagerFacade.beginTransaction();
 
-        ServiceTask serviceTaskToUpdate = entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceTaskWithUpdatedAttributes.getId());
+        ServiceTask serviceTaskToUpdate = entityManagerFacade.getEntityManager().find(ServiceTask.class, serviceTaskWithUpdatedAttributes.getId());
         setNewAttributes(serviceTaskToUpdate);
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     private void setNewAttributes(ServiceTask serviceTaskToUpdate) {

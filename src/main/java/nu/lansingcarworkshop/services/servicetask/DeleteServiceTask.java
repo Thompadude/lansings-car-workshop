@@ -1,52 +1,52 @@
 package nu.lansingcarworkshop.services.servicetask;
 
 import nu.lansingcarworkshop.models.servicetask.ServiceTask;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 
 import java.util.List;
 
 public class DeleteServiceTask {
 
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
     private ReadServiceTask readServiceTask = new ReadServiceTask();
     private List serviceTasks;
 
     public void deleteServiceTaskById(int serviceTaskId) {
-        entityManagerCoordinator.beginTransaction();
+        entityManagerFacade.beginTransaction();
 
-        ServiceTask serviceTask = entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceTaskId);
+        ServiceTask serviceTask = entityManagerFacade.getEntityManager().find(ServiceTask.class, serviceTaskId);
 
-        entityManagerCoordinator.getEntityManager().remove(serviceTask);
+        entityManagerFacade.getEntityManager().remove(serviceTask);
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     public void deleteAllServiceTasksFromCustomer(int customerId) {
-        entityManagerCoordinator.beginTransaction();
+        entityManagerFacade.beginTransaction();
 
         serviceTasks = readServiceTask.getAllServiceTasksByCustomerId(customerId);
 
         //noinspection unchecked
         removeListOfServiceTasks(serviceTasks);
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     public void deleteAllServiceTasksFromVehicle(int vehicleId) {
-        entityManagerCoordinator.beginTransaction();
+        entityManagerFacade.beginTransaction();
 
         serviceTasks = readServiceTask.getAllServiceTasksByVehicleId(vehicleId);
 
         //noinspection unchecked
         removeListOfServiceTasks(serviceTasks);
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     private void removeListOfServiceTasks(List<ServiceTask> serviceTasks) {
         for (ServiceTask serviceTask : serviceTasks) {
-            ServiceTask serviceTaskToDelete = entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceTask.getId());
-            entityManagerCoordinator.getEntityManager().remove(serviceTaskToDelete);
+            ServiceTask serviceTaskToDelete = entityManagerFacade.getEntityManager().find(ServiceTask.class, serviceTask.getId());
+            entityManagerFacade.getEntityManager().remove(serviceTaskToDelete);
         }
     }
 

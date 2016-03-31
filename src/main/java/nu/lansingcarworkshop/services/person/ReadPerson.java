@@ -1,32 +1,32 @@
 package nu.lansingcarworkshop.services.person;
 
 import nu.lansingcarworkshop.models.person.Person;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 
 import javax.persistence.Query;
 import java.util.List;
 
 public class ReadPerson {
 
-    EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
-    Query queryResponse;
+    EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
+    private Query queryResponse;
 
     public Person getPersonById(int personId) {
-        return entityManagerCoordinator.getEntityManager().find(Person.class, personId);
+        return entityManagerFacade.getEntityManager().find(Person.class, personId);
     }
 
     public List getAllCustomers() {
-        queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT c FROM Customer c ORDER BY c.name");
+        queryResponse = entityManagerFacade.getEntityManager().createQuery("SELECT c FROM Customer c ORDER BY c.name");
         return queryResponse.getResultList();
     }
 
     public List getAllEmployees() {
-        queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT e FROM Employee e ORDER BY e.name");
+        queryResponse = entityManagerFacade.getEntityManager().createQuery("SELECT e FROM Employee e ORDER BY e.name");
         return queryResponse.getResultList();
     }
 
     public List getAllPersons() {
-        queryResponse = entityManagerCoordinator.getEntityManager().createQuery("SELECT p FROM Person p");
+        queryResponse = entityManagerFacade.getEntityManager().createQuery("SELECT p FROM Person p");
         return queryResponse.getResultList();
     }
 

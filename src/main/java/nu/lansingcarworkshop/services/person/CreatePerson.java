@@ -1,14 +1,14 @@
 package nu.lansingcarworkshop.services.person;
 
 import nu.lansingcarworkshop.models.person.Person;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 
 public class CreatePerson {
 
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
 
     public void createPerson(Person person) {
-        entityManagerCoordinator.beginTransactionSaveEntityAndCommit(person);
+        entityManagerFacade.beginTransactionSaveEntityAndCommit(person);
     }
 
 }

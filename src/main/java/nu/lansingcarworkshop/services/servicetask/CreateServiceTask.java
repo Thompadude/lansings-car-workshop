@@ -4,22 +4,22 @@ import nu.lansingcarworkshop.models.person.Employee;
 import nu.lansingcarworkshop.models.person.Person;
 import nu.lansingcarworkshop.models.servicetask.ServiceTask;
 import nu.lansingcarworkshop.models.vehicle.Vehicle;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 
 import javax.persistence.EntityManager;
 
 public class CreateServiceTask {
 
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
 
     public void createServiceTask(ServiceTask serviceTask, Vehicle vehicle, Person person) {
-        entityManagerCoordinator.beginTransactionAndSaveEntity(serviceTask);
+        entityManagerFacade.beginTransactionAndSaveEntity(serviceTask);
 
-        setVehicleInService(serviceTask, vehicle.getId(), entityManagerCoordinator.getEntityManager());
+        setVehicleInService(serviceTask, vehicle.getId(), entityManagerFacade.getEntityManager());
 
-        setResponsibleEmployee(serviceTask, person.getId(), entityManagerCoordinator.getEntityManager());
+        setResponsibleEmployee(serviceTask, person.getId(), entityManagerFacade.getEntityManager());
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     private void setResponsibleEmployee(ServiceTask serviceTask, int personId, EntityManager entityManager) {

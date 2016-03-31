@@ -1,11 +1,11 @@
 package nu.lansingcarworkshop.services.vehicle;
 
 import nu.lansingcarworkshop.models.vehicle.Vehicle;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 
 public class UpdateVehicle {
 
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
     private Vehicle vehicleWithUpdatedAttributes;
 
     /**
@@ -17,12 +17,12 @@ public class UpdateVehicle {
     public void updateVehicle(Vehicle vehicleWithUpdatedAttributes) {
         this.vehicleWithUpdatedAttributes = vehicleWithUpdatedAttributes;
 
-        entityManagerCoordinator.beginTransaction();
+        entityManagerFacade.beginTransaction();
 
-        Vehicle vehicleToUpdate = entityManagerCoordinator.getEntityManager().find(Vehicle.class, vehicleWithUpdatedAttributes.getId());
+        Vehicle vehicleToUpdate = entityManagerFacade.getEntityManager().find(Vehicle.class, vehicleWithUpdatedAttributes.getId());
         setNewAttributes(vehicleToUpdate);
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     private void setNewAttributes(Vehicle vehicleToUpdate) {

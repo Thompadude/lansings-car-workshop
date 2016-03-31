@@ -2,11 +2,11 @@ package nu.lansingcarworkshop.services.person;
 
 import nu.lansingcarworkshop.models.person.Employee;
 import nu.lansingcarworkshop.models.person.Person;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 
 public class UpdatePerson {
 
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
     private Person personWithUpdatedAttributes;
 
     /**
@@ -17,12 +17,12 @@ public class UpdatePerson {
      */
     public void updatePerson(Person personWithUpdatedAttributes) {
         this.personWithUpdatedAttributes = personWithUpdatedAttributes;
-        entityManagerCoordinator.beginTransaction();
+        entityManagerFacade.beginTransaction();
 
-        Person personToUpdate = entityManagerCoordinator.getEntityManager().find(Person.class, personWithUpdatedAttributes.getId());
+        Person personToUpdate = entityManagerFacade.getEntityManager().find(Person.class, personWithUpdatedAttributes.getId());
         setNewAttributes(personToUpdate);
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     private void setNewAttributes(Person personToUpdate) {

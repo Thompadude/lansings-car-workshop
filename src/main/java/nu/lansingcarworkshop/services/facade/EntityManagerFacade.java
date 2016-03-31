@@ -1,17 +1,17 @@
-package nu.lansingcarworkshop.services.coordinator;
+package nu.lansingcarworkshop.services.facade;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class EntityManagerCoordinator {
+public class EntityManagerFacade {
 
     @SuppressWarnings("SpellCheckingInspection")
     private static final String DATABASE_URL = "carworkshop";
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
-    public EntityManagerCoordinator() {
+    public EntityManagerFacade() {
         this.entityManagerFactory = Persistence.createEntityManagerFactory(DATABASE_URL);
         this.entityManager = this.entityManagerFactory.createEntityManager();
     }

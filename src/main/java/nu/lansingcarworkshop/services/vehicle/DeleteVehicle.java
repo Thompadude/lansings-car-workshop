@@ -1,7 +1,7 @@
 package nu.lansingcarworkshop.services.vehicle;
 
 import nu.lansingcarworkshop.models.vehicle.Vehicle;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 import nu.lansingcarworkshop.services.servicetask.DeleteServiceTask;
 
 import javax.persistence.EntityManager;
@@ -9,31 +9,31 @@ import java.util.List;
 
 public class DeleteVehicle {
 
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
 
     public void deleteVehicleById(int vehicleId) {
-        entityManagerCoordinator.beginTransaction();
+        entityManagerFacade.beginTransaction();
 
-        Vehicle vehicle = entityManagerCoordinator.getEntityManager().find(Vehicle.class, vehicleId);
+        Vehicle vehicle = entityManagerFacade.getEntityManager().find(Vehicle.class, vehicleId);
 
         removeSubsequentObjectsFromVehicle(vehicleId);
 
-        entityManagerCoordinator.getEntityManager().remove(vehicle);
+        entityManagerFacade.getEntityManager().remove(vehicle);
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     public void deleteAllVehiclesFromCustomer(int customerId) {
-        entityManagerCoordinator.beginTransaction();
+        entityManagerFacade.beginTransaction();
 
         ReadVehicle readVehicle = new ReadVehicle();
 
         @SuppressWarnings("unchecked")
         List<Vehicle> vehicles = readVehicle.getAllVehiclesByCustomerId(customerId);
 
-        deleteListOfVehicles(entityManagerCoordinator.getEntityManager(), vehicles);
+        deleteListOfVehicles(entityManagerFacade.getEntityManager(), vehicles);
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     private void removeSubsequentObjectsFromVehicle(int vehicleId) {

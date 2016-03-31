@@ -2,20 +2,20 @@ package nu.lansingcarworkshop.services.vehicle;
 
 import nu.lansingcarworkshop.models.person.Customer;
 import nu.lansingcarworkshop.models.vehicle.Vehicle;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 
 import javax.persistence.EntityManager;
 
 public class CreateVehicle {
 
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
 
     public void createVehicle(Vehicle vehicle, int customerId) {
-        entityManagerCoordinator.beginTransactionAndSaveEntity(vehicle);
+        entityManagerFacade.beginTransactionAndSaveEntity(vehicle);
 
-        setVehicleOwner(vehicle, customerId, entityManagerCoordinator.getEntityManager());
+        setVehicleOwner(vehicle, customerId, entityManagerFacade.getEntityManager());
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     private void setVehicleOwner(Vehicle vehicle, int customerId, EntityManager entityManager) {

@@ -1,25 +1,25 @@
 package nu.lansingcarworkshop.services.vehicle;
 
 import nu.lansingcarworkshop.models.vehicle.Vehicle;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 
 import javax.persistence.Query;
 import java.util.List;
 
 public class ReadVehicle {
 
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
 
     public Vehicle getVehicleById(int vehicleId) {
-        return entityManagerCoordinator.getEntityManager().find(Vehicle.class, vehicleId);
+        return entityManagerFacade.getEntityManager().find(Vehicle.class, vehicleId);
     }
 
     public List getAllVehicles() {
-        return entityManagerCoordinator.getEntityManager().createQuery("SELECT v FROM Vehicle v").getResultList();
+        return entityManagerFacade.getEntityManager().createQuery("SELECT v FROM Vehicle v").getResultList();
     }
 
     public List getAllVehiclesByCustomerId(int customerId) {
-        Query query = entityManagerCoordinator.getEntityManager().createQuery("SELECT v FROM Vehicle v WHERE v.customer.id = :id");
+        Query query = entityManagerFacade.getEntityManager().createQuery("SELECT v FROM Vehicle v WHERE v.customer.id = :id");
         query.setParameter("id", customerId);
         return query.getResultList();
     }

@@ -3,7 +3,7 @@ package nu.lansingcarworkshop.services.person;
 import nu.lansingcarworkshop.models.person.Customer;
 import nu.lansingcarworkshop.models.person.Person;
 import nu.lansingcarworkshop.models.servicetask.ServiceTask;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 import nu.lansingcarworkshop.services.servicetask.DeleteServiceTask;
 import nu.lansingcarworkshop.services.servicetask.ReadServiceTask;
 import nu.lansingcarworkshop.services.vehicle.DeleteVehicle;
@@ -12,18 +12,18 @@ import java.util.List;
 
 public class DeletePerson {
 
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
 
     public void deletePersonById(int personId) {
-        entityManagerCoordinator.beginTransaction();
+        entityManagerFacade.beginTransaction();
 
-        Person person = entityManagerCoordinator.getEntityManager().find(Person.class, personId);
+        Person person = entityManagerFacade.getEntityManager().find(Person.class, personId);
 
         removeSubsequentObjectsFromPerson(personId, person);
 
-        entityManagerCoordinator.getEntityManager().remove(person);
+        entityManagerFacade.getEntityManager().remove(person);
 
-        entityManagerCoordinator.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabase();
     }
 
     private void removeSubsequentObjectsFromPerson(int personId, Person person) {
@@ -63,7 +63,7 @@ public class DeletePerson {
 
     private void findEmployeeConnectedToServiceTaskAndRemove(List<ServiceTask> serviceTasks) {
         for (ServiceTask serviceTask : serviceTasks) {
-            ServiceTask serviceTaskToRemoveEmployeeFrom = entityManagerCoordinator.getEntityManager().find(ServiceTask.class, serviceTask.getId());
+            ServiceTask serviceTaskToRemoveEmployeeFrom = entityManagerFacade.getEntityManager().find(ServiceTask.class, serviceTask.getId());
             serviceTaskToRemoveEmployeeFrom.setResponsibleEmployee(null);
         }
     }

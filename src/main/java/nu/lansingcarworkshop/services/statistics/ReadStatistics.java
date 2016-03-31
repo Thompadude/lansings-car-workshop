@@ -1,26 +1,26 @@
 package nu.lansingcarworkshop.services.statistics;
 
 import nu.lansingcarworkshop.models.person.Customer;
-import nu.lansingcarworkshop.services.coordinator.EntityManagerCoordinator;
+import nu.lansingcarworkshop.services.facade.EntityManagerFacade;
 
 import javax.persistence.Query;
 import java.util.List;
 
 public class ReadStatistics {
 
-    private EntityManagerCoordinator entityManagerCoordinator = new EntityManagerCoordinator();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
 
     public Long getNumberOfCompletedServiceTasks() {
-        return (Long) entityManagerCoordinator.getEntityManager().createQuery("SELECT COUNT(s.isCompleted) FROM ServiceTask s WHERE s.isCompleted = true").getSingleResult();
+        return (Long) entityManagerFacade.getEntityManager().createQuery("SELECT COUNT(s.isCompleted) FROM ServiceTask s WHERE s.isCompleted = true").getSingleResult();
     }
 
     public int getNumberOfUniqueCustomersWithServiceBookings() {
-        List listOfUniqueCustomersWithServiceBookings = entityManagerCoordinator.getEntityManager().createQuery("SELECT DISTINCT(s.customer) FROM ServiceTask s").getResultList();
+        List listOfUniqueCustomersWithServiceBookings = entityManagerFacade.getEntityManager().createQuery("SELECT DISTINCT(s.customer) FROM ServiceTask s").getResultList();
         return listOfUniqueCustomersWithServiceBookings.size();
     }
 
     public Customer getCustomerWithTheMostServiceBookings() {
-        Query query = entityManagerCoordinator.getEntityManager().createQuery("SELECT COUNT(s.customer.id), s.customer FROM ServiceTask s GROUP BY s.customer.id");
+        Query query = entityManagerFacade.getEntityManager().createQuery("SELECT COUNT(s.customer.id), s.customer FROM ServiceTask s GROUP BY s.customer.id");
 
         @SuppressWarnings("unchecked")
         List<Object[]> queryResults = query.getResultList();
