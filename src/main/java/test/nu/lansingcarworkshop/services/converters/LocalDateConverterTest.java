@@ -9,7 +9,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class LocalDateConverterTest {
 
@@ -27,20 +28,16 @@ public class LocalDateConverterTest {
 
     @Test
     public void testConvertToDatabaseColumn_Should_Not_Return_Null() throws Exception {
-        Date result = localDateConverter.convertToDatabaseColumn(LocalDate.now());
-        assertNotNull(result);
+        Date result1 = localDateConverter.convertToDatabaseColumn(LocalDate.now());
+        Date result2 = localDateConverter.convertToDatabaseColumn(null);
+        assertNotNull(result1);
+        assertNotNull(result2);
     }
 
     @Test
     public void testConvertToDatabaseColumn_Should_Return_Correct_Formatted_Date() throws Exception {
         Date result = localDateConverter.convertToDatabaseColumn(LocalDate.of(2020, 3, 4));
         assertEquals(Date.valueOf("2020-03-04"), result);
-    }
-
-    @Test
-    public void testConvertToDatabaseColumn_Should_Return_Null() throws Exception {
-        Date result = localDateConverter.convertToDatabaseColumn(null);
-        assertNull(result);
     }
 
     @Test(expected = DateTimeParseException.class)
@@ -50,20 +47,16 @@ public class LocalDateConverterTest {
 
     @Test
     public void testConvertToEntityAttribute_Should_Not_Return_Null() throws Exception {
-        LocalDate result = localDateConverter.convertToEntityAttribute(Date.valueOf("2020-03-04"));
-        assertNotNull(result);
+        LocalDate result1 = localDateConverter.convertToEntityAttribute(Date.valueOf("2020-03-04"));
+        LocalDate result2 = localDateConverter.convertToEntityAttribute(null);
+        assertNotNull(result1);
+        assertNotNull(result2);
     }
 
     @Test
     public void testConvertToEntityAttribute_Should_Return_Correct_Formatted_LocalDate() throws Exception {
         LocalDate result = localDateConverter.convertToEntityAttribute(Date.valueOf("2020-03-04"));
         assertEquals(LocalDate.of(2020, 3, 4), result);
-    }
-
-    @Test
-    public void testConvertToEntityAttribute_Should_Return_Null() throws Exception {
-        LocalDate result = localDateConverter.convertToEntityAttribute(null);
-        assertNull(result);
     }
 
     @Test(expected = IllegalArgumentException.class)
