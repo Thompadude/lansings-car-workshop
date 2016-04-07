@@ -28,9 +28,13 @@ public class PersonAttributeBuilder {
                 return Role.TECHNICIAN;
             } else if (roleString.equalsIgnoreCase("SPECIALIST")) {
                 return Role.SPECIALIST;
+            } else if (roleString.equalsIgnoreCase("customer")) {
+                return null;
+            } else {
+                return Role.NONE;
             }
         }
-        return Role.NONE;
+        return null;
     }
 
     public void changeRole(Person personToUpdate, Role role) {
