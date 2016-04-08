@@ -14,8 +14,6 @@ $(document).ready(function () {
             },
             success: function () {
 
-                console.log("SUCCESS");
-
                 $('.iscompleted').load(location.href + " .iscompleted");
             },
             error: function () {

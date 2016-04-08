@@ -49,7 +49,7 @@ public class CreatePersonServlet extends javax.servlet.http.HttpServlet {
     }
 
     private Person checkTypeAndCreateNewPerson() {
-        if (role == null) {
+        if (role == Role.NONE) {
             return new Customer(name, contactInformation, birthday, sex);
         } else {
             return new Employee(name, contactInformation, birthday, sex, role);

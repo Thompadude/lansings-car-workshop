@@ -76,7 +76,7 @@
     </div>
     <div class="alert alert-info">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        To add more vehicles, go to <a href="/ReadPersonServlet?action=list-persons">the list of customers</a> and click <span class="glyphicon glyphicon-plus"></span>
+        To add more vehicles, go to <a href="/ReadPersonServlet?action=list-persons">the list of persons</a>, navigate to the customers list and click <span class="glyphicon glyphicon-plus"></span>
     </div>
     <%}%>
 </div>
