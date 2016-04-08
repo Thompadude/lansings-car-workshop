@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class LocalDateConverterTest {
 
@@ -27,40 +28,66 @@ public class LocalDateConverterTest {
     }
 
     @Test
-    public void testConvertToDatabaseColumn_Should_Not_Return_Null() throws Exception {
-        Date result1 = localDateConverter.convertToDatabaseColumn(LocalDate.now());
-        Date result2 = localDateConverter.convertToDatabaseColumn(null);
-        assertNotNull(result1);
-        assertNotNull(result2);
+    public void testConvertToDatabaseColumn_Should_Not_Return_Null_When_Argument_Is_Valid_LocalDate() throws Exception {
+        Date result = localDateConverter.convertToDatabaseColumn(LocalDate.now());
+        assertNotNull(result);
     }
 
     @Test
-    public void testConvertToDatabaseColumn_Should_Return_Correct_Formatted_Date() throws Exception {
+    public void testConvertToDatabaseColumn_Should_Not_Return_Null_When_Argument_Is_Null() throws Exception {
+        Date result = localDateConverter.convertToDatabaseColumn(null);
+        assertNotNull(result);
+    }
+
+    @Test
+    public void testConvertToDatabaseColumn_Should_Return_Date_Of_Today_In_Date_When_Argument_Is_Null_Ignoring_Nano_Seconds() {
+        Date result = localDateConverter.convertToDatabaseColumn(null);
+
+        assertTrue(result.compareTo(Date.valueOf(LocalDate.now())) == 0);
+    }
+
+    @Test
+    public void testConvertToDatabaseColumn_Should_Return_Correct_Formatted_Date() {
         Date result = localDateConverter.convertToDatabaseColumn(LocalDate.of(2020, 3, 4));
-        assertEquals(Date.valueOf("2020-03-04"), result);
+        Date expectedResult = Date.valueOf("2020-03-04");
+
+        assertEquals(expectedResult, result);
     }
 
     @Test(expected = DateTimeParseException.class)
-    public void testConvertToDatabaseColumn_Should_Throw_DateTimeParseException() throws Exception {
+    public void testConvertToDatabaseColumn_Should_Throw_DateTimeParseException() {
         localDateConverter.convertToDatabaseColumn(LocalDate.parse("David Hasselhoff"));
     }
 
     @Test
-    public void testConvertToEntityAttribute_Should_Not_Return_Null() throws Exception {
-        LocalDate result1 = localDateConverter.convertToEntityAttribute(Date.valueOf("2020-03-04"));
-        LocalDate result2 = localDateConverter.convertToEntityAttribute(null);
-        assertNotNull(result1);
-        assertNotNull(result2);
+    public void testConvertToEntityAttribute_Should_Not_Return_Null_When_Argument_Is_Valid_Date() {
+        LocalDate result = localDateConverter.convertToEntityAttribute(Date.valueOf("2020-03-04"));
+        assertNotNull(result);
     }
 
     @Test
-    public void testConvertToEntityAttribute_Should_Return_Correct_Formatted_LocalDate() throws Exception {
+    public void testConvertToEntityAttribute_Should_Not_Return_Null_When_Argument_Is_Null() {
+        LocalDate result = localDateConverter.convertToEntityAttribute(null);
+        assertNotNull(result);
+    }
+
+    @Test
+    public void testConvertToEntityAttribute_Should_Return_Date_Of_Today_In_LocalDate_When_Argument_Is_Null() {
+        LocalDate result = localDateConverter.convertToEntityAttribute(null);
+
+        assertTrue(result.compareTo(LocalDate.now()) == 0);
+    }
+
+    @Test
+    public void testConvertToEntityAttribute_Should_Return_Correct_Formatted_LocalDate() {
         LocalDate result = localDateConverter.convertToEntityAttribute(Date.valueOf("2020-03-04"));
-        assertEquals(LocalDate.of(2020, 3, 4), result);
+        LocalDate expectedResult = LocalDate.of(2020, 3, 4);
+
+        assertEquals(expectedResult, result);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testConvertToEntityAttribute_Should_Throw_DateTimeParseException() throws Exception {
+    public void testConvertToEntityAttribute_Should_Throw_IllegalArgumentParseException() {
         localDateConverter.convertToEntityAttribute(Date.valueOf("David Hasselhoff"));
     }
 
