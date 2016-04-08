@@ -31,8 +31,9 @@ public class Employee extends Person {
                 return "Specialist";
             case TECHNICIAN:
                 return "Technician";
+            default:
+                return "No Role Assigned";
         }
-        return "No Role Assigned";
     }
 
     public void setRole(Role role) {
