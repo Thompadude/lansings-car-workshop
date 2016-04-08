@@ -18,7 +18,7 @@ public class DeleteServiceTask {
 
         entityManagerFacade.getEntityManager().remove(serviceTask);
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     public void deleteAllServiceTasksFromCustomer(int customerId) {
@@ -29,7 +29,7 @@ public class DeleteServiceTask {
         //noinspection unchecked
         removeListOfServiceTasks(serviceTasks);
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     public void deleteAllServiceTasksFromVehicle(int vehicleId) {
@@ -40,7 +40,7 @@ public class DeleteServiceTask {
         //noinspection unchecked
         removeListOfServiceTasks(serviceTasks);
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     private void removeListOfServiceTasks(List<ServiceTask> serviceTasks) {

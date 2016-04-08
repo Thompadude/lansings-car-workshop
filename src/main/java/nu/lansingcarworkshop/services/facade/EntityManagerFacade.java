@@ -29,7 +29,7 @@ public class EntityManagerFacade {
         return isTransactionStarted;
     }
 
-    public boolean commitTransactionAndCloseDatabase() {
+    public boolean commitTransactionAndCloseDatabaseIfATransactionHasBegun() {
         boolean isTransactionCompletedAndDatabaseClosed = false;
         if (this.entityManager.getTransaction().isActive()) {
             this.entityManager.getTransaction().commit();
@@ -47,7 +47,7 @@ public class EntityManagerFacade {
 
     public <T> void beginTransactionSaveEntityAndCommit(T t) {
         beginTransactionAndSaveEntity(t);
-        commitTransactionAndCloseDatabase();
+        commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
 }

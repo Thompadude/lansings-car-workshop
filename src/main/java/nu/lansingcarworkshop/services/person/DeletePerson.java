@@ -23,7 +23,7 @@ public class DeletePerson {
 
         entityManagerFacade.getEntityManager().remove(person);
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     private void removeSubsequentObjectsFromPerson(int personId, Person person) {

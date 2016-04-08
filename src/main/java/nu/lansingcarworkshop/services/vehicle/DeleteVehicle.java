@@ -20,7 +20,7 @@ public class DeleteVehicle {
 
         entityManagerFacade.getEntityManager().remove(vehicle);
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     public void deleteAllVehiclesFromCustomer(int customerId) {
@@ -33,7 +33,7 @@ public class DeleteVehicle {
 
         deleteListOfVehicles(entityManagerFacade.getEntityManager(), vehicles);
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     private void removeSubsequentObjectsFromVehicle(int vehicleId) {

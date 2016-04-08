@@ -22,7 +22,7 @@ public class UpdatePerson {
         Person personToUpdate = entityManagerFacade.getEntityManager().find(Person.class, personWithUpdatedAttributes.getId());
         setNewAttributes(personToUpdate);
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     private void setNewAttributes(Person personToUpdate) {

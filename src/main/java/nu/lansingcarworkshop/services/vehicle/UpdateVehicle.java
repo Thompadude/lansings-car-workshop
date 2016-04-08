@@ -22,7 +22,7 @@ public class UpdateVehicle {
         Vehicle vehicleToUpdate = entityManagerFacade.getEntityManager().find(Vehicle.class, vehicleWithUpdatedAttributes.getId());
         setNewAttributes(vehicleToUpdate);
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     private void setNewAttributes(Vehicle vehicleToUpdate) {

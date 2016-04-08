@@ -15,7 +15,7 @@ public class CreateVehicle {
 
         setVehicleOwner(vehicle, customerId, entityManagerFacade.getEntityManager());
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     private void setVehicleOwner(Vehicle vehicle, int customerId, EntityManager entityManager) {

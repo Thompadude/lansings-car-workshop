@@ -19,7 +19,7 @@ public class CreateServiceTask {
 
         setResponsibleEmployee(serviceTask, person.getId(), entityManagerFacade.getEntityManager());
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     private void setResponsibleEmployee(ServiceTask serviceTask, int personId, EntityManager entityManager) {

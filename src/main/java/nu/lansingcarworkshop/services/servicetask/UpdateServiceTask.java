@@ -22,7 +22,7 @@ public class UpdateServiceTask {
         ServiceTask serviceTaskToUpdate = entityManagerFacade.getEntityManager().find(ServiceTask.class, serviceTaskWithUpdatedAttributes.getId());
         setNewAttributes(serviceTaskToUpdate);
 
-        entityManagerFacade.commitTransactionAndCloseDatabase();
+        entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun();
     }
 
     private void setNewAttributes(ServiceTask serviceTaskToUpdate) {
