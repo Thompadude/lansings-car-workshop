@@ -1,5 +1,6 @@
 <%@ page import="nu.lansingcarworkshop.models.person.Customer" %>
 <%@ page import="nu.lansingcarworkshop.services.statistics.ReadStatistics" %>
+<%@ page import="java.util.List" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -10,12 +11,9 @@
 <body>
 <%@include file="../menu.jsp" %>
 <%
-    ReadStatistics readStatistics = new ReadStatistics();
-    readStatistics.getCustomerWithTheMostServiceBookings();
-
     Long amountOfCompletedServiceTasks = (Long) getServletConfig().getServletContext().getAttribute("amountOfCompletedServiceTasks");
     int numberOfUniqueCustomersWithServiceBookings = (int) getServletConfig().getServletContext().getAttribute("numberOfUniqueCustomersWithServiceBookings");
-    Customer customerWithTheMostServiceBookings = (Customer) getServletConfig().getServletContext().getAttribute("customerWithTheMostServiceBookings");
+    List<Customer> customersWithTheMostServiceBookings = (List<Customer>) getServletConfig().getServletContext().getAttribute("customersWithTheMostServiceBookings");
 %>
 <div class="container">
     <div class="row">
@@ -43,16 +41,27 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-10">
             <div class="panel panel-primary">
-                <div class="panel-heading">Customer With the Most Service Bookings</div>
-                <div class="panel-body">
-                    <h1>
-                        <a href="/ReadPersonServlet?personId=<%=customerWithTheMostServiceBookings.getId()%>&action=view-person-profile">
-                            <%=customerWithTheMostServiceBookings.getName()%>
+                <div class="panel-heading">Customer(s) With the Most Service Bookings</div>
+                <h1>
+                    <%
+                        if (customersWithTheMostServiceBookings != null && (customersWithTheMostServiceBookings.size() != 0)) {
+                            for (Customer customer : customersWithTheMostServiceBookings) {
+                    %>
+                    <div class="panel-body">
+                        <a href="/ReadPersonServlet?personId=<%=customer.getId()%>&action=view-person-profile"><%=customer.getName()%>
                         </a>
-                    </h1>
-                </div>
+                    </div>
+                    <%
+                        }
+                    } else {
+                    %>
+                    <div class="panel-body">
+                        No service tasks added yet.
+                    </div>
+                    <%}%>
+                </h1>
             </div>
         </div>
     </div>

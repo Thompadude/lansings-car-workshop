@@ -4,6 +4,7 @@ import nu.lansingcarworkshop.models.person.Customer;
 import nu.lansingcarworkshop.services.statistics.ReadStatistics;
 
 import javax.servlet.ServletContext;
+import java.util.List;
 
 /**
  * All methods return true if the context attributes is set successfully, else false.
@@ -39,10 +40,13 @@ public class SetStatisticsContext {
 
     public boolean setCustomerWithTheMostServiceBookings(ServletContext servletContext) {
         ReadStatistics readStatistics = new ReadStatistics();
-        Customer customerWithTheMostServiceBookings = readStatistics.getCustomerWithTheMostServiceBookings();
-        servletContext.setAttribute("customerWithTheMostServiceBookings", customerWithTheMostServiceBookings);
+        List<Customer> customersWithTheMostServiceBookings = readStatistics.getCustomersWithTheMostServiceBookings();
 
-        return servletContext.getAttribute("customerWithTheMostServiceBookings") != null;
+        if (customersWithTheMostServiceBookings != null) {
+            servletContext.setAttribute("customersWithTheMostServiceBookings", customersWithTheMostServiceBookings);
+        }
+
+        return true;
     }
 
 }
