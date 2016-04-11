@@ -42,7 +42,9 @@ public class EntityManagerFacade {
 
     public <T> void beginTransactionAndSaveEntity(T t) {
         beginTransaction();
-        this.entityManager.persist(t);
+        if (t != null) {
+            this.entityManager.persist(t);
+        }
     }
 
     public <T> void beginTransactionSaveEntityAndCommit(T t) {

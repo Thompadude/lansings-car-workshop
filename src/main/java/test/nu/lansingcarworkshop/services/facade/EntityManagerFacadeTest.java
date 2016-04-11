@@ -5,21 +5,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class EntityManagerFacadeTest {
 
     private EntityManagerFacade entityManagerFacade;
-//    private static final String DATABASE_URL = "carworkshop";
-//    @Mock
-//    private EntityManagerFactory entityManagerFactory;
-//    @Mock
-//    private EntityManager entityManager;
 
     @Before
     public void setUp() throws Exception {
         entityManagerFacade = new EntityManagerFacade();
-//        MockitoAnnotations.initMocks(this);
     }
 
     @After
@@ -31,13 +26,13 @@ public class EntityManagerFacadeTest {
     public void testBeginTransaction_Should_Only_Begin_Transaction_If_Not_Already_Started() throws Exception {
         assertTrue(entityManagerFacade.beginTransaction());
 
-        // Start a transaction and then try start another one. Should fail and return false.
+        // Start a transaction and then try start another one. Should not another transaction thus returning false.
         entityManagerFacade.beginTransaction();
         assertFalse(entityManagerFacade.beginTransaction());
     }
 
     @Test
-    public void testcommitTransactionAndCloseDatabaseIfATransactionHasBegun_Should_Only_Close_If_Transaction_Has_Begun() throws Exception {
+    public void testCommitTransactionAndCloseDatabaseIfATransactionHasBegun_Should_Only_Close_If_Transaction_Has_Begun() throws Exception {
         // Should return false since we haven't opened a transaction yet.
         assertFalse(entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun());
 
@@ -46,13 +41,4 @@ public class EntityManagerFacadeTest {
         assertTrue(entityManagerFacade.commitTransactionAndCloseDatabaseIfATransactionHasBegun());
     }
 
-    @Test
-    public void testBeginTransactionAndSaveEntity() throws Exception {
-
-    }
-
-    @Test
-    public void testBeginTransactionSaveEntityAndCommit() throws Exception {
-
-    }
 }
