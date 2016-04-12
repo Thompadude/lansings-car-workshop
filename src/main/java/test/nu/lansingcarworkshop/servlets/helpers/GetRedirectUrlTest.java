@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import javax.servlet.http.HttpServletRequest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 public class GetRedirectUrlTest {
@@ -45,6 +46,7 @@ public class GetRedirectUrlTest {
         expectedRedirectUrl = baseUrl + "/person/add-vehicle-to-person.jsp";
 
         result = getRedirectUrl.getRedirectUrl(UserActions.ADDVEHICLETOPERSON, mockedHttpServletRequest);
+        assertNotNull(result);
         assertEquals(result, expectedRedirectUrl);
     }
 
@@ -53,6 +55,7 @@ public class GetRedirectUrlTest {
         expectedRedirectUrl = baseUrl + "/person/persons-edit-delete.jsp";
 
         result = getRedirectUrl.getRedirectUrl(UserActions.VIEWPERSONLIST, mockedHttpServletRequest);
+        assertNotNull(result);
         assertEquals(result, expectedRedirectUrl);
     }
 
@@ -61,6 +64,7 @@ public class GetRedirectUrlTest {
         expectedRedirectUrl = baseUrl + "/error.jsp";
 
         result = getRedirectUrl.getRedirectUrl(null, mockedHttpServletRequest);
+        assertNotNull(result);
         assertEquals(result, expectedRedirectUrl);
     }
 
