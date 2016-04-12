@@ -22,7 +22,7 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                alert("Server communication error - contact webmaster!");
+                alert("Service task already deleted!");
             }
         })
     });
