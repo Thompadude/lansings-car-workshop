@@ -7,6 +7,10 @@ public class GetRedirectUrl {
     public String getRedirectUrl(UserActions action, HttpServletRequest request) {
         String baseUrl = request.getContextPath();
 
+        if (action == null) {
+            return baseUrl + "/error.jsp";
+        }
+
         switch (action) {
             case ADDVEHICLETOPERSON:
                 return baseUrl + "/person/add-vehicle-to-person.jsp";

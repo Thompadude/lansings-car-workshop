@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet(name = "LoginServlet", urlPatterns = "/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
-    private boolean isAdminLoggedIn, isLoginSuccessful;
+    private boolean isLoginSuccessful;
     private String action;
     private static final String adminUserName = "ADMIN";
     private static final String adminPassword = "ADMIN";
@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
         String userNameInput = request.getParameter("username");
         String userPasswordInput = request.getParameter("password");
 
-        isAdminLoggedIn = false;
+        boolean isAdminLoggedIn = false;
         isLoginSuccessful = false;
 
         if (userNameInput.toUpperCase().equals(adminUserName) || userPasswordInput.toUpperCase().equals(adminPassword)) {

@@ -14,11 +14,15 @@ public class PersonAttributeBuilder {
 
     public Sex createSex(HttpServletRequest request) {
         String sexString = request.getParameter("person-sex");
-        if (sexString.equals("male")) {
+
+        if (sexString == null) {
+            return Sex.UNKNOWN;
+        } else if (sexString.equals("male")) {
             return Sex.MALE;
-        } else {
+        } else if (sexString.equals("female")) {
             return Sex.FEMALE;
         }
+        return Sex.UNKNOWN;
     }
 
     public Role createRole(HttpServletRequest request) {

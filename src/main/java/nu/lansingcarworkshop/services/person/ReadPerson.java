@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ReadPerson {
 
-    EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
+    private EntityManagerFacade entityManagerFacade = new EntityManagerFacade();
     private Query queryResponse;
 
     public Person getPersonById(int personId) {

@@ -19,6 +19,9 @@ public class SetEntityClassesContext {
         Person currentPerson;
 
         if (personId != null) {
+            if (personId.equals("")) {
+                return false;
+            }
             ReadPerson readPerson = new ReadPerson();
             currentPerson = readPerson.getPersonById(Integer.parseInt(personId));
         } else {
