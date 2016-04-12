@@ -12,8 +12,8 @@ import java.io.IOException;
 @WebServlet(name = "DeleteVehicleServlet", urlPatterns = "/DeleteVehicleServlet")
 public class DeleteVehicleServlet extends HttpServlet {
 
-    boolean isDeleteVehicleInquired;
-    int vehicleId;
+    private boolean isDeleteVehicleInquired;
+    private int vehicleId;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
